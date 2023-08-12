@@ -123,7 +123,7 @@ const DaneDoWydatku = ({ setCzas, setPostawaValue, setPartiaCialaValue, postawaV
                         {palce.map((item) => (
                             <div className="flex   w-full  " 
                             key={item.id}>
-                                <div className="flex   justify-center items-center   h-3/4  ">
+                        <div className="flex   justify-center items-center   h-3/4">
                                     {
                                         partiaCialaValue == item.value ?
                                             <div className="flex      border-2 rounded-full text-zielony-1">
@@ -131,12 +131,9 @@ const DaneDoWydatku = ({ setCzas, setPostawaValue, setPartiaCialaValue, postawaV
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                 </svg>
                                             </div>
-
-
                                             :
                                             null
                                     }
-
                                 </div>
                                 <div
 
@@ -158,7 +155,7 @@ const DaneDoWydatku = ({ setCzas, setPostawaValue, setPartiaCialaValue, postawaV
                         ))}
 
                     </div>
-                    <div className="flex w-[23.5%] flex-col border border-niebieski-6 rounded-lg   p-4  bg-white">
+                    {/* <div className="flex w-[23.5%] flex-col border border-niebieski-6 rounded-lg   p-4  bg-white">
                         <h1>Ramię</h1>
                         {ramie.map((item) => (
                             <div
@@ -201,7 +198,7 @@ const DaneDoWydatku = ({ setCzas, setPostawaValue, setPartiaCialaValue, postawaV
                             >{item.text}</div>
                         ))}
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <button className="mt-6 p-6 border " onClick={handleClick} >zapisz</button>

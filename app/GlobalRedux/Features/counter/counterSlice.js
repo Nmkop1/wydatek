@@ -11,22 +11,30 @@ export const counterSlice = createSlice({
     initialState: [],
  
     reducers: {
-        dodawanieCzynnosci(state, action) {          
+        dodawanieCzynnosci(state, action) { 
+                
             const nowaCzynnosc = {
                 id: uuidv4(),
-                jedenWydatek: action.payload.jedenWydatek,
+                jedenWydatekMin: action.payload.jedenWydatekMin,
+                jedenWydatekMax: action.payload.jedenWydatekMax, 
+
                 czas: action.payload.czas,
                 postawaValue: action.payload.postawaValue,
                 partiaCialaValue: action.payload.partiaCialaValue
 
             };
 
-            return [...state, nowaCzynnosc];
+            return [...state, nowaCzynnosc] 
+
+        },
+           deleteCzynnosci(state, action) {
+               return state.filter((item) => item.id !== action.payload );
+            
 
         }
     }
 })
 
-export const { dodawanieCzynnosci } = counterSlice.actions;
+export const { dodawanieCzynnosci, deleteCzynnosci } = counterSlice.actions;
 
 export default counterSlice.reducer;

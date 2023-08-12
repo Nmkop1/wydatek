@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname} from 'next/navigation'
 import { Providers } from './GlobalRedux/provider';
-
+import { AuthContextProvider } from './context/AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   const navigation = [
     { name: "Główna", href: "/", current: true },
     { name: "Wydatek", href: "/wydatek", current: false },
-    
+    { name: "Login", href: "/signin", current: false },
   ];
  
   return (
@@ -43,10 +43,11 @@ export default function RootLayout({ children }) {
         </div>
         <div className='h-[calc(100vh_-_92px)]'>
           <Providers>
+            <AuthContextProvider>
             {children}
+            </AuthContextProvider>
           </Providers>
-        </div>
-      
+        </div>      
         </body>
     </html>
   )
