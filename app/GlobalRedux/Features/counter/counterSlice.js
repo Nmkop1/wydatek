@@ -12,13 +12,13 @@ export const counterSlice = createSlice({
  
     reducers: {
         dodawanieCzynnosci(state, action) { 
-                
+         
             const nowaCzynnosc = {
                 id: uuidv4(),
-                jedenWydatekMin: action.payload.jedenWydatekMin,
+                jedenWydatekMin:  action.payload.jedenWydatekMin,
                 jedenWydatekMax: action.payload.jedenWydatekMax, 
-
-                czas: action.payload.czas,
+                nazwaCzynnosci: action.payload.nazwaCzynnosci, 
+                czas:  action.payload.czas   ,
                 postawaValue: action.payload.postawaValue,
                 partiaCialaValue: action.payload.partiaCialaValue
 
@@ -34,7 +34,7 @@ export const counterSlice = createSlice({
         }
     }
 })
-
+ 
 export const { dodawanieCzynnosci, deleteCzynnosci } = counterSlice.actions;
-
+ 
 export default counterSlice.reducer;

@@ -1,43 +1,53 @@
 'use client'
-import React from "react";
-import signUp from "../firebase/auth/signup";
+
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image'
+import { login, logout, selectUser } from '../app/GlobalRedux/Features/counter/userSlice';
+import { auth, onAuthStateChanged } from '../firebase/config';
 import { useRouter } from 'next/navigation'
 
 function Page() {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const router = useRouter()
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
-  const handleForm = async (event) => {
-    event.preventDefault()
-
-    const { result, error } = await signUp(email, password);
-
-    if (error) {
-      return console.log(error)
-    }
-
-    // else successful
- 
-    // return router.push("/admin")
-  }
+  useEffect(() => {
+    onAuthStateChanged(auth, (userAuth) => {
+      if (userAuth) {
+        dispatch(
+          login({
+            email: userAuth.email,
+            uid: userAuth.uid,
+          })
+        );
+      } else {
+        dispatch(logout());
+      }
+    });
+    console.log('page loaded');
+  }, []);
+    console.log(user)
   return (
-  <div className="flex justify-center items-center">
-    <div className="form-wrapper">
-      <h1 className="mt-60 mb-30">Sign up</h1>
-      <form onSubmit={handleForm} className="form">
-        <label htmlFor="email">
-          <p>Email</p>
-          <input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" id="email" placeholder="example@mail.com" />
-        </label>
-        <label htmlFor="password">
-          <p>Password1</p>
-          <input onChange={(e) => setPassword(e.target.value)} required type="password" name="password" id="password" placeholder="password" />
-        </label>
-        <button className="text-red-800" type="submit">Sign up</button>
-      </form>
+    <div className='flex w-full h-full  p-32 bg-niebieski-7'>
+      <div className='flex flex-col  w-3/4  '>
+        <h1 className='text-white text-7xl font-bold pb-3'>Lorem Ipsum is  </h1>
+        <h2 className='text-zielony-1 text-8xl font-bold'>It has survived  </h2>
+        <p className='text-white text-xl w-1/2 pt-20 leading-9'>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
+        <div className='w-full border h-[10%]'>
+
+        </div>
+      </div>
+      <div className='flex items-center text-zielony-1  '>
+         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-96 h-96">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>  
+        
+
+      </div>
+
     </div>
-  </div>);
+
+  );
 }
 
 export default Page; 

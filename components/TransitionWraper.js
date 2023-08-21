@@ -68,7 +68,7 @@ function TransitionWraper({ children, open, setOpen, width }) {
 
                                         </div>
                                     </Transition.Child>
-                                    <div className="flex h-full flex-col w-full overflow-y-scroll bg-white py-6 shadow-xl">
+                                    <div className="flex h-full flex-col w-full overflow-y-scroll bg-white   shadow-xl">
                                         <div className="relative mt-6 flex-1 px-4 sm:px-6">{children}</div>
                                     </div>
                                 </Dialog.Panel>

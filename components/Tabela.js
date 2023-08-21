@@ -1,28 +1,51 @@
-import { Container } from "postcss";
-import { Fragment, useRef, useState, useCallback, useEffect } from "react";
+
+import { useState } from "react";
 import Modal from "./Modal";
-function Tabela({ jedenWydatekMin, jedenWydatekMax, czas, postawaValue, partiaCialaValue, onDelete, id }) {
+function Tabela({ onDelete, id, item }) {
 
     const [openModal, setOpenModal] = useState(false);
 
     const deleteOpen = () => {
         onDelete(id);
         setOpenModal(false);
-
-
     };
 
     return (
         <>
-            <div className="border p-4 flex justify-between">
-                <div className="flex">
-                    <h1 className="pr-6">{jedenWydatekMin} </h1>
-                    <h1 className="pr-6">{jedenWydatekMax} </h1>
+            <div className="w-full   border border-niebieski-2 rounded-md  flex justify-between  items-center odd:bg-niebieski-buttonHover even:bg-slate-50">
+                <div className="flex w-[calc(100%_-_120px)] text-niebieski-7  pl-4 py-4">
+                    <p className="flex items-center  w-[19%]  ">{item.nazwaCzynnosci}</p>
+                    <p className=" w-[8%] flex items-center justify-center  text-center">{item.czas}</p>
+                    <p className="flex items-center justify-center w-[12%]   text-center leading-5">{item.postawaValue[1]} </p>
+                    <p className="flex items-center justify-center w-[10%]   text-center">{item.postawaValue[0]} </p>
+                    <p className="flex   items-center justify-center w-[15%]   text-center">{item.partiaCialaValue[2]}</p>
+                    <p className=" flex items-center justify-center w-[9%]   text-center">{item.partiaCialaValue[0]}  </p>
+                    <p className="flex items-center justify-center w-[9%]   text-center">{item.partiaCialaValue[1]}</p>
+                    <p className="flex items-center justify-center  w-[9%]   text-center"> {item.jedenWydatekMin} </p>
+                    <p className="flex items-center justify-center w-[9%]   text-center">{item.jedenWydatekMax}</p>
                 </div>
-
-
-                <button onClick={() => setOpenModal(true)} className="p-2 border">x</button>
+               
+                <div className="kwadratButton"
+                    onClick={() => setOpenModal(true)}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                    </svg>
+                </div>
             </div>
+            
+              
+    
             <Modal
                 setOpenModal={setOpenModal}
                 openModal={openModal}>

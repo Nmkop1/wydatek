@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.kwadratButton{
+@apply flex items-center   justify-center w-[34px] h-[34px] bg-niebieski-2 rounded-sm  cursor-pointer  transition-colors mr-4 text-niebieski-6 hover:text-galeria hover:bg-niebieski-6  
+}
+.kwadratButtonActive{
+@apply flex items-center   justify-center w-[34px] h-[34px] bg-uwaga-1 bg-opacity-30  rounded-sm  cursor-pointer  transition-colors ml-3 text-error-2   hover:text-error-3 hover:bg-uwaga-1   
+}
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

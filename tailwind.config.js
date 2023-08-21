@@ -31,7 +31,7 @@ module.exports = {
         nowy: "#F2C1B5",
         zielony1: "#0A7068",
         zielony2: "#0d9488",
-        border: "#204055",
+        border: "rgba(42, 58, 81, .5)",
         jeden: "#2E6171",
         dwa: "#556F7A",
         trzy: "#798086",
@@ -55,15 +55,15 @@ module.exports = {
         white2: "rgba(255, 255, 255, .7)",
 
         niebieski: {
-          1: "#1987cf",
-          2: "#3481B4",
+          1: "#F4F5F6",
+          2: "rgb(224 231 235)",
           3: "#264B64",
           4: "#F4F5F6",
           5: "#39485D",
           6: "#3f546f",
           7: "#2a3a51",
           9: "#35445A",
-          10: "#2a3a51", 
+          10: "#2a3a51",   
         },
         fiolet: {
           1: "#EDE7F6",

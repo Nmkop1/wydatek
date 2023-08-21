@@ -1,23 +1,59 @@
-import { initializeApp, getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
+ 
+import { initializeApp } from 'firebase/app';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  serverTimestamp,
+  doc,
+  orderBy,
+  limit,
+  onSnapshot,
+  query,
+} from 'firebase/firestore';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+
 const firebaseConfig = {
-  apiKey: "AIzaSyD1WVSXTwyPSvByXHFw5Dtq4ZDo7i4lufc",
-  authDomain: "booking-1b6f3.firebaseapp.com",
-  projectId: "booking-1b6f3",
-  storageBucket: "booking-1b6f3.appspot.com",
-  messagingSenderId: "915170627061",
-  appId: "1:915170627061:web:682f76a21267d8c0a224bc"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID 
 };
 
+// init firebase app
+initializeApp(firebaseConfig);
 
-// Initialize Firebase
-let firebase_app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const db = getFirestore()
+// init services
+const db = getFirestore();
+const auth = getAuth();
 
- 
-
- 
-
-
-
-export default firebase_app;
+export {
+  db,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  serverTimestamp,
+  doc,
+  auth,
+  orderBy,
+  limit,
+  onSnapshot,
+  query,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+};

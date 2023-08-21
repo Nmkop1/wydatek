@@ -1,4 +1,5 @@
 
+
 const Input = ({ label, type, id, value, placeholder, onChange, autoFocus }) => {
   return (
     <div className="flex flex-col space-y-1  ">
