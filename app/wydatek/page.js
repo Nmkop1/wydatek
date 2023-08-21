@@ -5,7 +5,7 @@ import DaneDoWydatku from "../../components/DaneDoWydatku"
 import Tabela from "../../components/Tabela";
 import { useSelector, useDispatch } from 'react-redux';
 import { dodawanieCzynnosci, deleteCzynnosci } from '../GlobalRedux/Features/counter/counterSlice';
-import Pdf from "../../components/Pdf"
+// import Pdf from "../../components/Pdf"
 import Modal from "../../components/Modal"
 import OcenaWydatku from "../../components/OcenaWydatku"
 import TransitionWraper from "../../components/TransitionWraper";
@@ -212,9 +212,9 @@ function Home() {
                     setOpenModal={setOpenModal}
                     openModal={openModal}>
                     <div className="w-full flex   h-full  rounded flex-col bg-white ">
-                        <Pdf
+                        {/* <Pdf
                             sumaWydatkuMin={sumaWydatkuMin}
-                            tablicaCzynnosci={tablicaCzynnosci} />
+                            tablicaCzynnosci={tablicaCzynnosci} /> */}
                         <button
                             type="button"
                             onClick={() => setOpenModal(!openModal)}
