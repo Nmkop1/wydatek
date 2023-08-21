@@ -1,8 +1,8 @@
 'use client'
 import './globals.css'
 import { Inter } from 'next/font/google'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Nawigacja from "./nawigacja"
+
 import { Providers } from './GlobalRedux/provider';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -13,12 +13,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const navigation = [
-    { name: "Główna", href: "/", current: true },
-    { name: "Wydatek", href: "/wydatek", current: false },
-    { name: "Login", href: "/logowanie", current: false },
-  ];
+
 
   return (
     <html lang="pl">
@@ -30,23 +25,7 @@ export default function RootLayout({ children }) {
             </svg>
           </div>
 
-
-          {navigation.map((item) => (
-            <Link
-              href={{
-                pathname: `${item.href}`,
-                // query: { state: true },
-              }}
-              key={item.name}
-              className={
-                pathname === item.href
-                  ? " text-zielony-1 outline-none text-lg   font-semibold  mr-6 "
-                  : "text-white outline-none  text-lg         transition   duration-500 cursor-pointer mr-6   font-semibold "
-              }
-            >
-              {item.name.toUpperCase()}
-            </Link>
-          ))}
+          <Nawigacja />
         </div>
         <div className='h-[calc(100vh_-_92px)] '>
           <Providers>
