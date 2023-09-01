@@ -13,7 +13,7 @@ function Tabela({ onDelete, id, item }) {
     return (
         <>
             <div className="w-full   border border-niebieski-2 rounded-md  flex justify-between  items-center odd:bg-niebieski-buttonHover even:bg-slate-50">
-                <div className="flex w-[calc(100%_-_120px)] text-niebieski-7  pl-4 py-4">
+                <div className="flex w-[calc(100%_-_120px)]   text-niebieski-7  pl-4 py-4">
                     <p className="flex items-center  w-[19%]  ">{item.nazwaCzynnosci}</p>
                     <p className=" w-[8%] flex items-center justify-center  text-center">{item.czas}</p>
                     <p className="flex items-center justify-center w-[12%]   text-center leading-5">{item.postawaValue[1]} </p>

@@ -2,8 +2,8 @@
  
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
-function Nawigacja() {
-
+function Nawigacja( ) {
+ 
     const pathname = usePathname();
     const navigation = [
         { name: "Główna", href: "/", current: true },

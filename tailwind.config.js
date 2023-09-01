@@ -53,7 +53,13 @@ module.exports = {
         itemTlo: "#f9fafb",
         galeria: "#EBF6F9",
         white2: "rgba(255, 255, 255, .7)",
-
+        wykres: {
+          1: "#5BE12C",
+          2: "#A5E32B",
+          3: "#E6DA2A",
+          4: "#E88F29",
+          5: "#EA4228",
+        },
         niebieski: {
           1: "#F4F5F6",
           2: "rgb(224 231 235)",
@@ -63,8 +69,8 @@ module.exports = {
           6: "#3f546f",
           7: "#2a3a51",
           9: "#35445A",
-          10: "#2a3a51",   
-        },
+          10: "#2a3a51",
+        },  
         fiolet: {
           1: "#EDE7F6",
           2: "#B39DDB",

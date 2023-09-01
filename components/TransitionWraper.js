@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 
-function TransitionWraper({ children, open, setOpen, width }) {
+function TransitionWraper({ children, open, setOpen, width, bg }) {
 
 
 
@@ -19,12 +19,12 @@ function TransitionWraper({ children, open, setOpen, width }) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <Dialog.Overlay className="fixed inset-0 bg-blue-950 bg-opacity-40 " />
+                    <Dialog.Overlay className={` fixed inset-0 ${bg ? " bg-niebieski-10" : "bg-white"}   `} />
                 </Transition.Child>
 
-                <div className="fixed inset-0 overflow-hidden">
+                <div className="fixed inset-0 overflnow-hidde">
                     <div className="absolute inset-0 overflow-hidden">
-                        <div className={`pointer-events-none fixed inset-y-0 right-0 flex max-w-full  ${width ? "pl-[50%]" : "pl-0"}`} >
+                        <div className={`pointer-events-none fixed inset-y-0 right-0 flex max-w-full  `} >
                             <Transition.Child
                                 as={Fragment}
                                 enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -45,7 +45,7 @@ function TransitionWraper({ children, open, setOpen, width }) {
                                         leaveTo="opacity-0"
                                     >
                                         {/* ikona X */}
-                                        <div className=" bg-niebieski-6 opacity-70 hover:opacity-100 absolute z-30 top-0 right-0 flex items-center justify-end">
+                                        <div className=" bg-niebieski-6 opacity-70 hover:opacity-100 absolute z-30 top-6 right-6 flex items-center justify-end">
                                             <div
                                                 className="flex items-center justify-center w-[40px] h-[40px]     cursor-pointer  transition-colors text-tlo hover:text-white  hover:bg-niebieski-6  "
                                                 onClick={() => setOpen(false)}
@@ -68,8 +68,8 @@ function TransitionWraper({ children, open, setOpen, width }) {
 
                                         </div>
                                     </Transition.Child>
-                                    <div className="flex h-full flex-col w-full overflow-y-scroll bg-white   shadow-xl">
-                                        <div className="relative mt-6 flex-1 px-4 sm:px-6">{children}</div>
+                                    <div className={`flex   h-screen flex-col w-full        `}>
+                                        <div className="relative      ">{children}</div>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
