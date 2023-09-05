@@ -1,8 +1,11 @@
 import { PiHamburger } from "react-icons/pi";
 import { MdOutlineEmojiFoodBeverage } from "react-icons/md";
-import { IoWomanOutline } from "react-icons/io5"
+import { IoWomanOutline, IoManOutline } from "react-icons/io5"
 import dynamic from "next/dynamic";
-
+import 'react-tippy/dist/tippy.css'
+import {
+    Tooltip,
+} from 'react-tippy'; 
 
 function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     const GaugeComponent = dynamic(() => import('react-gauge-component'), { ssr: false });
@@ -66,7 +69,6 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     switch (functionWithSwitchWomen1(wydatekMinKobiety)) {
         case "bardzo lekka":
             bg = "text-wykres-1";
-
             break;
         case "lekka":
             bg = "text-wykres-2";
@@ -103,18 +105,18 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     }
 
     return (
-        <div className="w-full flex   items-center flex-col">
-            <IoWomanOutline className="  h-[20%] w-full   text-niebieski-2   py-6" />
-            <div className="flex flex-col  w-full   h-[30%]">
+        <div className="w-full flex  h-full items-center flex-col">
+            <IoWomanOutline className="h-[130px]  md:h-[20%] w-full   text-niebieski-2   py-6" />
+            <div className="flex flex-col  w-full    ">
                 <div className="flex w-full justify-center pb-4 text-xl">
                     <p >STOPIEŃ CIĘŻKOŚCI PRACY</p>
                 </div>
 
                 <div className="w-full flex-col flex ">
-                    <div className="flex">
-                        <div className="w-1/2 flex  justify-center items-center">
+                    <div className="flex flex-col md:flex-row">
+                        <div className="w-full md:w-1/2 flex  justify-center items-center">
                             <GaugeComponent
-                                value={`${sumaWydatkuMin * .8}  `}
+                                value={`${wydatekMinKobiety}  `}
                                 type="semicircle"
                                 maxValue={7000}
 
@@ -159,9 +161,9 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                         </div>
 
 
-                        <div className="w-1/2 flex   justify-center items-center">
+                        <div className="w-full md:w-1/2 flex   justify-center items-center">
                             <GaugeComponent
-                                value={`${sumaWydatkuMax * .8}  `}
+                                value={`${wydatekMaxKobiety}  `}
                                 type="semicircle"
                                 maxValue={7000}
 
@@ -220,7 +222,7 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
 
             </div>
 
-            <div className="flex flex-col pt-8 items-center w-full h-1/2   ">
+            <div className="hidden md:flex flex-col pt-8 items-center w-full h-1/2   ">
 
                 {wydatekMaxKobiety > 4605 ?
                     <div className="  flex  w-full">
@@ -236,8 +238,19 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                             {wydatekMaxKobiety > 4187 ?
                                 <>
                                     <p className="self-start">obowiązek zapewnienia posiłków profilaktycznych: </p>
-                                    <li>gdy prace wykonywane są w pomieszczeniach zamkniętych, w których temperatura wynosi poniżej 10<sup>o</sup>C lub WBGT wynosi powyżej 25<sup>o</sup>C,</li>
-                                    <li>gdy prace wykonywane są na otwartej przestrzeni w okresie zimowym.</li>
+                                    <li>gdy prace wykonywane są w pomieszczeniach zamkniętych, w których temperatura wynosi poniżej 10<sup>o</sup>C lub
+                                        <Tooltip
+                                            // options arrows
+                                            title="wskaźnik obciążenia termicznego"
+                                            position="top"
+                                            trigger="mouseenter"
+                                        >
+                                        <span className="px-1">
+                                            WBGT
+                                        </span>
+                                        </Tooltip>
+                                        wynosi powyżej 25<sup>o</sup>C,</li>
+                                    <li className="pt-2">gdy prace wykonywane są na otwartej przestrzeni w okresie zimowym.</li>
                                 </>
                                 :
                                 <p className={`self-start text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}    `}>nie ma obowiązku zapewnienia posiłków</p>}

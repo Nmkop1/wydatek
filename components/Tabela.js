@@ -14,15 +14,15 @@ function Tabela({ onDelete, id, item }) {
         <>
             <div className="w-full   border border-niebieski-2 rounded-md  flex justify-between  items-center odd:bg-niebieski-buttonHover even:bg-slate-50">
                 <div className="flex w-[calc(100%_-_120px)]   text-niebieski-7  pl-4 py-4">
-                    <p className="flex items-center  w-[19%]  ">{item.nazwaCzynnosci}</p>
-                    <p className=" w-[8%] flex items-center justify-center  text-center">{item.czas}</p>
-                    <p className="flex items-center justify-center w-[12%]   text-center leading-5">{item.postawaValue[1]} </p>
-                    <p className="flex items-center justify-center w-[10%]   text-center">{item.postawaValue[0]} </p>
-                    <p className="flex   items-center justify-center w-[15%]   text-center">{item.partiaCialaValue[2]}</p>
-                    <p className=" flex items-center justify-center w-[9%]   text-center">{item.partiaCialaValue[0]}  </p>
-                    <p className="flex items-center justify-center w-[9%]   text-center">{item.partiaCialaValue[1]}</p>
-                    <p className="flex items-center justify-center  w-[9%]   text-center"> {item.jedenWydatekMin} </p>
-                    <p className="flex items-center justify-center w-[9%]   text-center">{item.jedenWydatekMax}</p>
+                    <p className="flex items-center w-1/2 md:w-[19%]  ">{item.nazwaCzynnosci}</p>
+                    <p className="w-1/2 md:w-[8%] flex items-center justify-center  text-center">{item.czas}</p>
+                    <p className="hidden md:flex items-center justify-center w-[12%]   text-center leading-5">{item.postawaValue[1]} </p>
+                    <p className="hidden md:flex items-center justify-center w-[10%]   text-center">{item.postawaValue[0]} </p>
+                    <p className="hidden md:flex   items-center justify-center w-[15%]   text-center">{item.partiaCialaValue[2]}</p>
+                    <p className=" hidden md:flex items-center justify-center w-[9%]   text-center">{item.partiaCialaValue[0]}  </p>
+                    <p className="hidden md:flex items-center justify-center w-[9%]   text-center">{item.partiaCialaValue[1]}</p>
+                    <p className="hidden md:flex items-center justify-center  w-[9%]   text-center"> {item.jedenWydatekMin} </p>
+                    <p className="hidden md:flex items-center justify-center w-[9%]   text-center">{item.jedenWydatekMax}</p>
                 </div>
                
                 <div className="kwadratButton"
@@ -51,7 +51,7 @@ function Tabela({ onDelete, id, item }) {
                 openModal={openModal}>
                 <div className="w-full flex     rounded flex-col bg-white ">
 
-                    <div className="relative inline-block align-bottom bg-white rounded-sm text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div className="relative inline-block align-bottom bg-white rounded-sm text-left overflow-hidden shadow-xl transform transition-all   sm:align-middle sm:max-w-lg sm:w-full">
                         <div className="bg-white px-4   pb-2 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
                                 <div className="text-center p-2 flex-auto justify-center">
@@ -68,7 +68,7 @@ function Tabela({ onDelete, id, item }) {
                                         />
                                     </svg>
                                     <h2 className="text-xl font-bold py-4 tex-text">
-                                        Czy na pewno chcesz usunąć zlecenie?
+                                        Czy na pewno chcesz usunąć czynność?
                                     </h2>
                                     <p className="text-sm text-textAccent px-4">
                                         Wszystkie dane zostaną trwale usunięte. Tej czynności
@@ -80,7 +80,7 @@ function Tabela({ onDelete, id, item }) {
                         <div className="bg-niebieski-6 px-4 py-3 sm:px-6 flex flex-row-reverse">
                             <button
                                 type="button"
-                                className="text-uwaga-3 bg-white rounded-sm flex items-center justify-center   hover:bg-uwaga-3 hover:text-white  transition-colors  font-medium   text-sm w-1/5 px-3 py-2.5 text-center    "
+                                className="text-uwaga-3 bg-white rounded-sm flex items-center justify-center   hover:bg-uwaga-3 hover:text-white  transition-colors  font-medium   text-sm w-1/5 px-3 py-2.5 text-center  focus:outline-none  "
                                 onClick={deleteOpen}
                             >
                                 Tak

@@ -4,15 +4,15 @@ import Image from 'next/image'
 const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, partiaCialaValue, czas, opis, handleClick, onMutate, nazwaCzynnosci, kcal, errors, messages }) => {
 
     return (
-        <>
+        < >
 
-            <div className="   w-full h-[15%] pb-6">
-                <div className="flex justify-between w-3/4 h-1/2">
-                    <div className="flex w-1/2 h-full      ">
+            <div className="   w-full   pb-6">
+                <div className="flex flex-col md:flex-row justify-between md:w-5/6 h-1/2">
+                    <div className="flex   h-full   pb-4    ">
                         {/* input */}
-                        <div className="flex   w-full items-center    ">
-                            <div className="flex w-[15vw] items-center   ">
-                                <label className={`text-xl font-semibold $  text-niebieski-6 pr-6`}>Nazwa czynności</label>
+                        <div className="flex flex-col md:flex-row  relative  md:items-center    ">
+                            <div className="flex   items-center   ">
+                                <label className={`text-xl font-semibold   text-niebieski-6 pr-4`}>Nazwa czynności</label>
                             </div>
                             <input
                                 type="text"
@@ -20,17 +20,17 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                 name="nazwaCzynnosci"
                                 value={nazwaCzynnosci}
                                 onChange={onMutate}
-                                className={`w-1/3 flex   px-4 py-2 transition duration-300 border bg-itemTlo ${errors.nazwaCzynnosci ? " border-error-2" : "border-niebieski-7"} rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1`} 
+                                className={`  flex   px-4 py-2 transition duration-300 border bg-itemTlo ${errors.nazwaCzynnosci ? " border-error-2" : "border-niebieski-7"} rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1`}
                             />
-                            {errors.nazwaCzynnosci && <span className="self-start pl-2 text-error-2">{messages.nazwaCzynnosci_incorrect}</span>}
+                            {errors.nazwaCzynnosci && <span className="absolute  -top-5 right-0 text-error-2">{messages.nazwaCzynnosci_incorrect}</span>}
                         </div>
 
                     </div>
-                    <div className="flex w-1/2 h-full   ">
+                    <div className="flex   h-full  relative    ">
                         {/* input */}
-                        <div className="flex w-full  items-center      ">
-                            <div className="flex w-full items-center   ">
-                                <label className={`text-xl font-semibold   text-niebieski-6 }   `}>Czas trwania czynności w min.</label>
+                        <div className="flex flex-col md:flex-row w-full  md:items-center      ">
+                            <div className="flex       ">
+                                <label className={`text-xl font-semibold   text-niebieski-6  pr-4  `}>Czas trwania czynności w min.</label>
                             </div>
                             <input
                                 type="number"
@@ -39,20 +39,20 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                 value={czas}
                                 onChange={onMutate}
 
-                                className={`w-[12vw] px-4 py-2 transition duration-300 border bg-itemTlo ${errors.czas ? "border-error-2" : "border-niebieski-7"}  rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1`}
+                                className={`  px-4 py-2 transition duration-300 border bg-itemTlo ${errors.czas ? "border-error-2" : "border-niebieski-7"}  rounded w-3/4 md:w-auto  focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1`}
                             />
-                            {errors.czas && <span className="self-start pl-2 text-error-2">{messages.czas_incorrect}</span>}
-                            {errors.czas1 && <span className="self-start pl-2 text-error-2">{messages.czas1_incorrect}</span>}
-                        </div>
 
+                        </div>
+                        {errors.czas && <span className=" absolute  -top-5 right-0 text-error-2">{messages.czas_incorrect}</span>}
+                        {errors.czas1 && <span className="absolute  -top-5 right-0 text-error-2">{messages.czas1_incorrect}</span>}
                     </div>
                 </div>
 
-                <div className="flex justify-between w-full h-1/2  ">
+                <div className="hidden md:flex justify-between w-full h-1/2  ">
                     {/* input */}
-                    <div className="flex h-full items-center justify-between w-3/4 ">
-                        <div className="flex w-[15vw] items-center  ">
-                            <label className={`text-xl font-semibold   text-niebieski-6 }  pr-6`}>Opis czynności</label>
+                    <div className="flex h-full items-center justify-between w-5/6 ">
+                        <div className="flex   items-center  ">
+                            <label className={`text-xl font-semibold   text-niebieski-6    pr-4`}>Opis czynności</label>
                         </div>
                         <input
                             type="text"
@@ -63,42 +63,42 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
 
                             className="flex flex-1 px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
                         />
-                       
+
                     </div>
-                    <div className="flex w-[120px]  text-niebieski-10 pr-2  ">
-                        <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
-                            onClick={  handleClick } >
-                            <h2 className="transition duration-300">Zapisz</h2>
-                        </div>
-                    </div>
-                     
+
+
 
                 </div>
-
+                <div className="flex w-[120px]  text-niebieski-10 pr-2  ">
+                    <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
+                        onClick={handleClick} >
+                        <h2 className="transition duration-300">Zapisz</h2>
+                    </div>
+                </div>
 
             </div>
 
 
-            <div className={`flex border border-niebieski-6 border-opacity-50  flex-col w-full h-[50%] ${errors.postawaValue ? "bg-error-1" : "bg-niebieski-4 " } rounded-lg `}>
-                <div className="flex justify-center items-center bg-niebieski-6  text-white rounded-t-lg   h-[15%] text-2xl w-full ">
+            <div className={`flex border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[48%]      rounded-lg `}>
+                <div className="flex justify-center items-center bg-niebieski-6 bg-opacity-25 text-niebieski-8 rounded-t-lg   h-[15%] text-lg md:text-2xl w-full ">
                     <h1 className="    ">Pozycja ciała charakterystyczna dla wykonywanej czynności</h1>
                 </div>
 
-                <div className='relative flex flex-wrap p-6 content-between  w-full h-[85%] justify-between   '>
+                <div className={`relative flex flex-wrap md:p-6 content-between gap-4 w-full h-[85%] justify-between  ${errors.partiaCialaValue ? " bg-error-1" : "bg-niebieski-4 "}  `}>
                     {errors.postawaValue && <span className=" absolute bottom-0  left-[calc(50%-70px)] text-error-3 font-bold  ">{messages.postawaValue_incorrect}</span>}
                     {postawa.map((item, index) => (
 
                         <div
                             key={item.id}
                             onClick={() => setPostawaValue(kcal ? item.value : item.valueKcal)}
-                            className="flex w-[23.5%] h-[47.5%] flex-col    border border-niebieski-6 border-opacity-50 rounded-lg   p-4  bg-white"
+                            className="flex w-[47%] md:w-[23.5%] h-[15vh] md:h-[47.5%] flex-col    border border-niebieski-6 border-opacity-50 rounded-lg    p-4  bg-white"
 
                         >
                             <div className="flex   justify-center items-center w-full h-3/4 relative">
                                 {kcal ?
                                     (postawaValue == item.value ?
                                         <div className="flex justify-center items-center  border-4 rounded-full text-zielony-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 text-zielony-1 transition  duration-1500 p-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 md:w-14 md:h-14 text-zielony-1 transition  duration-1500 p-2">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                             </svg>
                                         </div>
@@ -115,7 +115,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                     ) :
                                     (postawaValue == item.valueKcal ?
                                         <div className="flex justify-center items-center  border-4 rounded-full text-zielony-1  ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 text-zielony-1 transition  duration-1500 p-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="md:w-14 md:h-14 text-zielony-1 transition  duration-1500 p-2">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                             </svg>
                                         </div>
@@ -138,7 +138,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                             ? "text-center   text-zielony-1 outline-none text-xl   font-semibold    "
                                             : " text-center  bg-white text-textMenu outline-none  text-xl      hover:text-zielony-1  transition  duration-500 cursor-pointer   font-semibold "
                                     }>
-                                    <h1 className="text-center font-bold text-2xl text-niebieski-8">{item.text}</h1>
+                                    <h1 className="text-center font-bold md:text-2xl text-niebieski-8">{item.text}</h1>
                                 </div> :
                                 <div
                                     className={
@@ -146,7 +146,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                             ? "text-center   text-zielony-1 outline-none text-xl   font-semibold    "
                                             : " text-center  bg-white text-textMenu outline-none  text-xl      hover:text-zielony-1  transition  duration-500 cursor-pointer   font-semibold "
                                     }>
-                                    <h1 className="text-center font-bold text-2xl text-niebieski-8">{item.text}</h1>
+                                    <h1 className="text-center font-bold md:text-2xl text-niebieski-8">{item.text}</h1>
                                 </div>}
 
 
@@ -158,13 +158,13 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
             </div>
 
             {/*  */}
-            <div className={`flex border border-niebieski-6 border-opacity-50  flex-col w-full h-[35%]  ${errors.partiaCialaValue ? " bg-error-1" : "bg-niebieski-4 " } rounded-lg mt-4`} >
-                <div className="flex justify-center items-center bg-niebieski-6 bg-opacity-25 text-niebieski-8  rounded-t-lg   h-[20%] text-2xl w-full ">
+            <div className={`flex border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[33%]     rounded-lg mt-4`} >
+                <div className="flex justify-center items-center bg-niebieski-6 bg-opacity-25 text-niebieski-8  rounded-t-lg   h-[20%] text-lg md:text-2xl w-full ">
                     <h1 className="   ">Partie ciała, które wykonują czynność</h1>
                 </div>
 
-                <div className='flex flex-wrap  h-[80%]  p-6  w-full justify-between   '>
-                    <div className="flex   items-center w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
+                <div className={`flex flex-wrap relative h-[80%] content-between gap-4 p-6  w-full justify-between  ${errors.partiaCialaValue ? " bg-error-1" : "bg-niebieski-4 "}  `}>
+                    <div className="flex   items-center   md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
                         <div className="flex justify-center items-center rounded-t-lg   h-[25%] w-full  bg-zielony-1 bg-opacity-40">
                             <h1 className="text-lg  text-niebieski-10 font-bold  ">palce, ręce, przedramiona</h1>
                         </div>
@@ -180,11 +180,16 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
 
                                         <div
 
-                                            onClick={() => setPartiaCialaValue(item.value)}
+                                            onClick={() => setPartiaCialaValue(kcal ? item.value : item.valueKcal)}
                                             className={
-                                                partiaCialaValue == item.value
-                                                    ? " text-zielony-1 outline-none text-2xl  font-semibold    "
-                                                    : "text-textMenu outline-none  text-xl      hover:text-zielony-1  transition  duration-500 cursor-pointer     font-semibold "
+                                                kcal ?
+                                                    partiaCialaValue == item.value
+                                                        ? " text-zielony-1 outline-none text-xl  font-semibold    "
+                                                        : "text-textMenu outline-none  text-xl      hover:text-zielony-1  transition  duration-500 cursor-pointer     font-semibold "
+                                                    :
+                                                    partiaCialaValue == item.valueKcal
+                                                        ? " text-zielony-1 outline-none text-xl  font-semibold    "
+                                                        : "text-textMenu outline-none  text-xl      hover:text-zielony-1  transition  duration-500 cursor-pointer     font-semibold "
                                             }
                                         >
                                             <p className="pl-2"> {item.text}</p>
@@ -193,19 +198,27 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                         </div>
                                         <div className="flex pl-2  justify-center items-center h-3/4">
                                             {
-                                                partiaCialaValue == item.value ?
-                                                    <div className="flex      border-2 rounded-full text-zielony-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-zielony-1 transition  duration-1500  p-1  ">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                                        </svg>
-                                                    </div>
+                                                kcal ?
+                                                    partiaCialaValue == item.value ?
+                                                        <div className="flex      border-2 rounded-full text-zielony-1">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-zielony-1 transition  duration-1500  p-1  ">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                            </svg>
+                                                        </div>
+                                                        :
+                                                        null
                                                     :
-                                                    null
+                                                    partiaCialaValue == item.valueKcal ?
+                                                        <div className="flex      border-2 rounded-full text-zielony-1">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-zielony-1 transition  duration-1500  p-1  ">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                            </svg>
+                                                        </div>
+                                                        :
+                                                        null
                                             }
                                         </div>
                                     </div>
-
-
                                 ))}
                             </div>
                         </div>
@@ -216,7 +229,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                         {ramie.map((item) => (
                             <div
                                 key={item.id}
-                                onClick={() => setPartiaCialaValue(item.value)}
+                                onClick={() => setPartiaCialaValue(kcal ? item.value : item.valueKcal)}
                                 className={
                                     partiaCialaValue == item.value
                                         ? " text-zielony-1 outline-none text-xl hover:text-textMenu font-semibold  mr-4 "
@@ -230,7 +243,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                         {dwaRamiona.map((item) => (
                             <div
                                 key={item.id}
-                                onClick={() => setPartiaCialaValue(item.value)}
+                                onClick={() => setPartiaCialaValue(kcal ? item.value : item.valueKcal)}
                                 className={
                                     partiaCialaValue == item.value
                                         ? " text-zielony-1 outline-none text-xl hover:text-textMenu font-semibold  mr-4 "
@@ -245,7 +258,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                         {caleCialo.map((item) => (
                             <div
                                 key={item.id}
-                                onClick={() => setPartiaCialaValue(item.value)}
+                                onClick={() => setPartiaCialaValue(kcal ? item.value : item.valueKcal)}
                                 className={
                                     partiaCialaValue == item.value
                                         ? " text-zielony-1 outline-none text-xl hover:text-textMenu font-semibold  mr-4 "
@@ -255,7 +268,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                         ))}
 
                     </div>
-                    {errors.partiaCialaValue && <span className=" absolute   bottom-2  left-[calc(50%-70px)] text-error-3 font-bold  ">{messages.partiaCialaValue_incorrect}</span>}
+                    {errors.partiaCialaValue && <span className=" absolute   bottom-0  left-[calc(50%-70px)] text-error-3 font-bold  ">{messages.partiaCialaValue_incorrect}</span>}
                 </div>
             </div>
 

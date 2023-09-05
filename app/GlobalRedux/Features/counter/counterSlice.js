@@ -8,7 +8,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const counterSlice = createSlice({
     name: 'tablicaCzynnosci',
-    // initialState: [],
+    //  initialState: [],
     initialState: [{
         id: '0f0dd695-c298-4375-9214-da5f01f7bbd8',
         jedenWydatekMin: '231.0',
@@ -31,16 +31,12 @@ export const counterSlice = createSlice({
                 czas: action.payload.czas,
                 postawaValue: action.payload.postawaValue,
                 partiaCialaValue: action.payload.partiaCialaValue
-
             };
 
             return [...state, nowaCzynnosc]
-
         },
         deleteCzynnosci(state, action) {
             return state.filter((item) => item.id !== action.payload);
-
-
         }
     }
 })

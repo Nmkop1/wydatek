@@ -36,7 +36,7 @@ function Home() {
         nazwaCzynnosci: "",
         czas: "",
         firma: "",
-        opis:""
+        opis: ""
 
     });
     const [errors, setErrors] = useState({
@@ -65,7 +65,7 @@ function Home() {
     const tablicaCzynnosci = useSelector(state => state.tablicaCzynnosci)
 
     const handleClick = () => {
-        console.log(postawaValue)
+
         const validation = formValidation(postawaValue, partiaCialaValue)
 
         if (validation.correct) {
@@ -90,7 +90,7 @@ function Home() {
                 ...prevState,
                 czas: "",
                 nazwaCzynnosci: "",
-                opis:""
+                opis: ""
             }));
             setErrors(
                 (prevState) => ({
@@ -194,22 +194,20 @@ function Home() {
     {/* w-[calc(50vw_+_100px)]  */ }
 
     return (
-
-        <div className="flex flex-col justify-between w-full relative   p-6  ">
+        <div className="flex h-full flex-col overflow-hidden w-full relative p-4 md:p-6">
 
             {/* linia z firma/stanowisko */}
-            <div className="flex w-full h-1/4     ">
-                <div className="flex w-1/2 flex-col     text-niebieski-10 font-bold">
+            <div className="flex w-full ">
+                <div className="hidden md:flex w-1/2 flex-col     text-niebieski-10 font-bold">
                     <h2 className="text-4xl     pb-3 text-zielony-1">Lorem ipsum dolor sit amet   </h2>
                     <h2 className="text-3xl  pb-2">Sed ut perspiciatis unde omnis iste</h2>
                     <h2 className="text-3xl  ">Ut enim ad minima veniam, quis nostrum exercitationem ullam</h2>
                 </div>
-
-                <div className="flex w-1/2 flex-col   px-4   text-niebieski-10">
+                <div className="flex w-full md:w-1/2 flex-col   md:px-4   text-niebieski-10">
                     <h2 className="text-4xl    font-bold pb-3 text-zielony-1">Lorem ipsum dolor sit amet   </h2>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-full">
                         {/* input */}
-                        <div className="flex pb-4 justify-between w-3/4  ">
+                        <div className="flex pb-4 justify-between w-full md:w-3/4  ">
                             <div className="flex items-center  ">
                                 <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
                             </div>
@@ -222,11 +220,11 @@ function Home() {
                                 onChange={onMutate}
                                 onFocus={() => setIsFocusedFirma(true)}
                                 onBlur={() => setIsFocusedFirma(false)}
-                                className="px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                className="w-full px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
                             />
                         </div>
                         {/* input */}
-                        <div className="flex pb-4 justify-between w-3/4  ">
+                        <div className="flex pb-4 justify-between w-full md:w-3/4  ">
                             <div className="flex items-center  ">
                                 <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
                             </div>
@@ -239,19 +237,14 @@ function Home() {
                                 onChange={onMutate}
                                 onFocus={() => setIsFocusedStanowisko(true)}
                                 onBlur={() => setIsFocusedStanowisko(false)}
-                                className="px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                className="w-full    px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
                             />
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
 
-            <div className="flex w-full  flex-col     ">
+            <div className="flex w-full  flex-col h-full  justify-between  ">
                 {tablicaCzynnosci.length == 0 ?
                     <div className="flex   w-full text-niebieski-10   ">
                         <div className="flex flex-col w-1/2 justify-between items-center border border-blue-200">
@@ -290,39 +283,41 @@ function Home() {
                     </div> : null
                 }
                 {/* nagłówek tablicy */}
-                {tablicaCzynnosci.length > 0 ? <div className="relative flex  h-full  w-full  flex-col  bg-niebieski-4  ">
-                    <div className="w-full  h-[70px] bg-niebieski-6 border  rounded-t-md text-white flex justify-between  items-center  ">
-                        <div className="flex   w-[calc(100%_-_120px)] text-lg pl-4 ">
-                            <p className="flex    justify-center flex-col  w-[19%] ">Nazwa czynności</p>
-                            <p className="flex   items-center justify-center flex-col w-[8%]  text-center">Czas   <span className="text-sm">[min]</span></p>
-                            <p className="flex   items-center justify-center  w-[12%]   text-center">Postawa   </p>
-                            <p className="flex   items-center justify-center flex-col w-[10%]   text-center">Postawa   <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span></p>
-                            <p className="flex   items-center justify-center flex-col w-[15%]  text-center">Partia   </p>
-                            <p className="flex   items-center justify-center flex-col w-[9%]   text-center">Partia min <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
-                            <p className="flex   items-center justify-center flex-col w-[9%]   text-center">Partia max <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
-                            <p className=" flex   items-center justify-center flex-col w-[9%]   text-center"> Wydatek<span className="text-sm"> min </span></p>
-                            <p className="flex   items-center justify-center flex-col w-[9%]   text-center">Wydatek <span className="text-sm">max</span></p>
+                {tablicaCzynnosci.length > 0 ?
+                    <div className="relative flex  h-full  w-full  flex-col  bg-niebieski-4  ">
+                        <div className="w-full  py-2 bg-niebieski-6 border  rounded-t-md text-white flex justify-between  items-center  ">
+                            <div className="flex   w-[calc(100%_-_120px)] text-lg pl-4 ">
+                                <p className="flex    justify-center flex-col w-1/2 md:w-[19%] ">Nazwa czynności</p>
+                                <p className=" flex   items-center justify-center flex-col w-1/2 md:w-[8%]  text-center">Czas   <span className="text-sm">[min]</span></p>
+                                <p className="hidden md:flex   items-center justify-center  w-[12%]   text-center">Postawa   </p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[10%]   text-center">Postawa   <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span></p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[15%]  text-center">Partia   </p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Partia min <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Partia max <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
+                                <p className=" hidden md:flex   items-center justify-center flex-col w-[9%]   text-center"> Wydatek<span className="text-sm"> min </span></p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Wydatek <span className="text-sm">max</span></p>
 
-                        </div>
-                        <div className="flex w-[120px]  text-niebieski-10 pr-2  ">
-                            <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
-                                onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)}>
-                                <h2 className="transition duration-300"> Dodaj</h2>
                             </div>
+                            <div className="flex w-[120px]  text-niebieski-10 pr-2  ">
+                                <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)}>
+                                    <h2 className="transition duration-300"> Dodaj</h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="flex w-full   min-h-full flex-col">
+                            {tablicaCzynnosci.map((item) =>
+                                <Tabela
+                                    key={item.id}
+                                    id={item.id}
+                                    item={item}
+                                    onDelete={onDelete}
+                                />
+                            )}
                         </div>
 
-                    </div>
-                    <div className="flex w-full  h-2/3 flex-col">
-                        {tablicaCzynnosci.map((item) =>
-                            <Tabela
-                                key={item.id}
-                                id={item.id}
-                                item={item}
-                                onDelete={onDelete}
-                            />
-                        )} </div>
-
-                </div> : null}
+                    </div> : null}
                 <Modal
                     setOpenModal={setOpenModal}
                     openModal={openModal}>
@@ -365,54 +360,35 @@ function Home() {
                 setOpen={setOpenWynik}
                 bg={"bg-niebieski-9"}
             >
-                <div className="flex gap-4 w-full h-screen p-6 text-white">
-                    <div className="w-1/2 p-4 flex justify-center bg-niebieski-9 rounded-lg  ">
+                <div className="flex gap-4 w-full h-full md:h-screen p-6 text-white flex-col md:flex-row ">
+                    <div className="w-full md:w-1/2    p-4 flex justify-center bg-niebieski-9 rounded-lg  ">
                         <OcenaWydatkuMan sumaWydatkuMin={sumaWydatkuMin} sumaWydatkuMax={sumaWydatkuMax} />
 
                     </div>
-                    <div className="w-1/2 p-4 flex justify-center  bg-niebieski-9 rounded-lg ">
+                    <div className="w-full md:w-1/2   p-4 flex justify-center  bg-niebieski-9 rounded-lg ">
                         <OcenaWydatkuWomen sumaWydatkuMin={sumaWydatkuMin} sumaWydatkuMax={sumaWydatkuMax} />
                     </div>
-
-
-
-
-
-                    {/* <button
-                        disabled={!user}
-                        onClick={() => setOpenModal(true)} className={
-                            user
-                                ? "flex  flex-col border border-niebieski-6 rounded-lg w-[23%]   bg-zielony-1 text-white outline-none text-xl hover:text-textMenu font-semibold    "
-                                : " flex  flex-col border border-niebieski-6 rounded-lg w-[23%]   bg-white text-textMenu outline-none  text-xl         transition  duration-500  font-semibold "
-                        }>Pdf/Wydruk</button>
-                    {!user ?
-                        <button type="button" onClick={() => router.push('/logowanie')}>
-                            Dostęp
-                        </button>
-                        : null
-                    } */}
-
                 </div>
             </TransitionWraper>
             {tablicaCzynnosci.length > 0 ?
                 <div className="sticky bottom-0 left-0 w-full  h-[70px] bg-niebieski-2    rounded-b-md text-niebieski-6 flex   justify-between  items-center ">
-                    <div className="flex font-bold  w-[calc(100%_-_120px)] text-lg pl-4 ">
-                        <p className="flex     justify-center flex-col  w-[17%] "> </p>
-                        <p className={`flex  items-center justify-center  w-[12%] text-center ${sumaCzasu[0] > 8 ? "text-error-2" : "text-niebieski-6"}`}>{sumaCzasu[0] == 0 ? `${sumaCzasu[1]} min` : `${sumaCzasu[0]} godz ${sumaCzasu[1]} min`}     </p>
-                        <p className="flex   items-center justify-center  w-[10%]   text-center"> </p>
-                        <p className="flex   items-center justify-center flex-col w-[10%]   text-center"> </p>
-                        <p className="flex   items-center justify-center flex-col w-[15%]  text-center"> </p>
-                        <p className="flex   items-center justify-center flex-col w-[9%]   text-center">  </p>
-                        <p className="flex   items-center justify-center flex-col w-[9%]   text-center">  </p>
-                        <div className=" flex   items-center justify-center flex-col w-[18%]    text-center">
+                    <div className="flex font-bold w-full md:w-[calc(100%_-_120px)] text-lg pl-4 ">
+                        <p className="hidden md:flex     justify-center flex-col  w-[17%] "> </p>
+                        <p className={`flex  items-center justify-center w-1/2 md:w-[12%] text-center ${sumaCzasu[0] > 8 ? "text-orange-3" : "text-niebieski-6"}`}>{sumaCzasu[0] == 0 ? `${sumaCzasu[1]} min` : `${sumaCzasu[0]} godz ${sumaCzasu[1]} min`}</p>
+                        <p className="hidden md:flex   items-center justify-center  w-[10%]   text-center"> </p>
+                        <p className="hidden md:flex   items-center justify-center flex-col w-[10%]   text-center"> </p>
+                        <p className="hidden md:flex   items-center justify-center flex-col w-[15%]  text-center"> </p>
+                        <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">  </p>
+                        <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">  </p>
+                        <div className=" flex   items-center justify-center flex-col w-1/2 md:w-[18%]    text-center">
 
                             <div className=" w-3/4  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
                                 onClick={handleWynik}>
-                                <h2 className="transition duration-300">WYNIK</h2>
+                                <h2 className="transition duration-300">WYLICZ</h2>
                             </div>
                         </div>
                     </div>
-                    <div className="flex w-[120px] h-3/4 text-niebieski-10 pr-2   ">
+                    <div className="hidden md:flex  w-[120px] h-3/4 text-niebieski-10 pr-2   ">
 
                     </div>
 
