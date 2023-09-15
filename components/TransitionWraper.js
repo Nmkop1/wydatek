@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 
 function TransitionWraper({ children, open, setOpen, width, bg }) {
 
-
+console.log(bg)
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -35,19 +35,12 @@ function TransitionWraper({ children, open, setOpen, width, bg }) {
                                 leaveTo="translate-x-full"
                             >
                                 <Dialog.Panel className="pointer-events-auto relative w-screen  ">
-                                    <Transition.Child
-                                        as={Fragment}
-                                        enter="ease-in-out duration-500"
-                                        enterFrom="opacity-0"
-                                        enterTo="opacity-100"
-                                        leave="ease-in-out duration-500"
-                                        leaveFrom="opacity-100"
-                                        leaveTo="opacity-0"
-                                    >
-                                        {/* ikona X */}
-                                        <div className=" bg-niebieski-6 opacity-70 hover:opacity-100 absolute z-30 top-6 right-6 flex items-center justify-end">
+                             
+                                    <div className={`flex flex-col h-full w-full overflow-y-scroll md:overflow-hidden`}>
+                                         {/* ikona X */}
+                                        <div className="  opacity-70 hover:opacity-100    flex items-center justify-end">
                                             <div
-                                                className="flex items-center justify-center w-[40px] h-[40px]     cursor-pointer  transition-colors text-tlo hover:text-white  hover:bg-niebieski-6  "
+                                                className={`flex mt-4 mr-4 items-center justify-center w-[40px] h-[40px]     cursor-pointer  transition-colors ${bg ? "text-white" : "text-niebieski-6" } hover:text-white  hover:bg-niebieski-6`  } 
                                                 onClick={() => setOpen(false)}
                                             >
                                                 <svg
@@ -67,8 +60,6 @@ function TransitionWraper({ children, open, setOpen, width, bg }) {
                                             </div>
 
                                         </div>
-                                    </Transition.Child>
-                                    <div className={`flex     h-full w-full overflow-y-scroll md:overflow-hidden        `}>
                                        {children}
                                         
                                     </div>

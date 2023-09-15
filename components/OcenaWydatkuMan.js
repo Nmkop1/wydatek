@@ -222,18 +222,18 @@ function OcenaWydatkuMan({ sumaWydatkuMin, sumaWydatkuMax }) {
 
             <div className="hidden md:flex flex-col pt-8 items-center w-full     ">
 
-                {sumaWydatkuMax > 4605 ?
+                {sumaWydatkuMax > 8375 ?
                     <div className="  flex  w-full">
-                        <PiHamburger className={`${sumaWydatkuMax > 4187 ? "text-zielony-1" : "text-szary-5"} p-3 h-[100px]   w-1/4        `} />
+                        <PiHamburger className={`${sumaWydatkuMax > 6280 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]   w-1/5        `} />
                         <div className="flex items-center w-3/4 p-2">
-                            <p className={` text-lg ${sumaWydatkuMax > 4605 ? "text-zielony-1" : "text-szary-5"}  `}> {sumaWydatkuMax > 4605 ? "obowiązek zapewnienia posiłków profilaktycznych w każdych warunkach" : "nie ma obowiązku zapewnienia"} </p>
+                            <p className={` text-lg ${sumaWydatkuMax > 8375 ? "text-zielony-1" : "text-szary-5"}  `}> {sumaWydatkuMax > 4605 ? "obowiązek zapewnienia posiłków profilaktycznych w każdych warunkach" : "nie ma obowiązku zapewnienia"} </p>
                         </div>
 
                     </div> :
                     <div className="  flex  items-center   w-full">
-                        <PiHamburger className={`${sumaWydatkuMax > 4187 ? "text-zielony-1" : "text-szary-5"} p-3 h-[100px]   w-1/4        `} />
-                        <div className={`flex flex-col items-center   w-3/4 p-2 text-lg ${sumaWydatkuMax > 4187 ? "text-zielony-1" : "text-szary-5"}`} >
-                            {sumaWydatkuMax > 4187 ?
+                        <PiHamburger className={`${sumaWydatkuMax > 6280 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]   w-1/5 `} />
+                        <div className={`flex flex-col items-center   w-3/4 p-2 text-lg ${sumaWydatkuMax > 6280 ? "text-zielony-1" : "text-szary-5"}`} >
+                            {sumaWydatkuMax > 5280 ?
                                 <>
                                     <p className="self-start">obowiązek zapewnienia posiłków profilaktycznych: </p>
                                     <li>gdy prace wykonywane są w pomieszczeniach zamkniętych, w których temperatura wynosi poniżej 10<sup>o</sup>C lub
@@ -267,9 +267,9 @@ function OcenaWydatkuMan({ sumaWydatkuMin, sumaWydatkuMax }) {
 
 
                 <div className="  flex    w-full">
-                    <MdOutlineEmojiFoodBeverage className={`${sumaWydatkuMax > 4187 ? "text-zielony-1" : "text-szary-5"} p-3  h-[100px]   w-1/4        `} />
+                    <MdOutlineEmojiFoodBeverage className={`${sumaWydatkuMax > 6280 ? "text-zielony-1" : "text-szary-5"} p-2  h-[100px]   w-1/5        `} />
                     <div className="flex items-center w-3/4 p-2">
-                        <p className={` text-lg ${sumaWydatkuMax > 4187 ? "text-zielony-1" : "text-szary-5"}  `}> {sumaWydatkuMax > 4187 ? "obowiązek zapewnienia napojów profilaktycznych " : "nie ma obowiązku zapewnienia napojów"} </p>
+                        <p className={` text-lg ${sumaWydatkuMax > 6280 ? "text-zielony-1" : "text-szary-5"}  `}> {sumaWydatkuMax > 6280 ? "obowiązek zapewnienia napojów profilaktycznych " : "nie ma obowiązku zapewnienia napojów"} </p>
 
                     </div>
                 </div>

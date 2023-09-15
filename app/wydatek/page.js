@@ -1,11 +1,13 @@
 'use client'
 import { Fragment, useRef, useState, useCallback, useEffect } from "react";
-// import { Dialog, Transition } from "@headlessui/react";
+import Image from 'next/image'
+import { login, logout,   } from '../../app/GlobalRedux/Features/counter/userSlice';
+import { auth, onAuthStateChanged } from '../../firebase/config';
 import DaneDoWydatku from "../../components/DaneDoWydatku"
 import Tabela from "../../components/Tabela";
 import { useSelector, useDispatch } from 'react-redux';
 import { dodawanieCzynnosci, deleteCzynnosci } from '../GlobalRedux/Features/counter/counterSlice';
-// import Pdf from "../../components/Pdf"
+import Pdf from "../../components/Pdf"
 import Modal from "../../components/Modal"
 import OcenaWydatkuMan from "../../components/OcenaWydatkuMan"
 import OcenaWydatkuWomen from "../../components/OcenaWydatkuWomen"
@@ -17,7 +19,7 @@ function Home() {
 
     const refStanowisko = useRef(null)
     const refFirma = useRef(null);
-    const user = useSelector(selectUser);
+ 
     const dispatch = useDispatch();
     const router = useRouter()
     const [isFocusedFirma, setIsFocusedFirma] = useState(false);
@@ -29,8 +31,9 @@ function Home() {
     let [sumaWydatkuMin, setSumaWydatkuMin] = useState(null)
     let [sumaWydatkuMax, setSumaWydatkuMax] = useState(null)
     let [sumaCzasu, setSumaCzasu] = useState([])
-    const [openModal, setOpenModal] = useState(false);
+    const [openDrukuj, setOpenDrukuj] = useState(false);
     const [kcal, setKcal] = useState(true)
+    let przerwa = null
     const [formData, setFormData] = useState({
         stanowisko: "",
         nazwaCzynnosci: "",
@@ -61,7 +64,27 @@ function Home() {
         firma,
         opis
     } = formData;
+ 
 
+    useEffect(() => {
+        onAuthStateChanged(auth, (userAuth) => {
+            if (userAuth) {
+                dispatch(
+                    login({
+                        email: userAuth.email,
+                        uid: userAuth.uid,
+                    })
+                );
+            } else {
+                dispatch(logout());
+            }
+        });
+        console.log('page loaded');
+    }, []);
+
+    if (postawaValue && postawaValue[1] === "przerwa") {
+        przerwa = true
+    }
     const tablicaCzynnosci = useSelector(state => state.tablicaCzynnosci)
 
     const handleClick = () => {
@@ -76,7 +99,6 @@ function Home() {
                 jedenWydatekMin: jedenWydatekMin.toFixed(1),
                 jedenWydatekMax: jedenWydatekMax.toFixed(1),
                 czas,
-                opis,
                 postawaValue,
                 partiaCialaValue,
                 nazwaCzynnosci
@@ -90,7 +112,7 @@ function Home() {
                 ...prevState,
                 czas: "",
                 nazwaCzynnosci: "",
-                opis: ""
+
             }));
             setErrors(
                 (prevState) => ({
@@ -134,7 +156,7 @@ function Home() {
         if (postawa?.length > 0) {
             postawaValue = true
         }
-        if (partia?.length > 0) {
+        if (partia?.length > 0 || partiaCialaValue !== "przerwa") {
             partiaCialaValue = true
         }
         if (czas && nazwaCzynnosci && czas1 && postawaValue && partiaCialaValue) {
@@ -166,8 +188,8 @@ function Home() {
         sumaWydatkuMax = tablicaCzynnosci.reduce((accumulator, object) => {
             return accumulator + new Number(object.jedenWydatekMax);
         }, 0);
-        setSumaWydatkuMin(sumaWydatkuMin)
-        setSumaWydatkuMax(sumaWydatkuMax)
+        setSumaWydatkuMin(sumaWydatkuMin.toFixed(1))
+        setSumaWydatkuMax(sumaWydatkuMax.toFixed(1))
         setOpenWynik(true)
     }
 
@@ -196,18 +218,19 @@ function Home() {
     return (
         <div className="flex h-full flex-col overflow-hidden w-full relative p-4 md:p-6">
 
-            {/* linia z firma/stanowisko */}
-            <div className="flex w-full ">
-                <div className="hidden md:flex w-1/2 flex-col     text-niebieski-10 font-bold">
+
+            <div className="flex w-full pb-6">
+                <div className="hidden md:flex w-[60%] flex-col     text-niebieski-10 font-bold pr-6">
                     <h2 className="text-4xl     pb-3 text-zielony-1">Lorem ipsum dolor sit amet   </h2>
                     <h2 className="text-3xl  pb-2">Sed ut perspiciatis unde omnis iste</h2>
                     <h2 className="text-3xl  ">Ut enim ad minima veniam, quis nostrum exercitationem ullam</h2>
                 </div>
-                <div className="flex w-full md:w-1/2 flex-col   md:px-4   text-niebieski-10">
-                    <h2 className="text-4xl    font-bold pb-3 text-zielony-1">Lorem ipsum dolor sit amet   </h2>
+                {/* kolumma z firma/stanowisko */}
+                <div className="flex w-full md:w-[40%] flex-col       text-niebieski-10">
+
                     <div className="flex flex-col w-full">
                         {/* input */}
-                        <div className="flex pb-4 justify-between w-full md:w-3/4  ">
+                        <div className="flex pb-4 justify-between w-full    ">
                             <div className="flex items-center  ">
                                 <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
                             </div>
@@ -224,7 +247,7 @@ function Home() {
                             />
                         </div>
                         {/* input */}
-                        <div className="flex pb-4 justify-between w-full md:w-3/4  ">
+                        <div className="flex pb-4 justify-between w-full    ">
                             <div className="flex items-center  ">
                                 <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
                             </div>
@@ -239,6 +262,27 @@ function Home() {
                                 onBlur={() => setIsFocusedStanowisko(false)}
                                 className="w-full    px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
                             />
+                        </div>
+                        <div className="hidden md:flex pb-4 justify-between w-full  ">
+                            {/* input */}
+                            <div className="flex h-full items-center justify-between w-full ">
+                                <div className="flex   items-center  ">
+                                    <label className={`text-xl font-semibold   text-niebieski-6    pr-4`}>Opis czynności</label>
+                                </div>
+                                <textarea
+                                    type="text"
+                                    id="opis"
+                                    name="opis"
+                                    value={opis}
+                                    onChange={onMutate}
+
+                                    className="flex flex-1 px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                />
+
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -318,33 +362,16 @@ function Home() {
                         </div>
 
                     </div> : null}
-                <Modal
-                    setOpenModal={setOpenModal}
-                    openModal={openModal}>
-                    <div className="w-full flex   h-full  rounded flex-col bg-white ">
-                        {/* <Pdf
-                            sumaWydatkuMin={sumaWydatkuMin}
-                            tablicaCzynnosci={tablicaCzynnosci} /> */}
-                        <button
-                            type="button"
-                            onClick={() => setOpenModal(!openModal)}
-                            className="absolute top-16 right-6 border border-czerwony text-czerwony hover:bg-czerwony hover:text-white    py-2 px-4   rounded-sm  tracking-wider   "
-                        >
-                            Anuluj
-                        </button>
-
-                    </div>
-                </Modal>
             </div>
-            <TransitionWraper open={openDaneDoWydatku} setOpen={setOpenDaneDoWydatku} >
-                <div className="relative w-full h-screen   p-6">
+            <TransitionWraper
+                open={openDaneDoWydatku}
+                setOpen={setOpenDaneDoWydatku} >
+                <div className="relative w-full h-screen   px-6">
                     <DaneDoWydatku
-                        // jedenWydatekMin={jedenWydatekMin}
-                        // jedenWydatekMax={jedenWydatekMax}
                         messages={messages}
                         errors={errors}
                         czas={czas}
-                        opis={opis}
+                        przerwa={przerwa}
                         postawaValue={postawaValue}
                         partiaCialaValue={partiaCialaValue}
                         kcal={kcal}
@@ -358,16 +385,33 @@ function Home() {
             <TransitionWraper
                 open={openWynik}
                 setOpen={setOpenWynik}
-                bg={"bg-niebieski-9"}
+                bg={true}
             >
-                <div className="flex gap-4 w-full h-full md:h-screen p-6 text-white flex-col md:flex-row ">
-                    <div className="w-full md:w-1/2    p-4 flex justify-center bg-niebieski-9 rounded-lg  ">
-                        <OcenaWydatkuMan sumaWydatkuMin={sumaWydatkuMin} sumaWydatkuMax={sumaWydatkuMax} />
 
-                    </div>
-                    <div className="w-full md:w-1/2   p-4 flex justify-center  bg-niebieski-9 rounded-lg ">
-                        <OcenaWydatkuWomen sumaWydatkuMin={sumaWydatkuMin} sumaWydatkuMax={sumaWydatkuMax} />
-                    </div>
+                <div className="flex gap-4 w-full h-full md:h-screen px-4  text-white flex-col md:flex-row ">
+                    {openDrukuj ?
+                        <>
+                            <div className="w-full md:w-1/2    p-4 flex justify-center bg-niebieski-9 rounded-lg  ">
+                                <OcenaWydatkuMan
+                                    sumaWydatkuMin={sumaWydatkuMin}
+                                    sumaWydatkuMax={sumaWydatkuMax} />
+                            </div>
+                            <div className="w-full md:w-1/2   p-4 flex justify-center  bg-niebieski-9 rounded-lg ">
+                                <OcenaWydatkuWomen
+                                    sumaWydatkuMin={sumaWydatkuMin}
+                                    sumaWydatkuMax={sumaWydatkuMax}
+                                    setOpenDrukuj={setOpenDrukuj}
+                                    openDrukuj={openDrukuj} />
+                            </div>
+                        </>
+                        :
+                        <Pdf
+                            sumaWydatkuMin={sumaWydatkuMin}
+                            tablicaCzynnosci={tablicaCzynnosci}
+                            sumaCzasu={sumaCzasu}
+                            formData={formData}
+                            sumaWydatkuMax={sumaWydatkuMax} />
+                    }
                 </div>
             </TransitionWraper>
             {tablicaCzynnosci.length > 0 ?
@@ -389,9 +433,7 @@ function Home() {
                         </div>
                     </div>
                     <div className="hidden md:flex  w-[120px] h-3/4 text-niebieski-10 pr-2   ">
-
                     </div>
-
                 </div> : null
             }
 
@@ -400,3 +442,6 @@ function Home() {
 }
 
 export default Home
+// Trzeba tu pamiętać o współczynniku 0,85 w przypadku oceny pracy wykonywanej przez kobiety. Istotnym elementem przy zastosowaniu metody Lehmanna jest pomiar parametrów mikroklimatu na ocenianym stanowisku (wartości podawane w tabelach odnoszą się do pracy wykonywanej w warunkach umiarkowanego środowiska termicznego).
+
+// W przypadku środowiska gorącego wydatek energetyczny jest wyższy o ok. 12 %, a środowiska zimnego – 10 %.

@@ -29,3 +29,19 @@ body {
   
   
 }
+/* pasek przewoijania */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  /* Projekt ścieżki paska przewijania, takiego jak tło */
+  ::-webkit-scrollbar-track {
+    background-color: #2a3a51;
+  }
+  /* Zaprojektuj kciuk paska przewijania */
+  ::-webkit-scrollbar-thumb {
+    background-color: #3f546f ;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color:#80C33F;
+  }

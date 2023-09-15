@@ -7,7 +7,7 @@ import {
     Tooltip,
 } from 'react-tippy'; 
 
-function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
+function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax, openDrukuj, setOpenDrukuj }) {
     const GaugeComponent = dynamic(() => import('react-gauge-component'), { ssr: false });
     const between = (x, min, max) => {
         return x >= min && x <= max;
@@ -226,15 +226,14 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
 
                 {wydatekMaxKobiety > 4605 ?
                     <div className="  flex  w-full">
-                        <PiHamburger className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-3 h-[100px]   w-1/4        `} />
+                        <PiHamburger className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]   w-1/5        `} />
                         <div className="flex items-center w-3/4 p-2">
                             <p className={` text-lg ${wydatekMaxKobiety > 4605 ? "text-zielony-1" : "text-szary-5"}  `}> {wydatekMaxKobiety > 4605 ? "obowiązek zapewnienia posiłków profilaktycznych w każdych warunkach" : "nie ma obowiązku zapewnienia"} </p>
                         </div>
-
                     </div> :
                     <div className="  flex  items-center   w-full">
-                        <PiHamburger className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-3 h-[100px]   w-1/4        `} />
-                        <div className={`flex flex-col items-center   w-3/4 p-2 text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}`} >
+                        <PiHamburger className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]    w-1/5`} />
+                        <div className={`flex flex-col items-center    w-3/4 p-2 text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}`} >
                             {wydatekMaxKobiety > 4187 ?
                                 <>
                                     <p className="self-start">obowiązek zapewnienia posiłków profilaktycznych: </p>
@@ -254,55 +253,17 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                                 </>
                                 :
                                 <p className={`self-start text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}    `}>nie ma obowiązku zapewnienia posiłków</p>}
-
-
-
-
                         </div>
-
-
                     </div>
-
                 }
-
-
-
-
                 <div className="  flex    w-full">
-                    <MdOutlineEmojiFoodBeverage className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-3  h-[100px]   w-1/4        `} />
+                    <MdOutlineEmojiFoodBeverage className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-2  h-[100px]   w-1/5        `} />
                     <div className="flex items-center w-3/4 p-2">
                         <p className={` text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}  `}> {wydatekMaxKobiety > 4187 ? "obowiązek zapewnienia napojów profilaktycznych " : "nie ma obowiązku zapewnienia napojów"} </p>
-
                     </div>
-
-
                 </div>
-
-
-
-                {/* <div className="self-start pt-6 text-xl ">
-                    <p>
-                        Stopień ciężkości pracy: {functionWithSwitchWomen1(sumaWydatkuMin * .8) == functionWithSwitchWomen2(sumaWydatkuMax * .8) ?
-                            <span className={`text-2xl  ${bg}`}  >{functionWithSwitchWomen1(sumaWydatkuMin * .8)}</span>
-                            :
-                            <>
-                                <span className={`text-3xl  ${bg}`} >{` ${functionWithSwitchWomen1(sumaWydatkuMin * .8)} -`}</span>
-                                <span className={`text-3xl  ${bg1}`} >{` ${functionWithSwitchWomen2(sumaWydatkuMax * .8)}  `}</span>
-
-                            </>
-
-                        }
-                    </p>
-
-                </div>
-                <div className="self-start pt-6 text-xl">
-                    <p>
-                        Posiłki:  {(sumaWydatkuMax * .8) > 4605 ? "obowiązek" : "brak"}
-                    </p>
-
-                </div> */}
-
             </div>
+            <button onClick={() => setOpenDrukuj(!openDrukuj)}>drukuj</button>
         </div>
     );
 }
