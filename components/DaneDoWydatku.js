@@ -1,13 +1,10 @@
 import { postawa, palce, ramie, caleCialo, dwaRamiona } from "../public/dane"
 import Image from 'next/image'
 
-const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, partiaCialaValue, czas,   handleClick, onMutate, nazwaCzynnosci, kcal, errors, messages, przerwa }) => {
-
-  
+const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, partiaCialaValue, czas,   handleClick, onMutate, nazwaCzynnosci, kcal, errors, messages, przerwa }) => { 
 
     return (
         < >
-
             <div className=" flex w-full    items-center  md:pb-6">
                 <div className="flex flex-col w-[90%] md:w-3/4  h-1/2 ">
                     <div className="flex  flex-col md:flex-row justify-between   w-full   ">
@@ -27,7 +24,6 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                 />
                                 {errors.nazwaCzynnosci && <span className="absolute  -top-5 right-0 text-error-2">{messages.nazwaCzynnosci_incorrect}</span>}
                             </div>
-
                         </div>
                         <div className="  flex items-end   relative     ">
                             {/* input */}
@@ -49,9 +45,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                             {errors.czas && <span className=" absolute  -top-5 right-0 text-error-2">{messages.czas_incorrect}</span>}
                             {errors.czas1 && <span className="absolute  -top-5 right-0 text-error-2">{messages.czas1_incorrect}</span>}
                         </div>
-                    </div>
-
-                   
+                    </div>                   
                 </div>
 
                 <div className="hidden md:flex    w-1/4  justify-end items-center pr-[40px] ">
@@ -148,14 +142,14 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
             </div>
 
             {/*  */}
-            <div   className={`  flex border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[33%]     rounded-lg mt-[2%]`} >
+            <div className={`  ${przerwa ? "hidden" : "flex"} border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[33%]     rounded-lg mt-[2%]`} >
                 <div className="flex justify-center items-center bg-niebieski-6 bg-opacity-10 text-niebieski-5 font-bold  rounded-t-lg   h-[20%] text-lg md:text-2xl w-full ">
                     <h1 className="   ">Partie ciała, które wykonują czynność</h1>
                 </div>
 
                 <div className={`flex flex-wrap relative h-[80%] content-between gap-4 p-6  w-full justify-between  ${errors.partiaCialaValue ? " bg-error-1" : "bg-niebieski-4 "}  `}>
                     {/*  */}
-                    <div className="flex   items-center   md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
+                    <div className="flex   items-center  w-full md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
                         <div className="flex justify-center items-center rounded-t-lg   h-[25%] w-full  bg-zielony-1 bg-opacity-40">
                             <h1 className="text-lg  text-niebieski-10 font-bold  ">palce, ręce, przedramiona</h1>
                         </div>
@@ -216,7 +210,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
 
                     </div>
                     {/*  */}
-                    <div className="flex   items-center   md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
+                    <div className="flex   items-center w-full  md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
                         <div className="flex justify-center items-center rounded-t-lg   h-[25%] w-full  bg-zielony-1 bg-opacity-40">
                             <h1 className="text-lg  text-niebieski-10 font-bold  ">jedno ramię</h1>
                         </div>
@@ -277,7 +271,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
 
                     </div>
                     {/*  */}
-                    <div className="flex   items-center   md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
+                    <div className="flex   items-center w-full  md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
                         <div className="flex justify-center items-center rounded-t-lg   h-[25%] w-full  bg-zielony-1 bg-opacity-40">
                             <h1 className="text-lg  text-niebieski-10 font-bold  ">dwa ramiona</h1>
                         </div>
@@ -338,22 +332,20 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
 
                     </div>
                     {/*  */}
-                    <div className="flex   items-center   md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
+                    <div className="flex   items-center w-full  md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
                         <div className="flex justify-center items-center rounded-t-lg   h-[25%] w-full  bg-zielony-1 bg-opacity-40">
-                            <h1 className="text-lg  text-niebieski-10 font-bold  ">cale ciało</h1>
+                            <h1 className="text-lg  text-niebieski-10 font-bold  ">całe ciało</h1>
                         </div>
 
                         <div className= {`flex h-[75%] justify-center w-full p-4 `} >
                             <div className="flex items-center w-1/2   ">
-                                <p className="text-lg p-4">cieżkość pracy</p>
+                                <p className="text-lg">cieżkość pracy</p>
                             </div>
                             <div className="w-1/2 flex items-center justify-center flex-col  ">
                                 {caleCialo.map((item) => (
-                                    <div className={`${przerwa ? "hidden" : "flex"}   w-full   items-center`}
+                                    <div className={`flex   w-full   items-center`}
                                         key={item.id}>
-
                                         <div
-
                                             onClick={() => setPartiaCialaValue(kcal ? item.value : item.valueKcal)}
                                             className={
                                                 kcal ?

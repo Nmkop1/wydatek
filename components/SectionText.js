@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-
 import styled from "styled-components"
 import { theme } from "../public/theme"
 
@@ -12,12 +11,8 @@ justify-content:center;
 align-items:flex-start;
 padding:2vh 0;
  @media only screen and ${theme.size.tablet} {
-  padding:8vh 0;
-    
-   
-
- background :    ${theme.colors.gradientTla} ; 
-  
+  padding:8vh 0;  
+ background :    ${theme.colors.gradientTla} ;   
  backdrop-filter: blur( 4px );
 -webkit-backdrop-filter: blur( 4px );
 }
@@ -30,21 +25,23 @@ const WrapText = styled.div`
      h1{
        color: ${theme.colors.zielony};
          font-size:1.6rem;
-         padding-top:7vh;
+         padding-top:3vh;
          font-weight:800;
          @media only screen and ${theme.size.tablet} {
-          font-size:50px;
+          font-size:50px; 
+           padding-top:7vh;
   }
      }
      h2{
         font-size:1.4rem;
-         padding : 4vh 0 0.8vh 0;
+         padding : 2vh 0 0.8vh 0;
          line-height: 1.4;
          font-weight:600;
          margin: .5rem 0;
          color:  ${theme.colors.fonts} ;
         @media only screen and ${theme.size.tablet} {
           font-size:32px;
+             padding : 4vh 0 0.8vh 0;
   }
      }
      h4,h5{

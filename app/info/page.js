@@ -6,21 +6,15 @@ export default function Home() {
              
             < SectionText opis={
                 <>
-                    <h1 style={{ paddingTop: "0" }}>Przydatne informacje</h1>
-                    <b>Źródło: <a href="http://isap.sejm.gov.pl/isap.nsf/download.xsp/WDU19740240141/U/D19740141Lj.pdf" target="_blank" rel="noopener noreferrer">
-                        Działu siódmego, rozdziału I Kodeksu pracy
-                    </a></b>
+                    <h1  >Kalkulator wydatku energetycznego </h1>                 
 
                     <h2 id='Roczny wymiar urlopu'>Wymiar urlopu</h2>
                     <h4>
-                        Zgodnie z uregulowaniami działu siódmego, rozdziału I Kodeksu pracy wymiar urlopu wynosi:
-                        <li><span>20 dni</span> - jeżeli pracownik jest zatrudniony krócej niż 10 lat,</li>
-                        <li><span>26 dni</span> - jeżeli pracownik jest zatrudniony co najmniej 10 lat. </li>
+                        Metodologia  szacowania  wydatku  energetycznego  jest zgodna  z  kryteriami  określonymi       w   uproszczonej   chronometrażowo-tabelarycznej   metodzie   szacowania   wydatku energetycznego netto podczas pracy wg Lehmanna
 
                     </h4>
                     <h4>
-                        Do łącznego okresu zatrudnienia, od którego zależy prawo do urlopu i wymiar urlopu wlicza się zarówno wszystkie okresy poprzednich zatrudnień (na podstawie umowy o pracę), jak i okresy pobierania nauki i ukończone szkoły.
-                        Do okresu pracy, od którego zależy wymiar urlopu, wlicza się z tytułu ukończenia:
+                        DDo oceny wydatku energetycznego niezbędna jest rejestracja przebiegu i czasu przyjmowania pozycji i wykonywanych czynności w ciągu całej zmiany roboczej. Po przemnożeniu wartości energetycznych poszczególnych pozycji ciała i rodzaju pracy przez czas ich trwania, a następnie ich zsumowaniu, uzyskamy wydatek energetyczny danej pracy 
                     </h4>
                     <h4>
                         <li>zasadniczej lub innej równorzędnej szkoły zawodowej – przewidziany programem nauczania czas trwania nauki, nie więcej jednak niż <span></span>3 lata,</li>
@@ -59,9 +53,9 @@ export default function Home() {
 
 
                     <h2 id="Osoby niepełnosprawne">Osoby niepełnosprawne</h2>
-                    <h4>Osobie zaliczonej do znacznego lub umiarkowanego stopnia niepełnosprawności przysługuje dodatkowy urlop wypoczynkowy w wymiarze 10 dni roboczych w roku kalendarzowym.</h4>
-                    <h4>Prawo do pierwszego urlopu dodatkowego osoba spełniająca przesłanki ustawowe nabywa po przepracowaniu jednego roku po dniu zaliczenia jej do jednego ze wskazanych stopni niepełnosprawności</h4>
-                    <h4>Wymiar urlopu dodatkowego dla pracownika niepełnosprawnego zatrudnionego w niepełnym wymiarze czasu pracy ustala się proporcjonalnie do jego wymiaru czasu pracy.</h4>
+                    <h4>10 Wpisanie czasu jest obowiązkowe, o czym przypomni aplikacja, w przypadku próby pominięcia wpisu w tym polu. Również odpowiedni komunikat wzywający do korekty wpisu pojawi się, gdy zamiast liczby wprowadzony zostanie tekst składający się choćby z jednej litery. Dalej należy wybrać odpowiednie opcje charakteryzujące jednostkową czynność. Wybieranie cech charakterystycznych dla czynności jednostkowej z odrobiną niezbędnej teorii W metodologii wykorzystanej w kalkulatorze, czynność - a w konsekwencji ciężkość jej wykonania - jest charakteryzowana łącznie przez dwie składowe wysiłku: 1) Charakterystyczną postawę ciała przyjmowaną podczas realizowania czynności; 2) Obciążenie zewnętrzne partii ciała, które angażuje pracownik podczas wykonywania czynności. Tak, więc najpierw w ramce Wybierz postawę ciała charakterystyczną dla wykonywanej czynności należy wskazać odpowiednią pozycję ciała, jaka jest przyjmowana przez pracownika podczas pracy. Wybór może paść tylko na jedną pozycję. Stąd wniosek, że jeśli podczas czynności pracownik zmienia pozycję ciała, to czynność taka nie jest czynnością jednostkową każda czynność jednostkowa, żeby mogła być tak nazwana musi mieć tylko jedną charakterystyczną pozycję ciała. Po kliknięciu pola wyboru (kółeczko) przy określonej czynności, przychodzi czas na wybór partii ciała, które wykonują pracę i obciążenia, jakiemu te partie ciała są poddawane. W tym celu w ramce Wybierz partie ciała, które wykonują pracę (i ciężkość tej pracy) wybrać opcję zgodną ze stanem faktycznym dla ocenianej czynności. Uwaga! Jeżeli pracownik nie wykonuje pracy (np. siedzi, jako pasażer przemieszczając się samochodem, stoi i oczekuje aż maszyna wykona operacje, jedynie obserwując tę operację), to w ramce Wybierz partie ciała, które wykonują pracę (i ciężkość tej pracy) trzeba zaznaczyć opcję przerwa w wykonywanej czynności. Może się tak zdarzyć, że pracownik wykonuje pracę np. jednocześnie obydwoma ramionami i całym ciałem (jak przy unoszeniu ładunku z podłogi). W takich przypadkach wybieramy tylko jedną opcję, przy czym pierwszeństwo ma opcja znajdująca bliżej prawej strony ramki (w podanym przykładzie całe ciało). Jeśli natomiast w przedziale czasowym angażowane są do wykonania pracy różne partie ciała i/lub w przedziale czasowym występuje różne obciążenie, to czynności takiej nie można kwalifikować, jako czynności jednostkowej i poddawać jej jako takiej ocenie. W takich przypadkach, podobnie jak miało to miejsce przy wyborze pozycji ciała, należy rozłożyć tę czynność na czynności proste cechujące się w określonym przedziale czasowym jedną charakterystyczną partią ciała wykonującą pracę i jednakowym obciążeniem. 10
+
+                        11 DEFINICJA Czynność jednostkowa poddawana ocenie to czynność (zadanie, praca), którą możemy scharakteryzować tylko jedną postawą ciała i tylko jednym rodzajem partii ciała angażowanej do wykonania czynności wraz z obciążeniem (albo przerwą w angażowaniu mięśni na pracę) w określonym, mierzonym przedziale czasu. UWAGA! Chronometraż powinien być przeprowadzony w dniach o przeciętnym rytmie pracy i obejmować czynności powtarzające się każdego dnia. W dokumentacji wszystkie rodzaje czynności roboczych i czynności pomocniczych powinny być podzielone na grupy o podobnym obciążeniu pracą. Pomiar czasu trwania poszczególnych czynności powinien być przeprowadzany kilkakrotnie, dla różnych osób i przy różnej intensywności pracy, aby można było uzyskać uśrednioną fotografię dnia roboczego na określonym stanowisku pracy. Najlepiej, gdy chronometraż opracowany jest wspólnie z pracownikiem, jego przełożonym i pracownikiem bhp. 3 Po poprawnym scharakteryzowaniu analizowanej czynności, można kliknąć przycisk Wprowadź dane. Nie należy przejmować się tym, że później będziemy chcieli coś poprawić w analizowanej czynności. Można to zrobić, ale o tym potem, w części omawiającej dokonywanie zmian w uprzednio wprowadzonych czynnościach. Po kliknięciu przycisku Wprowadź dane aplikacja zapyta się Czy chcesz ocenić kolejną czynność?, tak jak na poniższym rysunku. Wybór prosty: tak albo nie. 3 Górska E., Ergonomia: projektowanie, diagnoza, eksperymenty, Oficyna Wydawnicza Politechniki Warszawskiej, Warszawa awa 2002, s</h4>
 
 
 

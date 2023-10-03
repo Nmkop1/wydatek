@@ -70,7 +70,7 @@ module.exports = {
           7: "#2a3a51",
           9: "#35445A",
           10: "#2a3a51",
-        },  
+        }, 
         fiolet: {
           1: "#EDE7F6",
           2: "#B39DDB",

@@ -1,12 +1,12 @@
 export const postawa = [
-    { id: 1, value: [1.3, "siedząca"], valueKcal: [.3, "siedząca"], text: "siedząca", src: "/siedzi.png", },
-    { id: 2, value: [2.1, "klęcząca"], valueKcal: [.5, "siedząca"], text: "klęcząca", src: "/kleczy.png", },
-    { id: 3, value: [2.1, "kucająca"], valueKcal: [.5, "siedząca"], text: "kucająca", src: "/porter.png", },
-    { id: 4, value: [2.5, "stojąca"], valueKcal: [.6, "siedząca"], text: "stojąca", src: "/stoi.png", },
-    { id: 5, value: [3.3, "stojąca pochylona"], valueKcal: [.8, "siedząca"], text: "stojąca pochylona", src: "/porter.png", },
-    { id: 6, value: [8.3, "chodzenie wolne"], valueKcal: [2.0, "siedząca"], text: "chodzenie wolne", src: "/porter.png", },
-    { id: 7, value: [12.6, "chodzenie wszybkie"], valueKcal: [3.0, "siedząca"], text: "chodzenie szybkie", src: "/man.png", },
-    { id: 8, value: [1.3, "przerwa"], valueKcal: [.3, "siedząca"], text: "  przerwa", src: "/przerwa.png" }
+    { id: 1, value: [1.3, "siedząca"], valueKcal: [.3, "siedząca"], text: "siedząca", src: "/siedzi2.png", },
+    { id: 2, value: [2.1, "klęcząca"], valueKcal: [.5, "klęcząca"], text: "klęcząca", src: "/kleczy1.png", },
+    { id: 3, value: [2.1, "kucająca"], valueKcal: [.5, "kucająca"], text: "kucająca", src: "/kuca2.png", },
+    { id: 4, value: [2.5, "stojąca"], valueKcal: [.6, "stojąca"], text: "stojąca", src: "/stoi1.png", },
+    { id: 5, value: [3.3, "stojąca pochylona"], valueKcal: [.8, "stojąca pochylona"], text: "stojąca pochylona", src: "/pochylony.png", },
+    { id: 6, value: [8.3, "chodzenie wolne"], valueKcal: [2.0, "chodzenie wolne"], text: "chodzenie wolne", src: "/porter1.png", },
+    { id: 7, value: [12.6, "chodzenie wszybkie"], valueKcal: [3.0, "chodzenie wszybkie"], text: "chodzenie szybkie", src: "/szybko.png", },
+    { id: 8, value: [1.3, "przerwa"], valueKcal: [.3, "przerwa"], text: "przerwa", src: "/przerwa1.png" }
 ]
 export const palce = [
     { id: 1, value: [1.3, 2.5, "palce, ręce, przedramiona, lekka"], valueKcal: [.3, .6, "palce, ręce, przedramiona, lekka"], text: " lekka" },

@@ -9,7 +9,7 @@ import {
     PDFViewer,
     Font
 } from "@react-pdf/renderer";
-
+import { useSelector } from 'react-redux';
 Font.register({
     family: "Roboto",
     fonts: [
@@ -123,175 +123,170 @@ const styles = StyleSheet.create({
 
 
 // Create Document Component
-const Pdf = ({ tablicaCzynnosci, sumaCzasu, sumaWydatkuMin, sumaWydatkuMax, formData }) => {
+const Pdf = () => {
 
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1
     const day = new Date().getDate()
-
+    const { sumaCzasu, sumaWydatkuMin, sumaWydatkuMax, formData } = useSelector(state => state.wynik)
+    const tablicaCzynnosci = useSelector(state => state.tablicaCzynnosci)
 
 
     return (
         <PDFViewer style={styles.viewer}>
             <Document >
                 <Page size="A4" orientation="landscape">
-                    <View style={styles.table}>
-                        <View style={{ fontSize: "12px", width: "100%", display: "flex", alignItems: "flex-end", }}>
-                            <Text  >Data: {day}.{month}.{year}</Text>
-                        </View>
-                        <View >
-                            <Text style={styles.page}>Pomiar wydatku energetycznego metodą G. Lehmanna</Text>
-                            <Text style={{ padding: "8 0 8 0" }}>Firma: {formData.firma} </Text>
-                            <Text style={{ padding: "8 0 8 0" }}>Stanowisko: {formData.stanowisko} </Text>
-                            <Text style={{ padding: "8 0 32 0" }}>Opis: {formData.opis}</Text>
-                        </View>
-                        {/* ////////// */}
-                        <View style={styles.rowPasek}>
-                            <Text style={styles.row1}  >Nazwa czynności</Text>
-                            <View style={styles.row2}>
-                                <Text >Czas </Text>
-                                <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                    [min]</Text>
+                    {sumaCzasu && sumaWydatkuMin && sumaWydatkuMax && formData && tablicaCzynnosci ?
+                        <View style={styles.table}>
+                            <View style={{ fontSize: "12px", width: "100%", display: "flex", alignItems: "flex-end", }}>
+                                <Text>Data: {day}.{month}.{year}</Text>
                             </View>
-                            <Text style={styles.row3}>Postawa</Text>
-                            <View style={styles.row4}>
-                                <Text >Postawa </Text>
-                                <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                    [kJ/min]</Text>
+                            <View >
+                                <Text style={styles.page}>Pomiar wydatku energetycznego metodą G. Lehmanna</Text>
+                                <Text style={{ padding: "8 0 8 0" }}>Firma: {formData?.firma} </Text>
+                                <Text style={{ padding: "8 0 8 0" }}>Stanowisko: {formData?.stanowisko} </Text>
+                                <Text style={{ padding: "8 0 32 0" }}>Opis: {formData?.opis}</Text>
                             </View>
-                            <View style={styles.row5}>
-                                <Text >Partia ciała
-                                </Text>
-                                <Text >
-                                    Ciężkość pracy</Text>
-                            </View>
-                            <View style={styles.row6}>
-                                <Text >Partia
-                                </Text>
-                                <Text style={{ fontSize: "12px" }}>
-                                    min</Text>
-                                <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                    [kJ/min]</Text>
-                            </View>
-                            <View style={styles.row7}>
-                                <Text >Partia
-                                </Text>
-                                <Text style={{ fontSize: "12px" }}>
-                                    max</Text>
-                                <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                    [kJ/min]</Text>
-                            </View>
-                            <View style={styles.row8}>
-                                <Text >Wydatek
-                                </Text>
-                                <Text style={{ fontSize: "12px" }}>
-                                    min</Text>
-                                <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                    [kJ]</Text>
-                            </View>
-                            <View style={styles.row9}>
-                                <Text >Wydatek
-                                </Text>
-                                <Text style={{ fontSize: "12px" }}>
-                                    max</Text>
-                                <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                    [kJ]</Text>
-                            </View>
-                        </View>
-                        {/* /////// */}
-                        {tablicaCzynnosci.map((item, i) => (
-                            <View key={i} style={styles.row} wrap={false}>
-                                <Text style={styles.row1}>
-                                    <Text style={styles.noBold}>
-                                        {item.nazwaCzynnosci}
-                                    </Text>
-                                </Text>
-                                <Text style={styles.row2}>
-                                    <Text style={styles.noBold}>
-                                        {item.czas}</Text>
-                                </Text>
-                                <Text style={styles.row3}>
-                                    <Text style={styles.noBold}>{item.postawaValue[1]}</Text>
-                                </Text>
-                                <Text style={styles.row4}>
-                                    <Text style={styles.noBold}>
-                                        {item.postawaValue[0]}
-                                    </Text>
-                                </Text>
-                                <Text style={styles.row5}>
-                                    <Text style={styles.noBold}>{item.partiaCialaValue[2]}</Text>
-                                </Text>
-                                <Text style={styles.row6}>
-                                    <Text style={styles.noBold}>{item.partiaCialaValue[0]}</Text>
-                                </Text>
-                                <Text style={styles.row7}>
-                                    <Text style={styles.noBold}>{item.partiaCialaValue[1]}</Text>
-                                </Text>
-                                <Text style={styles.row8}>
-                                    <Text style={styles.noBold}>{item.jedenWydatekMin}</Text>
-                                </Text>
-                                <Text style={styles.row9}>
-                                    <Text style={styles.noBold}>{item.jedenWydatekMax}</Text>
-                                </Text>
-                            </View>
-                        ))}
-                        {/* ///////// */}
-                        <View style={styles.rowPasekDolny}>
-                            <Text style={{ width: "17%" }}  > </Text>
-                            <View style={{ width: "13%", textAlign: "center", padding: "2px" }}  >
-                                <Text >{sumaCzasu[0] == 0 ? `${sumaCzasu[1]} min` : `${sumaCzasu[0]} godz ${sumaCzasu[1]} min`}
-                                </Text>
-                            </View>
-                            <View style={{ width: "7%" }}>   </View>
-                            <View style={{ width: "7%" }}>   </View>
-
-                        </View>
-                        {/* ///////// */}
-                        <View style={{ fontFamily: "Roboto", display: "flex", flexDirection: 'row', width: "100%",   }}>
-                            <View style={{ display: "flex", justifyContent: "center", alignItems:"flex-end", width: "60%",  }}>
-                                <Text style={{fontSize:24, fontWeight: 600, paddingRight:"4%"}}>wydatek energetyczny</Text>
-                            </View>
-                            <View style={{ width: "40%",   }}>
-                                <View style={{ display: "flex", flexDirection: 'row', width: "100%",   }}>
-                                    <View style={{ display: "flex", flexDirection: 'row', width: "35%",    padding: "5 0 5 0 " }}>
-                                        <Text style={{ fontSize: 14 }} >dla meżczyzn</Text>
-                                    </View>
-                                    <View style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", width: "65%",   padding:  "5 0 5 0 " }}>
-                                        <Text style={{ fontSize: 10 }}>   min
-                                            <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMin} kJ
-                                            </Text>
-                                        </Text>
-
-                                        <Text style={{ fontSize: 10 }}>max
-                                            <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMax} kJ
-                                            </Text>
-                                        </Text>
-                                    </View>
-
+                            {/* ////////// */}
+                            <View style={styles.rowPasek}>
+                                <Text style={styles.row1}  >Nazwa czynności</Text>
+                                <View style={styles.row2}>
+                                    <Text >Czas </Text>
+                                    <Text style={{ fontSize: "9px", fontWeight: 400 }}>
+                                        [min]</Text>
                                 </View>
-                                <View style={{ display: "flex", flexDirection: 'row', width: "100%",   }}>
-                                    <View style={{ display: "flex", flexDirection: 'row', width: "35%",   padding: "5 0 5 0 " }}>
-                                        <Text style={{ fontSize: 14 }} >dla kobiet</Text>
-                                    </View>
-                                    <View style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", width: "65%",   padding: "5 0 5 0 " }}>
-                                        <Text style={{ fontSize: 10 }}> min
-                                            <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMin * .8).toFixed(1)} kJ
-                                            </Text>
-                                        </Text>
-
-                                        <Text style={{ fontSize: 10 }}>max
-                                            <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMax * .8).toFixed(1)} kJ
-                                            </Text>
-                                        </Text>
-                                    </View>
-
+                                <Text style={styles.row3}>Postawa</Text>
+                                <View style={styles.row4}>
+                                    <Text >Postawa </Text>
+                                    <Text style={{ fontSize: "9px", fontWeight: 400 }}>
+                                        [kJ/min]</Text>
+                                </View>
+                                <View style={styles.row5}>
+                                    <Text >Partia ciała </Text>
+                                    <Text > Ciężkość pracy</Text>
+                                </View>
+                                <View style={styles.row6}>
+                                    <Text >Partia</Text>
+                                    <Text style={{ fontSize: "12px" }}>min</Text>                                        
+                                    <Text style={{ fontSize: "9px", fontWeight: 400 }}>
+                                        [kJ/min]</Text>
+                                </View>
+                                <View style={styles.row7}>
+                                    <Text >Partia
+                                    </Text>
+                                    <Text style={{ fontSize: "12px" }}>
+                                        max</Text>
+                                    <Text style={{ fontSize: "9px", fontWeight: 400 }}>
+                                        [kJ/min]</Text>
+                                </View>
+                                <View style={styles.row8}>
+                                    <Text >Wydatek
+                                    </Text>
+                                    <Text style={{ fontSize: "12px" }}>
+                                        min</Text>
+                                    <Text style={{ fontSize: "9px", fontWeight: 400 }}>
+                                        [kJ]</Text>
+                                </View>
+                                <View style={styles.row9}>
+                                    <Text >Wydatek
+                                    </Text>
+                                    <Text style={{ fontSize: "12px" }}>
+                                        max</Text>
+                                    <Text style={{ fontSize: "9px", fontWeight: 400 }}>
+                                        [kJ]</Text>
                                 </View>
                             </View>
+                            {/* /////// */}
+                            {tablicaCzynnosci?.map((item, i) => (
+                                <View key={i} style={styles.row} wrap={false}>
+                                    <Text style={styles.row1}>
+                                        <Text style={styles.noBold}>
+                                            {item.nazwaCzynnosci}
+                                        </Text>
+                                    </Text>
+                                    <Text style={styles.row2}>
+                                        <Text style={styles.noBold}>
+                                            {item.czas}</Text>
+                                    </Text>
+                                    <Text style={styles.row3}>
+                                        <Text style={styles.noBold}>{item.postawaValue[1]}</Text>
+                                    </Text>
+                                    <Text style={styles.row4}>
+                                        <Text style={styles.noBold}>
+                                            {item.postawaValue[0]}
+                                        </Text>
+                                    </Text>
+                                    <Text style={styles.row5}>
+                                        <Text style={styles.noBold}>{item.partiaCialaValue[2]}</Text>
+                                    </Text>
+                                    <Text style={styles.row6}>
+                                        <Text style={styles.noBold}>{item.partiaCialaValue[0]}</Text>
+                                    </Text>
+                                    <Text style={styles.row7}>
+                                        <Text style={styles.noBold}>{item.partiaCialaValue[1]}</Text>
+                                    </Text>
+                                    <Text style={styles.row8}>
+                                        <Text style={styles.noBold}>{item.jedenWydatekMin}</Text>
+                                    </Text>
+                                    <Text style={styles.row9}>
+                                        <Text style={styles.noBold}>{item.jedenWydatekMax}</Text>
+                                    </Text>
+                                </View>
+                            ))}
+                            {/* ///////// */}
+                            <View style={styles.rowPasekDolny}>
+                                <View style={{ width: "17%" }}  > </View>
+                                <View style={{ width: "13%", textAlign: "center", padding: "2px" }}  >
+                                    <Text >{sumaCzasu[0] == 0 ? `${sumaCzasu[1]} min` : `${sumaCzasu[0]} godz ${sumaCzasu[1]} min`}
+                                    </Text>
+                                </View>
+                                <View style={{ width: "7%" }}>   </View>
+                                <View style={{ width: "7%" }}>   </View>
+
+                            </View>
+                            {/* ///////// */}
+                            <View style={{ fontFamily: "Roboto", display: "flex", flexDirection: 'row', width: "100%", paddingTop: "20px" }}>
+                                <View style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", width: "60%", }}>
+                                    <Text style={{ fontSize: 30, fontWeight: 600, paddingRight: "6%", }}>Wydatek energetyczny</Text>
+                                </View>
+                                <View style={{ width: "40%", }}>
+                                    <View style={{ display: "flex", flexDirection: 'row', width: "100%", }}>
+                                        <View style={{ display: "flex", flexDirection: 'row', width: "35%", padding: "5 0 5 0 " }}>
+                                            <Text style={{ fontSize: 14 }} >dla meżczyzn</Text>
+                                        </View>
+                                        <View style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", width: "65%", padding: "5 0 5 0 " }}>
+                                            <Text style={{ fontSize: 10 }}>   min
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMin} kJ
+                                                </Text>
+                                            </Text>
+                                            <Text style={{ fontSize: 10 }}>max
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMax} kJ
+                                                </Text>
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ display: "flex", flexDirection: 'row', width: "100%", }}>
+                                        <View style={{ display: "flex", flexDirection: 'row', width: "35%", padding: "5 0 5 0 " }}>
+                                            <Text style={{ fontSize: 14 }} >dla kobiet</Text>
+                                        </View>
+                                        <View style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", width: "65%", padding: "5 0 5 0 " }}>
+                                            <Text style={{ fontSize: 10 }}> min
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMin * .8).toFixed(1)} kJ
+                                                </Text>
+                                            </Text>
+                                            <Text style={{ fontSize: 10 }}>max
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMax * .8).toFixed(1)} kJ
+                                                </Text>
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                        </View> :
+                        <View style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}>
+                            <Text style={{ fontSize: 36, fontWeight: 600, }}>Brak danych</Text>
                         </View>
-
-
-
-                    </View>
+                    }
                 </Page>
             </Document>
         </PDFViewer>
@@ -300,94 +295,3 @@ const Pdf = ({ tablicaCzynnosci, sumaCzasu, sumaWydatkuMin, sumaWydatkuMax, form
 };
 export default Pdf
 
-
-// import React, { Fragment, useEffect, useState } from "react";
-// import {
-//     Document,
-//     Page,
-//     Text,
-//     View,
-//     StyleSheet,
-//     PDFViewer,
-// } from "@react-pdf/renderer";
-// // Create styles
-// const styles = StyleSheet.create({
-//     page: {
-
-
-//     },
-//     section: {
-//         margin: 10,
-//         padding: 10,
-
-//     },
-//     viewer: {
-//         width: window.innerWidth, //the pdf viewer will take up all of the width and height
-//         height: window.innerHeight,
-//     },
-// });
-// const tableData = {
-//     column: [
-//         "price",
-//         "email",
-//         "time"
-//     ],
-//     data: [
-//         {
-//             price: "fdgd",
-//             email: 3,
-//             time: 54
-//         },
-//         {
-//             price: 44,
-//             email: 44,
-//             time: 44
-//         }
-//     ]
-// }
-
-
-// // Create Document Component
-// const Pdf = ({ sumaWydatku, tablicaCzynnosci }) => {
-
-//     const styles = StyleSheet.create({
-//         rowView: {
-//             display: 'flex', flexDirection: 'row', borderTop: '1px solid #EEE', paddingTop: 8, paddingBottom: 8, textAlign: "center"
-//         }
-//     });
-
-//     // useEffect(() => {
-//     //     if (tablicaCzynnosci !== undefined) setTableData(tablicaCzynnosci);
-//     // }, []);
-//     return (
-//         <PDFViewer style={styles.viewer}   >
-//             {/* Start of the document*/}
-//             <Document>
-//                 {/*render a single page*/}
-//                 <Page size="A4" style={styles.page}>
-
-//                     <>
-//                         {tableData &&
-//                             (
-//                                 <Fragment  >
-//                                     <View style={styles.rowView}>
-//                                         {tableData["column"].map((c) => <Text style={{
-//                                             width: `${100 / tableData["column"].length}%`
-//                                         }}>{c}</Text>)}
-//                                     </View>
-//                                     {tableData["data"].map((rowData) => <>
-//                                         <View style={styles.rowView}>
-//                                             {tableData["column"].map((c) =>
-//                                                 <Text style={{ width: `${100 / tableData["column"].length}%` }}>{rowData[c]}</Text>
-//                                             )}
-//                                         </View>
-//                                     </>)}
-//                                 </Fragment>
-//                             )}
-//                     </>
-
-//                 </Page>
-//             </Document>
-//         </PDFViewer>)
-// };
-// export default Pdf

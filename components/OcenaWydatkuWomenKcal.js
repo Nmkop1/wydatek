@@ -1,6 +1,6 @@
 import { PiHamburger } from "react-icons/pi";
 import { MdOutlineEmojiFoodBeverage } from "react-icons/md";
-import { IoWomanOutline} from "react-icons/io5"
+import { IoWomanOutline } from "react-icons/io5"
 import dynamic from "next/dynamic";
 import 'react-tippy/dist/tippy.css'
 import {
@@ -8,33 +8,32 @@ import {
 } from 'react-tippy';
 import { useRouter } from 'next/navigation'
 
-function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
+function OcenaWydatkuWomenKcal({ sumaWydatkuMin, sumaWydatkuMax, openDrukuj, setOpenDrukuj }) {
     const GaugeComponent = dynamic(() => import('react-gauge-component'), { ssr: false });
-    const router = useRouter()
     const between = (x, min, max) => {
         return x >= min && x <= max;
     };
     const wydatekMinKobiety = sumaWydatkuMin * .8
     const wydatekMaxKobiety = sumaWydatkuMax * .8
-
+    const router = useRouter()
     let bg = ""
     let bg1 = ""
     const functionWithSwitchWomen1 = (parameter) => {
 
         switch (true) {
-            case (between(parameter, 1, 836)):
+            case (between(parameter, 1, 199)):
                 return "bardzo lekka"
 
-            case (between(parameter, 837, 2929)):
+            case (between(parameter, 200, 699)):
                 return "lekka"
 
-            case (between(parameter, 2930, 4186)):
+            case (between(parameter, 700, 999)):
                 return "umiarkowana"
 
-            case (between(parameter, 4187, 5024)):
+            case (between(parameter, 1000, 1199)):
                 return "ciężka"
 
-            case (parameter > 5024):
+            case (parameter > 1200):
                 return "bardzo ciężka"
 
             default:
@@ -46,19 +45,19 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     const functionWithSwitchWomen2 = (parameter) => {
 
         switch (true) {
-            case (between(parameter, 1, 836)):
+            case (between(parameter, 1, 199)):
                 return "bardzo lekka"
 
-            case (between(parameter, 837, 2929)):
+            case (between(parameter, 200, 699)):
                 return "lekka"
 
-            case (between(parameter, 2930, 4186)):
+            case (between(parameter, 700, 999)):
                 return "umiarkowana"
 
-            case (between(parameter, 4187, 5024)):
+            case (between(parameter, 1000, 1199)):
                 return "ciężka"
 
-            case (parameter > 5024):
+            case (parameter > 1200):
                 return "bardzo ciężka"
 
             default:
@@ -109,7 +108,8 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     return (
         <div className="w-full flex  h-full relative  items-center flex-col">
             <div className="text-white text-3xl absolute top-0 right-0 cursor-pointer  w-6 h-6 flex justify-center">
-                <Tooltip                   
+                <Tooltip
+                    // options arrows
                     title="Wydatek energetyczny dla kobiet pomniejszony jest o współczynnik korygujący, który wynosi 0,8"
                     position="bottom"
                     trigger="mouseenter"
@@ -133,12 +133,12 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                             <GaugeComponent
                                 value={`${wydatekMinKobiety}  `}
                                 type="semicircle"
-                                maxValue={7000}
+                                maxValue={3000}
 
                                 labels={{
                                     valueLabel:
                                     {
-                                        formatTextValue: value => value + ` kJ`, matchColorWithArc: true,
+                                        formatTextValue: value => value + ` kcal`, matchColorWithArc: true,
                                         maxDecimalDigits: 1,
                                     },
 
@@ -147,10 +147,10 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                                         type: "outer",
 
                                         ticks: [
-                                            { value: 837 },
-                                            { value: 2930 },
-                                            { value: 4187 },
-                                            { value: 5024 },
+                                            { value: 200 },
+                                            { value: 700 },
+                                            { value: 1000 },
+                                            { value: 1200 },
 
                                         ]
                                     }
@@ -158,7 +158,7 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                                 arc={{
 
                                     colorArray: ['#5BE12C', '#EA4228'],
-                                    subArcs: [{ limit: 837 }, { limit: 2930 }, { limit: 4187 }, { limit: 5024 }, {}],
+                                    subArcs: [{ limit: 200 }, { limit: 700 }, { limit: 1000 }, { limit: 1200 }, {}],
                                     padding: 0.02,
                                     width: 0.3,
 
@@ -178,21 +178,21 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                             <GaugeComponent
                                 value={`${wydatekMaxKobiety}  `}
                                 type="semicircle"
-                                maxValue={7000}
+                                maxValue={3000}
 
                                 labels={{
                                     valueLabel:
-                                        { formatTextValue: value => value + ` kJ`, matchColorWithArc: true, maxDecimalDigits: 1, },
+                                        { formatTextValue: value => value + ` kcal`, matchColorWithArc: true, maxDecimalDigits: 1, },
 
                                     tickLabels: {
 
                                         type: "outer",
 
                                         ticks: [
-                                            { value: 837 },
-                                            { value: 2930 },
-                                            { value: 4187 },
-                                            { value: 5024 },
+                                            { value: 200 },
+                                            { value: 700 },
+                                            { value: 1000 },
+                                            { value: 1200 },
 
                                         ]
                                     }
@@ -200,7 +200,7 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                                 arc={{
 
                                     colorArray: ['#5BE12C', '#EA4228'],
-                                    subArcs: [{ limit: 837 }, { limit: 2930 }, { limit: 4187 }, { limit: 5024 }, {}],
+                                    subArcs: [{ limit: 200 }, { limit: 700 }, { limit: 1000 }, { limit: 1200 }, {}],
                                     padding: 0.02,
                                     width: 0.3
                                 }}
@@ -283,4 +283,4 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     );
 }
 
-export default OcenaWydatkuWomen;
+export default OcenaWydatkuWomenKcal;

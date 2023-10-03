@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 
 function TransitionWraper({ children, open, setOpen, width, bg }) {
 
-console.log(bg)
+ 
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -22,8 +22,8 @@ console.log(bg)
                     <Dialog.Overlay className={` fixed inset-0 ${bg ? " bg-niebieski-10" : "bg-white"}   `} />
                 </Transition.Child>
 
-                <div className="fixed inset-0 overflnow-hidde">
-                    <div className="absolute inset-0 overflow-hidden">
+                <div className="fixed inset-0  ">
+                    <div className="absolute inset-0  ">
                         <div className={`pointer-events-none fixed inset-y-0 right-0 flex max-w-full  `} >
                             <Transition.Child
                                 as={Fragment}
