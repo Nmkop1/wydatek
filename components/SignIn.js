@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import {
   auth,
@@ -15,7 +16,7 @@ import { setLoading } from '../app/GlobalRedux/Features/counter/loadingSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from "../components/Spinner"
- 
+
 function SignIn({ bezCofania }) {
   const dispatch = useDispatch();
   const router = useRouter()
@@ -29,8 +30,8 @@ function SignIn({ bezCofania }) {
     password: '',
   })
   const { email, password } = formData
-  
 
+  
   const onSubmit = async (e) => {
 
     e.preventDefault();
@@ -81,7 +82,7 @@ function SignIn({ bezCofania }) {
           console.log('Coś poszło nie tak')
 
         )
-      })
+        dispatch(setLoading(false)) } )
 
     if (response) {
 
@@ -103,7 +104,7 @@ function SignIn({ bezCofania }) {
 
 
       }))
-        dispatch(setLoading(false))
+      dispatch(setLoading(false))
 
       // router.push('/wydatek')
     }
@@ -178,7 +179,6 @@ function SignIn({ bezCofania }) {
                         </div>
                       </div>
 
-
                       <div className='w-full flex justify-end  pb-4'>
                         <div className="flex w-[120px]  text-niebieski-10   ">
                           <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
@@ -188,10 +188,8 @@ function SignIn({ bezCofania }) {
                         </div>
                       </div>
 
-
-
-                    </form>
-
+                   
+                     </form>
                   </div>
                 :
                 <SignUp setLogowanie={setLogowanie} />
@@ -199,6 +197,7 @@ function SignIn({ bezCofania }) {
 
             </div>
           </div>
+         
         </>
       }
     </>

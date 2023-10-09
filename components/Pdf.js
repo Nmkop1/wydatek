@@ -167,7 +167,7 @@ const Pdf = () => {
                                 </View>
                                 <View style={styles.row6}>
                                     <Text >Partia</Text>
-                                    <Text style={{ fontSize: "12px" }}>min</Text>                                        
+                                    <Text style={{ fontSize: "12px" }}>min</Text>
                                     <Text style={{ fontSize: "9px", fontWeight: 400 }}>
                                         [kJ/min]</Text>
                                 </View>
@@ -282,11 +282,15 @@ const Pdf = () => {
                                     </View>
                                 </View>
                             </View>
+                        
                         </View> :
                         <View style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}>
                             <Text style={{ fontSize: 36, fontWeight: 600, }}>Brak danych</Text>
                         </View>
                     }
+                    <View style={{ fontFamily: "Roboto", fontSize:"12px",  position: "absolute", bottom: "10px", left:"45%", flexDirection: 'row', width: "100%",   }}>
+                        <Text>praca-info</Text>
+                    </View>
                 </Page>
             </Document>
         </PDFViewer>

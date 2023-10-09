@@ -8,7 +8,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const counterSlice = createSlice({
     name: 'tablicaCzynnosci',
-       initialState: [],
+    initialState: [],
     // initialState: [{
     //     id: '0f0dd695-c298-4375-9214-da5f01f7bbd8',
     //     jedenWydatekMin: '231.0',
@@ -21,8 +21,10 @@ export const counterSlice = createSlice({
 
 
     reducers: {
-        dodawanieCzynnosci(state, action) {
 
+        dodawanieCzynnosci(state, action) {
+          
+        
             const nowaCzynnosc = {
                 id: uuidv4(),
                 jedenWydatekMin: action.payload.jedenWydatekMin,

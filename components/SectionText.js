@@ -3,20 +3,20 @@ import React from 'react'
 import styled from "styled-components"
 import { theme } from "../public/theme"
 
-const WrappSectionText = styled.section`
-width:100%;   
-display:flex;
+// const WrappSectionText = styled.section`
+// width:100%;   
+// display:flex;
 
-justify-content:center;
-align-items:flex-start;
-padding:2vh 0;
- @media only screen and ${theme.size.tablet} {
-  padding:8vh 0;  
- background :    ${theme.colors.gradientTla} ;   
- backdrop-filter: blur( 4px );
--webkit-backdrop-filter: blur( 4px );
-}
-`
+// justify-content:center;
+// align-items:flex-start;
+// padding:2vh 0;
+//  @media only screen and ${theme.size.tablet} {
+//   padding:8vh 0;  
+//  background :    ${theme.colors.gradientTla} ;   
+//  backdrop-filter: blur( 4px );
+// -webkit-backdrop-filter: blur( 4px );
+// }
+// `
 const WrapText = styled.div`
        display:flex;
        max-width:90%;
@@ -92,12 +92,12 @@ const WrapText = styled.div`
   }
 `
 const SectionText = ({ opis }) => {
-
-
+ 
+  // <section className='w-full flex justify-center py-8  '>
   return (
-    <WrappSectionText>
-      <WrapText>{opis}</WrapText>
-    </WrappSectionText>
+    <section className='w-full flex justify-center py-8 gradient-05 backdrop-blur-sm '>
+      {/* <WrapText>{opis}</WrapText> */}
+    </section>
   )
 }
 export default SectionText

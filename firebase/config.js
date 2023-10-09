@@ -20,6 +20,9 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -46,6 +49,8 @@ export {
   deleteDoc,
   serverTimestamp,
   doc,
+  deleteUser,
+ 
   auth,
   orderBy,
   limit,
@@ -56,4 +61,5 @@ export {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  reauthenticateWithCredential, EmailAuthProvider
 };

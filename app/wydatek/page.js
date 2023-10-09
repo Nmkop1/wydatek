@@ -1,5 +1,5 @@
 'use client'
-import { Fragment, useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { login, logout, } from '../../app/GlobalRedux/Features/counter/userSlice';
 import { auth, onAuthStateChanged } from '../../firebase/config';
 import DaneDoWydatku from "../../components/DaneDoWydatku"
@@ -13,22 +13,23 @@ import OcenaWydatkuManKcal from "../../components/OcenaWydatkuManKcal"
 import OcenaWydatkuWomenKcal from "../../components/OcenaWydatkuWomenKcal"
 import TransitionWraper from "../../components/TransitionWraper";
 import { useRouter } from 'next/navigation'
-
-
+import { Disclosure } from '@headlessui/react'
+import { ChevronRightIcon } from '@heroicons/react/20/solid'
 function Home() {
 
     const refStanowisko = useRef(null)
     const refFirma = useRef(null);
-
+    const refOpis = useRef(null);
     const dispatch = useDispatch();
     const router = useRouter()
     const [isFocusedFirma, setIsFocusedFirma] = useState(false);
+    const [isFocusedOpis, setIsFocusedOpis] = useState(false);
     const [isFocusedStanowisko, setIsFocusedStanowisko] = useState(false);
     const [openDaneDoWydatku, setOpenDaneDoWydatku] = useState(false)
     const [openModal, setOpenModal] = useState(false);
     const [openWynik, setOpenWynik] = useState(false)
-    const [postawaValue, setPostawaValue] = useState([])
-    const [partiaCialaValue, setPartiaCialaValue] = useState([])
+    let [postawaValue, setPostawaValue] = useState([])
+    let [partiaCialaValue, setPartiaCialaValue] = useState([])
 
     let [sumaWydatkuMin, setSumaWydatkuMin] = useState(null)
     let [sumaWydatkuMax, setSumaWydatkuMax] = useState(null)
@@ -87,13 +88,20 @@ function Home() {
     if (postawaValue && postawaValue[1] === "przerwa") {
         przerwa = true
     }
+
     const tablicaCzynnosci = useSelector(state => state.tablicaCzynnosci)
 
     const handleClick = () => {
+
+        if (przerwa) {
+            partiaCialaValue = [0, 0, 'przerwa']
+        }
         const validation = formValidation(postawaValue, partiaCialaValue)
+
         if (validation.correct) {
-            const jedenWydatekMin = czas * postawaValue[0] * partiaCialaValue[0]
-            const jedenWydatekMax = czas * postawaValue[0] * partiaCialaValue[1]
+            const jedenWydatekMin = czas * postawaValue[0] + czas * partiaCialaValue[0]
+            const jedenWydatekMax = czas * postawaValue[0] + czas * partiaCialaValue[1]
+
 
             const nowa = {
                 jedenWydatekMin: jedenWydatekMin.toFixed(1),
@@ -106,8 +114,9 @@ function Home() {
 
             dispatch(dodawanieCzynnosci(nowa))
             setOpenDaneDoWydatku(false)
-            setPartiaCialaValue()
-            setPostawaValue()
+            setPartiaCialaValue([])
+            setPostawaValue([])
+            przerwa = null
             setFormData((prevState) => ({
                 ...prevState,
                 czas: "",
@@ -135,6 +144,7 @@ function Home() {
     }
 
     const formValidation = (postawa, partia) => {
+
         let nazwaCzynnosci = false
         let czas = false
         let czas1 = false
@@ -154,7 +164,7 @@ function Home() {
         if (postawa?.length > 0) {
             postawaValue = true
         }
-        if (partia?.length > 0 || partiaCialaValue !== "przerwa") {
+        if (partia?.length > 0) {
             partiaCialaValue = true
         }
         if (czas && nazwaCzynnosci && czas1 && postawaValue && partiaCialaValue) {
@@ -225,163 +235,259 @@ function Home() {
     return (
         <>
             <div className=" flex  min-h-[calc(100vh_-_92px)] flex-col  w-full  p-4 md:p-8">
-                <div className="flex w-full pb-6">
-                    <div className="hidden md:flex w-[60%] flex-col     text-niebieski-10 font-bold pr-16">
-                        <h2 className="text-4xl     pb-8 text-zielony-1">Kalkulator wydatku energetycznego</h2>
-                        <h2 className="text-2xl leading-9 pb-2">W  trzech krokach obliczysz, ocenisz i wydrukujesz  wydatek energetyczny na wybranym stanowisku pracy.</h2>
+                <div className="flex w-full  flex-col ">
+                    <div className="hidden md:flex w-[100%]  flex-col   text-niebieski-10 font-bold pr-16">
+                        <h1 className="text-5xl pb-8 text-zielony-1">Kalkulator wydatku energetycznego</h1>
+                        <h2 className="text-2xl leading-9 pb-2">W kilku krokach obliczysz, ocenisz i wydrukujesz  wydatek energetyczny na wybranym stanowisku pracy.</h2>
                     </div>
-                    {/* kolumma z firma/stanowisko */}
-                    <div className="flex w-full md:w-[40%] flex-col       text-niebieski-10">
-
-                        <div className="flex flex-col w-full">
-                            {/* input */}
-                            <div className="flex pb-4 justify-between w-full    ">
-                                <div className="flex items-center  ">
-                                    <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
-                                </div>
-                                <input
-                                    ref={refFirma}
-                                    type="text"
-                                    id="firma"
-                                    name="firma"
-                                    value={firma}
-                                    onChange={onMutate}
-                                    onFocus={() => setIsFocusedFirma(true)}
-                                    onBlur={() => setIsFocusedFirma(false)}
-                                    className="w-full px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
-                                />
-                            </div>
-                            {/* input */}
-                            <div className="flex pb-4 justify-between w-full    ">
-                                <div className="flex items-center  ">
-                                    <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
-                                </div>
-                                <input
-                                    ref={refStanowisko}
-                                    type="text"
-                                    id="stanowisko"
-                                    name="stanowisko"
-                                    value={stanowisko}
-                                    onChange={onMutate}
-                                    onFocus={() => setIsFocusedStanowisko(true)}
-                                    onBlur={() => setIsFocusedStanowisko(false)}
-                                    className="w-full    px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
-                                />
-                            </div>
-                            <div className="hidden md:flex pb-4 justify-between w-full  ">
-                                {/* input */}
-                                <div className="flex h-full items-center justify-between w-full ">
-                                    <div className="flex   items-center  ">
-                                        <label className={`text-xl font-semibold   text-niebieski-6    pr-4`}>Opis stanowiska</label>
+                </div>
+                <div className="w-full flex flex-col md:flex-row">
+                    <div className="  md:w-2/3 flex flex-col">
+                        {/* kolumma z firma/stanowisko */}
+                        <div className="flex w-full">
+                            {tablicaCzynnosci.length == 0 ?
+                                <>
+                                    <div className="hidden w-[10%]   md:flex   items-center  ">
+                                        <h2 className="text-7xl text-zielony-1 pl-2">1.</h2>
                                     </div>
-                                    <textarea
-                                        type="text"
-                                        id="opis"
-                                        name="opis"
-                                        value={opis}
-                                        onChange={onMutate}
+                                    <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-8  ">
+                                        <div className="flex pb-4    flex-col">
+                                            <h2 className="text-lg pb-4 ">Dane związne z ocenianym stanowiskiem</h2>
+                                            <div className="flex flex-col md:w-3/4">
+                                                {/* input */}
+                                                <div className="flex pb-4 justify-between w-full    ">
+                                                    <div className="flex items-center  ">
+                                                        <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
+                                                    </div>
+                                                    <input
+                                                        ref={refFirma}
+                                                        type="text"
+                                                        id="firma"
+                                                        name="firma"
+                                                        value={firma}
+                                                        onChange={onMutate}
+                                                        onFocus={() => setIsFocusedFirma(true)}
+                                                        onBlur={() => setIsFocusedFirma(false)}
+                                                        className="w-full px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                    />
+                                                </div>
+                                                {/* input */}
+                                                <div className="flex pb-4 justify-between w-full    ">
+                                                    <div className="flex items-center  ">
+                                                        <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
+                                                    </div>
+                                                    <input
+                                                        ref={refStanowisko}
+                                                        type="text"
+                                                        id="stanowisko"
+                                                        name="stanowisko"
+                                                        value={stanowisko}
+                                                        onChange={onMutate}
+                                                        onFocus={() => setIsFocusedStanowisko(true)}
+                                                        onBlur={() => setIsFocusedStanowisko(false)}
+                                                        className="w-full    px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                    />
+                                                </div>
+                                                <div className="hidden md:flex pb-4 justify-between w-full  ">
+                                                    {/* input */}
+                                                    <div className="flex h-full items-center justify-between w-full ">
+                                                        <div className="flex   items-center  ">
+                                                            <label className={`text-xl font-semibold   ${isFocusedOpis ? "text-zielony-1" : "text-niebieski-6"}   pr-4`}>Opis stanowiska</label>
+                                                        </div>
+                                                        <textarea
+                                                            type="text"
+                                                            id="opis"
+                                                            name="opis"
+                                                            value={opis}
+                                                            onChange={onMutate}
+                                                            ref={refOpis}
+                                                            onFocus={() => setIsFocusedOpis(true)}
+                                                            onBlur={() => setIsFocusedOpis(false)}
+                                                            className="flex flex-1 px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                        />
 
-                                        className="flex flex-1 px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
-                                    />
+                                                    </div>
 
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                                :
+
+                                <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-8  ">
+                                    <Disclosure>
+                                        {({ open }) => (
+                                            <>
+                                                <Disclosure.Button>
+                                                    <div className="flex pb-4  items-center">
+                                                        <h2 className="text-lg ">Dane związne z ocenianym stanowiskiem</h2>
+                                                        <ChevronRightIcon className={open ? ' w-9 rotate-90 transform text-zielony-1 ' : 'w-9 text-zielony-1  '} />
+                                                    </div>
+                                                </Disclosure.Button>
+                                                <Disclosure.Panel>
+                                                    <div className="flex flex-col md:w-3/4">
+                                                        {/* input */}
+                                                        <div className="flex pb-4 justify-between w-full    ">
+                                                            <div className="flex items-center  ">
+                                                                <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
+                                                            </div>
+                                                            <input
+                                                                ref={refFirma}
+                                                                type="text"
+                                                                id="firma"
+                                                                name="firma"
+                                                                value={firma}
+                                                                onChange={onMutate}
+                                                                onFocus={() => setIsFocusedFirma(true)}
+                                                                onBlur={() => setIsFocusedFirma(false)}
+                                                                className="w-full px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                            />
+                                                        </div>
+                                                        {/* input */}
+                                                        <div className="flex pb-4 justify-between w-full    ">
+                                                            <div className="flex items-center  ">
+                                                                <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
+                                                            </div>
+                                                            <input
+                                                                ref={refStanowisko}
+                                                                type="text"
+                                                                id="stanowisko"
+                                                                name="stanowisko"
+                                                                value={stanowisko}
+                                                                onChange={onMutate}
+                                                                onFocus={() => setIsFocusedStanowisko(true)}
+                                                                onBlur={() => setIsFocusedStanowisko(false)}
+                                                                className="w-full    px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                            />
+                                                        </div>
+                                                        <div className="hidden md:flex pb-4 justify-between w-full  ">
+                                                            {/* input */}
+                                                            <div className="flex h-full items-center justify-between w-full ">
+                                                                <div className="flex   items-center  ">
+                                                                    <label className={`text-xl font-semibold   ${isFocusedOpis ? "text-zielony-1" : "text-niebieski-6"}   pr-4`}>Opis stanowiska</label>
+                                                                </div>
+                                                                <textarea
+                                                                    type="text"
+                                                                    id="opis"
+                                                                    name="opis"
+                                                                    value={opis}
+                                                                    onChange={onMutate}
+                                                                    ref={refOpis}
+                                                                    onFocus={() => setIsFocusedOpis(true)}
+                                                                    onBlur={() => setIsFocusedOpis(false)}
+                                                                    className="flex flex-1 px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                                />
+
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+                                                </Disclosure.Panel>
+                                            </>
+                                        )}
+                                    </Disclosure>
                                 </div>
-
-
-
-                            </div>
+                            }
+                        </div>
+                        {/*  */}
+                        <div className="flex w-full md:pt-4">
+                            {tablicaCzynnosci.length == 0 ?
+                                <div className="hidden w-[10%]   md:flex   items-center  "><h2 className="text-7xl text-zielony-1 pl-2">2.</h2>
+                                </div> : null}
+                            {tablicaCzynnosci.length == 0 ?
+                                <div className="flex flex-col md:flex-row  md:w-[90%] text-niebieski-10    pt-10 ">
+                                    <div className="flex flex-col w-full  justify-between items-start  md:pr-16">
+                                        <h2 className="text-2xl pb-4  text-niebieski-10  ">Rejestrujemy kolejne czynności wykonywane przez pracownika w trakcie dnia roboczego.</h2>
+                                        <h2 className="text-2xl   text-niebieski-10  ">Dla wykonywanej jednostkowej czynności określamy:</h2>
+                                        <li className="text-2xl   text-niebieski-10  ">czas jej wykonywania,</li>
+                                        <li className="text-2xl   text-niebieski-10  ">charakterystyczną pozycję ciała,</li>
+                                        <li className="text-2xl   text-niebieski-10  ">partię ciała wykonującą czynność.</li>
+                                        <div className="flex flex-col md:flex-row items-center w-full pt-6">
+                                            <h2 className="text-xl font-bold">Wynik wydatku możesz uzyskać w kJ lub kcal</h2>
+                                            {/* button kcal/kJ */}
+                                            <div className="flex p-4">
+                                                {tablicaCzynnosci.length == 0 ?
+                                                    <div className="flex w-[200px]   text-niebieski-9    ">
+                                                        <button
+                                                            onClick={() => setKcal(!kcal)}
+                                                            className={`w-1/2 h-full py-4 font-bold  rounded-l-md disabled:bg-szary-5 ${kcal ? "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300" : "bg-zielony-1 "}`}>
+                                                            kcal
+                                                        </button>
+                                                        <button
+                                                            onClick={() => setKcal(!kcal)}
+                                                            className={`w-1/2 font-bold h-full rounded-r-md   disabled:bg-szary-5 ${kcal ? "bg-zielony-1" : "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300"}`}>
+                                                            kJ
+                                                        </button>
+                                                    </div> : null
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> : null
+                            }
                         </div>
                     </div>
-                </div>
-                <div className="flex w-full pt-10 flex-col h-full  justify-between  ">
                     {tablicaCzynnosci.length == 0 ?
-                        <div className="flex flex-col md:flex-row  w-full text-niebieski-10   ">
-                            <div className="flex flex-col w-full md:w-[60%] justify-between items-start  md:pr-16">
-                                <h2 className="text-2xl pb-4  text-niebieski-10  ">Rejestrujemy kolejne czynności wykonywane przez pracownika w trakcie dnia roboczego.</h2>
-                                <h2 className="text-2xl   text-niebieski-10  ">Dla wykonywanej jednostkowej czynności określamy:</h2>
-                                <li className="text-2xl   text-niebieski-10  ">czas jej wykonywania,</li>
-                                <li className="text-2xl   text-niebieski-10  ">charakterystyczną pozycję ciała,</li>
-                                <li className="text-2xl   text-niebieski-10  ">partię ciała wykonującą czynność.</li>
-
-                                <div className="flex flex-col md:flex-row items-center w-full pt-6">
-                                    <h2 className="text-xl font-bold">Wynik wydatku możesz uzyskać w kJ lub kcal</h2>
-                                    {/* button kcal/kJ */}
-                                    <div className="flex p-4">
-                                        {tablicaCzynnosci.length == 0 ?
-                                            <div className="flex w-[200px]   text-niebieski-9    ">
-                                                <button
-                                                    // disabled={tablicaCzynnosci.length > 0}
-                                                    onClick={() => setKcal(!kcal)}
-                                                    className={`w-1/2 h-full py-4 font-bold  rounded-l-md disabled:bg-szary-5 ${kcal ? "bg-niebieski-9 text-niebieski-6" : "bg-zielony-1"}`}>
-                                                    kcal
-                                                </button>
-                                                <button
-                                                    // disabled={tablicaCzynnosci.length > 0}
-                                                    onClick={() => setKcal(!kcal)}
-                                                    className={`w-1/2 font-bold h-full rounded-r-md   disabled:bg-szary-5 ${kcal ? "bg-zielony-1" : "bg-niebieski-9 text-niebieski-6"}`}>
-                                                    kJ
-                                                </button>
-                                            </div> : null
-                                        }
-
-
-                                    </div>
-                                </div>
-
+                        <div className="flex md:w-1/3 justify-center items-center">
+                            <div className="flex text-niebieski-9 justify-center flex-col items-center cursor-pointer" onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)} >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="  w-56 h-56 hover:text-zielony-1 transition duration-300">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                </svg>
+                                <p className="text-xl"> DODAJ CZYNNOŚĆ</p>
                             </div>
-                            <div className="flex md:w-[40%] justify-center items-center  ">
-
-                                <div className="flex  justify-center  flex-col items-center hover:text-zielony-1   cursor-pointer transition duration-300" onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)} >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="  w-56 h-56  ">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                    </svg>
-                                    <p className="text-xl  "> DODAJ CZYNNOŚĆ</p>
-                                </div>
-                            </div>
-                        </div> : null
-                    }
-                    {/* nagłówek tablicy */}
-                    {tablicaCzynnosci.length > 0 ?
-                        <div className="relative flex  h-full  w-full  flex-col  bg-niebieski-4  ">
-                            <div className="w-full  py-2 bg-niebieski-6 border  rounded-t-md text-white flex justify-between  items-center  ">
-                                <div className="flex   w-[calc(100%_-_120px)] text-lg pl-4 ">
-                                    <p className="flex    justify-center flex-col w-1/2 md:w-[19%] ">Nazwa czynności</p>
-                                    <p className=" flex   items-center justify-center flex-col w-1/2 md:w-[8%]  text-center">Czas   <span className="text-sm">[min]</span></p>
-                                    <p className="hidden md:flex   items-center justify-center  w-[12%]   text-center">Postawa   </p>
-                                    <p className="hidden md:flex   items-center justify-center flex-col w-[10%]   text-center">Postawa   <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span></p>
-                                    <div className="hidden md:flex   items-center justify-center flex-col w-[15%]  text-center">
-                                        <p>Partia ciała, </p>
-                                        <p >
-                                            ciężkość pracy</p>
-                                    </div>
-
-
-                                    <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Partia min <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
-                                    <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Partia max <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
-                                    <p className=" hidden md:flex   items-center justify-center flex-col w-[9%]   text-center"> Wydatek<span className="text-sm"> min </span></p>
-                                    <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Wydatek <span className="text-sm">max</span></p>
-
-                                </div>
-                                <div className="flex w-[120px]  text-niebieski-10 pr-2  ">
-                                    <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
-                                        onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)}>
-                                        <h2 className="transition duration-300"> Dodaj</h2>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="flex w-full   min-h-full flex-col">
-                                {tablicaCzynnosci.map((item) =>
-                                    <Tabela
-                                        key={item.id}
-                                        id={item.id}
-                                        item={item}
-                                        onDelete={onDelete}
-                                    />
-                                )}
-                            </div>
-
                         </div> : null}
                 </div>
+
+
+
+                {/* nagłówek tablicy */}
+                {tablicaCzynnosci.length > 0 ?
+                    <div className="relative flex  h-full  w-full  flex-col  bg-niebieski-4  ">
+                        <div className="w-full  py-2 bg-niebieski-6 border  rounded-t-md text-white flex justify-between  items-center  ">
+                            <div className="flex   w-[calc(100%_-_120px)] text-lg pl-4 ">
+                                <p className="flex    justify-center flex-col w-1/2 md:w-[19%] ">Nazwa czynności</p>
+                                <p className=" flex   items-center justify-center flex-col w-1/2 md:w-[8%]  text-center">Czas   <span className="text-sm">[min]</span></p>
+                                <p className="hidden md:flex   items-center justify-center  w-[12%]   text-center">Postawa   </p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[10%]   text-center">Postawa   <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span></p>
+                                <div className="hidden md:flex   items-center justify-center flex-col w-[15%]  text-center">
+                                    <p>Partia ciała, </p>
+                                    <p >
+                                        ciężkość pracy</p>
+                                </div>
+
+
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Partia min <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Partia max <span className="text-sm">{kcal ? "[kJ/min]" : "[kcal/min]"}</span> </p>
+                                <p className=" hidden md:flex   items-center justify-center flex-col w-[9%]   text-center"> Wydatek<span className="text-sm"> min </span></p>
+                                <p className="hidden md:flex   items-center justify-center flex-col w-[9%]   text-center">Wydatek <span className="text-sm">max</span></p>
+
+                            </div>
+                            <div className="flex w-[120px]  text-niebieski-10 pr-2  ">
+                                <div className=" w-full  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)}>
+                                    <h2 className="transition duration-300"> Dodaj</h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="flex w-full   min-h-full flex-col">
+                            {tablicaCzynnosci.map((item) =>
+                                <Tabela
+                                    key={item.id}
+                                    id={item.id}
+                                    item={item}
+                                    onDelete={onDelete}
+                                />
+                            )}
+                        </div>
+
+                    </div> : null}
+
                 <TransitionWraper
                     open={openDaneDoWydatku}
                     setOpen={setOpenDaneDoWydatku} >
