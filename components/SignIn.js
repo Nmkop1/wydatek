@@ -162,7 +162,7 @@ function SignIn({ bezCofania }) {
                           {!resetHaslo && !bezCofania ?
                             <>
                               <button
-                                onClick={() => setLogowanie(false)} className="text-niebieski-6 hover:text-niebieski-10">
+                                onClick={() => setLogowanie(false)} className="text-niebieski-6 hover:text-niebieski-10 ">
                                 Zarejestruj
                               </button>
 

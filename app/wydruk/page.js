@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Pdf from "../../components/Pdf"
 import { login, logout, selectUser } from '../GlobalRedux/Features/counter/userSlice';
 import { auth, onAuthStateChanged } from '../../firebase/config';
-
+ 
+import Image from 'next/image'
 import SignIn from "../../components/SignIn"
-
+import wydatek from '../../public/wydatek.png'
 function Wydruk() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
@@ -48,7 +49,15 @@ function Wydruk() {
 
                         </div>
                         <div className='hidden md:flex w-1/2 h-full bg-niebieski-6 items-center justify-center text-zielony-1  '>
-                            <h1>pdf</h1>
+                            <div className="relative   w-3/4  h-3/4  ">
+                                <Image
+                                    src={wydatek}
+                                   
+                                    fill
+                                    alt="Picture of the author"
+                                    className="cursor-pointer object-contain"
+                                />
+                            </div>
                         </div>
                     </div>
                     : <Pdf />

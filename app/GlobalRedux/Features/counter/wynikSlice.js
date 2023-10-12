@@ -1,5 +1,5 @@
 'use client';
-import { v4 as uuidv4 } from 'uuid';
+ 
 import { createSlice } from '@reduxjs/toolkit';
 
 
@@ -12,18 +12,19 @@ export const wynikSlice = createSlice({
         sumaWydatkuMin: null,
         sumaWydatkuMax: null,
         sumaCzasu: null,
-        formData: null
+        formDataRedux: null,
+        kcal :true
 
     },
 
 
     reducers: {
-        daneDoWyniku: (state, action) => {
- 
-             state.sumaWydatkuMin = action.payload.sumaWydatkuMin
+        daneDoWyniku: (state, action) => { 
+            state.sumaWydatkuMin = action.payload.sumaWydatkuMin
             state.sumaWydatkuMax = action.payload.sumaWydatkuMax 
             state.sumaCzasu = action.payload.sumaCzasu
-            state.formData = action.payload.formData
+            state.formDataRedux = action.payload.formData
+            state.kcal  = action.payload.kcal 
         },
     }
 })

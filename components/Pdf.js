@@ -128,24 +128,24 @@ const Pdf = () => {
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1
     const day = new Date().getDate()
-    const { sumaCzasu, sumaWydatkuMin, sumaWydatkuMax, formData } = useSelector(state => state.wynik)
+    const { sumaCzasu, sumaWydatkuMin, sumaWydatkuMax, formDataRedux, kcal } = useSelector(state => state.wynik)
     const tablicaCzynnosci = useSelector(state => state.tablicaCzynnosci)
-
+    console.log(formDataRedux)
 
     return (
         <PDFViewer style={styles.viewer}>
             <Document >
                 <Page size="A4" orientation="landscape">
-                    {sumaCzasu && sumaWydatkuMin && sumaWydatkuMax && formData && tablicaCzynnosci ?
+                    {sumaCzasu && sumaWydatkuMin && sumaWydatkuMax && formDataRedux && tablicaCzynnosci ?
                         <View style={styles.table}>
                             <View style={{ fontSize: "12px", width: "100%", display: "flex", alignItems: "flex-end", }}>
                                 <Text>Data: {day}.{month}.{year}</Text>
                             </View>
                             <View >
                                 <Text style={styles.page}>Pomiar wydatku energetycznego metodą G. Lehmanna</Text>
-                                <Text style={{ padding: "8 0 8 0" }}>Firma: {formData?.firma} </Text>
-                                <Text style={{ padding: "8 0 8 0" }}>Stanowisko: {formData?.stanowisko} </Text>
-                                <Text style={{ padding: "8 0 32 0" }}>Opis: {formData?.opis}</Text>
+                                <Text style={{ padding: "8 0 8 0", fontFamily: "Roboto", }}>Firma: {formDataRedux?.firma} </Text>
+                                <Text style={{ padding: "8 0 8 0", fontFamily: "Roboto" }}>Stanowisko: {formDataRedux?.stanowisko} </Text>
+                                <Text style={{ padding: "8 0 32 0", fontFamily: "Roboto" }}>Opis: {formDataRedux?.opis}</Text>
                             </View>
                             {/* ////////// */}
                             <View style={styles.rowPasek}>
@@ -159,7 +159,7 @@ const Pdf = () => {
                                 <View style={styles.row4}>
                                     <Text >Postawa </Text>
                                     <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                        [kJ/min]</Text>
+                                        {!kcal ? "[kcal / min]" : "[kJ/min]"} </Text>
                                 </View>
                                 <View style={styles.row5}>
                                     <Text >Partia ciała </Text>
@@ -169,7 +169,7 @@ const Pdf = () => {
                                     <Text >Partia</Text>
                                     <Text style={{ fontSize: "12px" }}>min</Text>
                                     <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                        [kJ/min]</Text>
+                                        {!kcal ? "[kcal / min]" : "[kJ/min]"}  </Text>
                                 </View>
                                 <View style={styles.row7}>
                                     <Text >Partia
@@ -177,7 +177,7 @@ const Pdf = () => {
                                     <Text style={{ fontSize: "12px" }}>
                                         max</Text>
                                     <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                        [kJ/min]</Text>
+                                        {!kcal ? "[kcal / min]" : "[kJ/min]"}</Text>
                                 </View>
                                 <View style={styles.row8}>
                                     <Text >Wydatek
@@ -185,7 +185,7 @@ const Pdf = () => {
                                     <Text style={{ fontSize: "12px" }}>
                                         min</Text>
                                     <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                        [kJ]</Text>
+                                        {!kcal ? "[kcal / min]" : "[kJ/min]"}</Text>
                                 </View>
                                 <View style={styles.row9}>
                                     <Text >Wydatek
@@ -193,7 +193,7 @@ const Pdf = () => {
                                     <Text style={{ fontSize: "12px" }}>
                                         max</Text>
                                     <Text style={{ fontSize: "9px", fontWeight: 400 }}>
-                                        [kJ]</Text>
+                                        {!kcal ? "[kcal]" : "[kJ]"}</Text>
                                 </View>
                             </View>
                             {/* /////// */}
@@ -255,12 +255,12 @@ const Pdf = () => {
                                             <Text style={{ fontSize: 14 }} >dla meżczyzn</Text>
                                         </View>
                                         <View style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", width: "65%", padding: "5 0 5 0 " }}>
-                                            <Text style={{ fontSize: 10 }}>   min
-                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMin} kJ
+                                            <Text style={{ fontSize: 10 }}> min
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} > {sumaWydatkuMin} {!kcal ? "kcal" : "kJ"}
                                                 </Text>
                                             </Text>
                                             <Text style={{ fontSize: 10 }}>max
-                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMax} kJ
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {sumaWydatkuMax} {!kcal ? "kcal" : "kJ"}
                                                 </Text>
                                             </Text>
                                         </View>
@@ -271,11 +271,11 @@ const Pdf = () => {
                                         </View>
                                         <View style={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", width: "65%", padding: "5 0 5 0 " }}>
                                             <Text style={{ fontSize: 10 }}> min
-                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMin * .8).toFixed(1)} kJ
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMin * .8).toFixed(1)} {!kcal ? "kcal" : "kJ"}
                                                 </Text>
                                             </Text>
                                             <Text style={{ fontSize: 10 }}>max
-                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMax * .8).toFixed(1)} kJ
+                                                <Text style={{ fontSize: 15, fontWeight: 600 }} >  {(sumaWydatkuMax * .8).toFixed(1)} {!kcal ? "kcal" : "kJ"}
                                                 </Text>
                                             </Text>
                                         </View>

@@ -2,13 +2,13 @@ import { postawa, palce, ramie, caleCialo, dwaRamiona } from "../public/dane"
 import Image from 'next/image'
 
 const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, partiaCialaValue, czas, handleClick, onMutate, nazwaCzynnosci, kcal, errors, messages, przerwa }) => {
-   
+
     return (
         < >
             <div className=" flex w-full    items-center  md:pb-6">
-                <div className="flex flex-col w-[90%] md:w-3/4  h-1/2 ">
+                <div className="flex flex-col w-[90%] md:w-3/4   h-1/2 ">
                     <div className="flex  flex-col md:flex-row justify-between   w-full   ">
-                        <div className="flex            ">
+                        <div className="flex     md:w-1/2       ">
                             {/* input */}
                             <div className="flex flex-col md:flex-row w-full relative  md:items-center  pb-6 md:pb-0 ">
                                 <div className="flex   items-center   ">
@@ -25,7 +25,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                                 {errors.nazwaCzynnosci && <span className="absolute  -top-5 right-0 text-error-2">{messages.nazwaCzynnosci_incorrect}</span>}
                             </div>
                         </div>
-                        <div className="  flex items-end   relative     ">
+                        <div className="  flex items-end   md:w-1/2 relative     ">
                             {/* input */}
                             <div className="flex    w-full flex-col md:flex-row    md:items-center   justify-end   ">
                                 <div className="flex       ">
@@ -48,7 +48,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                     </div>
                 </div>
 
-                <div className="hidden md:flex    w-1/4  justify-end items-center pr-[40px] ">
+                <div className="hidden md:flex   w-1/4  justify-end items-center pr-[40px] ">
                     <div className="   px-5 py-3       text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
                         onClick={handleClick} >
                         <h2 className="transition duration-300">Zapisz</h2>

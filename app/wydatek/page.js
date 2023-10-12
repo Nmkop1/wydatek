@@ -35,14 +35,15 @@ function Home() {
     let [sumaWydatkuMax, setSumaWydatkuMax] = useState(null)
     let [sumaCzasu, setSumaCzasu] = useState([])
     const [openDrukuj, setOpenDrukuj] = useState(true);
-    const [kcal, setKcal] = useState(true)
+ 
+    const {formDataRedux, kcal } = useSelector(state => state.wynik)
     let przerwa = null
     const [formData, setFormData] = useState({
-        stanowisko: "",
+        stanowisko: formDataRedux?.stanowisko,
         nazwaCzynnosci: "",
         czas: "",
-        firma: "",
-        opis: ""
+        firma: formDataRedux?.firma,
+        opis: formDataRedux?.opis
 
     });
     const [errors, setErrors] = useState({
@@ -203,11 +204,12 @@ function Home() {
             sumaWydatkuMin: sumaWydatkuMin.toFixed(1),
             sumaWydatkuMax: sumaWydatkuMax.toFixed(1),
             sumaCzasu: sumaCzasu,
-            formData
+            formData,
+            kcal
         }))
         setOpenWynik(true)
     }
-
+    console.log(formDataRedux)
     const onDelete = (id) => {
         dispatch(deleteCzynnosci(id))
     }
@@ -234,11 +236,11 @@ function Home() {
     }
     return (
         <>
-            <div className=" flex  min-h-[calc(100vh_-_92px)] flex-col  w-full  p-4 md:p-8">
+            <div className=" flex  min-h-[calc(100vh_-_85px)] flex-col  w-full  p-4 md:p-8">
                 <div className="flex w-full  flex-col ">
                     <div className="hidden md:flex w-[100%]  flex-col   text-niebieski-10 font-bold pr-16">
-                        <h1 className="text-5xl pb-8 text-zielony-1">Kalkulator wydatku energetycznego</h1>
-                        <h2 className="text-2xl leading-9 pb-2">W kilku krokach obliczysz, ocenisz i wydrukujesz  wydatek energetyczny na wybranym stanowisku pracy.</h2>
+                        <h1 className="text-5xl pb-4 text-zielony-1">Kalkulator wydatku energetycznego</h1>
+                        <h2 className="text-2xl leading-9 pb-2">W kilku krokach obliczysz i wydrukujesz  wydatek energetyczny na wybranym stanowisku pracy.</h2>
                     </div>
                 </div>
                 <div className="w-full flex flex-col md:flex-row">
@@ -250,12 +252,12 @@ function Home() {
                                     <div className="hidden w-[10%]   md:flex   items-center  ">
                                         <h2 className="text-7xl text-zielony-1 pl-2">1.</h2>
                                     </div>
-                                    <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-8  ">
-                                        <div className="flex pb-4    flex-col">
-                                            <h2 className="text-lg pb-4 ">Dane związne z ocenianym stanowiskiem</h2>
+                                    <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-2  ">
+                                        <div className="flex 2    flex-col">
+                                            <h2 className="text-lg pb-2 ">Dane związne z ocenianym stanowiskiem</h2>
                                             <div className="flex flex-col md:w-3/4">
                                                 {/* input */}
-                                                <div className="flex pb-4 justify-between w-full    ">
+                                                <div className="flex pb-2 justify-between w-full    ">
                                                     <div className="flex items-center  ">
                                                         <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
                                                     </div>
@@ -272,7 +274,7 @@ function Home() {
                                                     />
                                                 </div>
                                                 {/* input */}
-                                                <div className="flex pb-4 justify-between w-full    ">
+                                                <div className="flex pb-2 justify-between w-full    ">
                                                     <div className="flex items-center  ">
                                                         <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
                                                     </div>
@@ -316,13 +318,12 @@ function Home() {
                                     </div>
                                 </>
                                 :
-
-                                <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-8  ">
+                                <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-2  ">
                                     <Disclosure>
                                         {({ open }) => (
                                             <>
                                                 <Disclosure.Button>
-                                                    <div className="flex pb-4  items-center">
+                                                    <div className="flex pb-2  items-center">
                                                         <h2 className="text-lg ">Dane związne z ocenianym stanowiskiem</h2>
                                                         <ChevronRightIcon className={open ? ' w-9 rotate-90 transform text-zielony-1 ' : 'w-9 text-zielony-1  '} />
                                                     </div>
@@ -330,7 +331,7 @@ function Home() {
                                                 <Disclosure.Panel>
                                                     <div className="flex flex-col md:w-3/4">
                                                         {/* input */}
-                                                        <div className="flex pb-4 justify-between w-full    ">
+                                                        <div className="flex pb-2 justify-between w-full    ">
                                                             <div className="flex items-center  ">
                                                                 <label className={`text-xl font-semibold ${isFocusedFirma ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Firma</label>
                                                             </div>
@@ -347,7 +348,7 @@ function Home() {
                                                             />
                                                         </div>
                                                         {/* input */}
-                                                        <div className="flex pb-4 justify-between w-full    ">
+                                                        <div className="flex pb-2 justify-between w-full    ">
                                                             <div className="flex items-center  ">
                                                                 <label className={`text-xl font-semibold ${isFocusedStanowisko ? "text-zielony-1" : "text-niebieski-6"}  pr-6`}>Stanowisko</label>
                                                             </div>
@@ -395,31 +396,35 @@ function Home() {
                             }
                         </div>
                         {/*  */}
-                        <div className="flex w-full md:pt-4">
+                        <div className="flex w-full md:pt-2">
                             {tablicaCzynnosci.length == 0 ?
                                 <div className="hidden w-[10%]   md:flex   items-center  "><h2 className="text-7xl text-zielony-1 pl-2">2.</h2>
                                 </div> : null}
                             {tablicaCzynnosci.length == 0 ?
-                                <div className="flex flex-col md:flex-row  md:w-[90%] text-niebieski-10    pt-10 ">
+                                <div className="flex flex-col md:flex-row  md:w-[90%] text-niebieski-10    pt-6 ">
                                     <div className="flex flex-col w-full  justify-between items-start  md:pr-16">
-                                        <h2 className="text-2xl pb-4  text-niebieski-10  ">Rejestrujemy kolejne czynności wykonywane przez pracownika w trakcie dnia roboczego.</h2>
-                                        <h2 className="text-2xl   text-niebieski-10  ">Dla wykonywanej jednostkowej czynności określamy:</h2>
-                                        <li className="text-2xl   text-niebieski-10  ">czas jej wykonywania,</li>
-                                        <li className="text-2xl   text-niebieski-10  ">charakterystyczną pozycję ciała,</li>
-                                        <li className="text-2xl   text-niebieski-10  ">partię ciała wykonującą czynność.</li>
-                                        <div className="flex flex-col md:flex-row items-center w-full pt-6">
-                                            <h2 className="text-xl font-bold">Wynik wydatku możesz uzyskać w kJ lub kcal</h2>
+                                        <h2 className="text-xl pb-4  text-niebieski-10  ">Rejestrujemy kolejne czynności wykonywane przez pracownika w trakcie dnia roboczego.</h2>
+                                        <h2 className="text-xl   text-niebieski-10  ">Dla wykonywanej jednostkowej czynności określamy:</h2>
+                                        <li className="text-xl   text-niebieski-10  ">czas jej wykonywania,</li>
+                                        <li className="text-xl   text-niebieski-10  ">charakterystyczną pozycję ciała,</li>
+                                        <li className="text-xl   text-niebieski-10  ">partię ciała wykonującą czynność.</li>
+                                        <div className="flex flex-col md:flex-row items-center w-full pt-4">
+                                            <h2 className="text-xl font-bold">Wynik możesz uzyskać w kJ lub kcal</h2>
                                             {/* button kcal/kJ */}
                                             <div className="flex p-4">
                                                 {tablicaCzynnosci.length == 0 ?
                                                     <div className="flex w-[200px]   text-niebieski-9    ">
                                                         <button
-                                                            onClick={() => setKcal(!kcal)}
+                                                            onClick={() => dispatch(daneDoWyniku({
+                                                                kcal: !kcal
+                                                            }))}
                                                             className={`w-1/2 h-full py-4 font-bold  rounded-l-md disabled:bg-szary-5 ${kcal ? "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300" : "bg-zielony-1 "}`}>
                                                             kcal
                                                         </button>
                                                         <button
-                                                            onClick={() => setKcal(!kcal)}
+                                                            onClick={() => dispatch(daneDoWyniku({
+                                                                kcal: !kcal
+                                                            }))}
                                                             className={`w-1/2 font-bold h-full rounded-r-md   disabled:bg-szary-5 ${kcal ? "bg-zielony-1" : "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300"}`}>
                                                             kJ
                                                         </button>
@@ -569,11 +574,7 @@ function Home() {
                         </div>
                     </div> : null
                 }
-            </div>
-            <div>
-
-
-            </div>
+            </div>             
         </>
     )
 }

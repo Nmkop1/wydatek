@@ -8,7 +8,7 @@ import {
 } from 'react-tippy';
 import { useRouter } from 'next/navigation'
 
-function OcenaWydatkuWomenKcal({ sumaWydatkuMin, sumaWydatkuMax, openDrukuj, setOpenDrukuj }) {
+function OcenaWydatkuWomenKcal({ sumaWydatkuMin, sumaWydatkuMax }) {
     const GaugeComponent = dynamic(() => import('react-gauge-component'), { ssr: false });
     const between = (x, min, max) => {
         return x >= min && x <= max;
@@ -232,17 +232,17 @@ function OcenaWydatkuWomenKcal({ sumaWydatkuMin, sumaWydatkuMax, openDrukuj, set
                 </div>
                 <div className="hidden md:flex flex-col pt-8 items-center w-full h-1/2   ">
 
-                    {wydatekMaxKobiety > 4605 ?
+                    {wydatekMaxKobiety > 1100 ?
                         <div className="   flex  w-full">
-                            <PiHamburger className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]   w-1/5        `} />
+                            <PiHamburger className={`${wydatekMaxKobiety > 1000 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]   w-1/5        `} />
                             <div className="flex items-center w-3/4 p-2">
-                                <p className={` text-lg ${wydatekMaxKobiety > 4605 ? "text-zielony-1" : "text-szary-5"}  `}> {wydatekMaxKobiety > 4605 ? "obowiązek zapewnienia posiłków profilaktycznych w każdych warunkach" : "nie ma obowiązku zapewnienia"} </p>
+                                <p className={` text-lg ${wydatekMaxKobiety > 1100 ? "text-zielony-1" : "text-szary-5"}  `}> {wydatekMaxKobiety > 1100 ? "obowiązek zapewnienia posiłków profilaktycznych w każdych warunkach" : "nie ma obowiązku zapewnienia"} </p>
                             </div>
                         </div> :
                         <div className="  flex  items-center   w-full">
-                            <PiHamburger className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]    w-1/5`} />
-                            <div className={`flex flex-col items-center    w-3/4 p-2 text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}`} >
-                                {wydatekMaxKobiety > 4187 ?
+                            <PiHamburger className={`${wydatekMaxKobiety > 1000 ? "text-zielony-1" : "text-szary-5"} p-2 h-[100px]    w-1/5`} />
+                            <div className={`flex flex-col items-center    w-3/4 p-2 text-lg ${wydatekMaxKobiety > 1000 ? "text-zielony-1" : "text-szary-5"}`} >
+                                {wydatekMaxKobiety > 1000 ?
                                     <>
                                         <p className="self-start">obowiązek zapewnienia posiłków profilaktycznych: </p>
                                         <li>gdy prace wykonywane są w pomieszczeniach zamkniętych, w których temperatura wynosi poniżej 10<sup>o</sup>C lub
@@ -260,14 +260,14 @@ function OcenaWydatkuWomenKcal({ sumaWydatkuMin, sumaWydatkuMax, openDrukuj, set
                                         <li className="pt-2">gdy prace wykonywane są na otwartej przestrzeni w okresie zimowym.</li>
                                     </>
                                     :
-                                    <p className={`self-start text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}    `}>nie ma obowiązku zapewnienia posiłków</p>}
+                                    <p className={`self-start text-lg ${wydatekMaxKobiety > 1000 ? "text-zielony-1" : "text-szary-5"}    `}>nie ma obowiązku zapewnienia posiłków</p>}
                             </div>
                         </div>
                     }
                     <div className="  flex     w-full">
-                        <MdOutlineEmojiFoodBeverage className={`${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"} p-2  h-[100px]   w-1/5        `} />
+                        <MdOutlineEmojiFoodBeverage className={`${wydatekMaxKobiety > 1000 ? "text-zielony-1" : "text-szary-5"} p-2  h-[100px]   w-1/5        `} />
                         <div className="flex items-center w-3/4 p-2">
-                            <p className={` text-lg ${wydatekMaxKobiety > 4187 ? "text-zielony-1" : "text-szary-5"}  `}> {wydatekMaxKobiety > 4187 ? "obowiązek zapewnienia napojów profilaktycznych " : "nie ma obowiązku zapewnienia napojów"} </p>
+                            <p className={` text-lg ${wydatekMaxKobiety > 1000 ? "text-zielony-1" : "text-szary-5"}  `}> {wydatekMaxKobiety > 1000 ? "obowiązek zapewnienia napojów profilaktycznych " : "nie ma obowiązku zapewnienia napojów"} </p>
                         </div>
                     </div>
                 </div>

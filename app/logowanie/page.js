@@ -34,7 +34,7 @@ function App() {
                 dispatch(logout());
             }
         });
-        console.log('page loaded');
+
     }, []);
     const logoutOfApp = () => {
         dispatch(setLoading(true))
@@ -118,34 +118,37 @@ function App() {
             <ToastContainer />
 
 
-            <div className='flex flex-col md:flex-row items-center justify-center overflow-hidden w-full h-[calc(100vh_-_92px)]'>
+            <div className='flex flex-col md:flex-row items-center justify-center overflow-hidden w-full h-[calc(100vh_-_85px)]'>
                 <div className='flex items-center justify-center w-[95%] md:w-1/2 h-screen'>
 
                     {loading ? <Spinner /> : user ?
                         <div className='flex   flex-col   '>
                             <h1 className='text-2xl text-center text-niebieski-7'>Jesteś zalogowany jako <span className='font-bold text-niebieski-3'>{user.email}</span>
                             </h1>
-                            <div className='pt-10 w-full flex justify-end'>
-                                <div className="  w-1/3  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
-                                    onClick={logoutOfApp}>
-                                    <h2 className="transition duration-300">Wyloguj</h2>
-                                </div>
+                            <div className='flex justify-end w-full   pt-10 '>
+                       
+                                    <div className="  w-1/3  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
+                                        onClick={logoutOfApp}>
+                                        <h2 className="transition duration-300">Wyloguj</h2>
+                                    </div>
+                          
+                             
+                                    <div className="  w-1/3  h-full ml-6  flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
+                                        onClick={() => setOpenModal(true)}
+                                    >
+                                        <h2 className="transition duration-300">Usuń</h2>
+                                    </div>
+
+
+
+                            
                             </div>
-                            <div className='pt-10 w-full flex justify-end'>
-                                <div className="  w-1/3  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
-                                    onClick={() => setOpenModal(true)}
-                                >
-                                    <h2 className="transition duration-300">Usuń</h2>
-                                </div>
 
-
-
-                            </div>
                         </div>
-                        : 
+                        :
                         <SignIn />
-                    
-                        
+
+
                     }
                 </div>
 
@@ -181,14 +184,14 @@ function App() {
                                         Czy na pewno chcesz usunąć konto?
                                     </h2>
                                     <p className="text-sm text-textAccent px-4">
-                                       Przed usunięciem musisz podać hasło logowania. 
+                                        Przed usunięciem musisz podać hasło logowania.
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <form onSubmit={onSubmit} className="flex  flex-col px-4 w-full    justify-between  ">
                             <div>
-                                <Input                                   
+                                <Input
                                     type={'password'}
                                     id='password'
                                     value={password}
@@ -213,7 +216,7 @@ function App() {
                                 <h1>NIE</h1>
                             </button>
                         </div>
-                       
+
                     </div>
 
                 </div>

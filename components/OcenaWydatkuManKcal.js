@@ -104,8 +104,10 @@ function OcenaWydatkuManKcal({ sumaWydatkuMin, sumaWydatkuMax }) {
     }
 
     return (
-        <div className="w-full flex h-full  items-center flex-col">
-            <IoManOutline className=" h-[130px]  md:h-[20%] w-full   text-niebieski-2   py-6" />
+        <div className="w-full flex  h-full   items-center flex-col">
+            <div className="flex justify-center h-[130px]   md:h-[20%] w-full">
+                <IoManOutline className=" w-[20%] h-full      text-niebieski-2   pb-6" />
+            </div>
             <div className="flex flex-col  w-full   ">
                 <div className="flex w-full justify-center pb-4 text-xl">
                     <p >STOPIEŃ CIĘŻKOŚCI PRACY</p>

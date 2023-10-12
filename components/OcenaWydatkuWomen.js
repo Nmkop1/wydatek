@@ -89,7 +89,6 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
     switch (functionWithSwitchWomen1(wydatekMaxKobiety)) {
         case "bardzo lekka":
             bg1 = "text-wykres-1";
-
             break;
         case "lekka":
             bg1 = "text-wykres-2";
@@ -158,7 +157,7 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                                 arc={{
 
                                     colorArray: ['#5BE12C', '#EA4228'],
-                                    subArcs: [{ limit: 837 }, { limit: 2930 }, { limit: 4187 }, { limit: 5024 }, {}],
+                                    subArcs: [{ limit: 837 }, { limit: 2930 }, { limit: 4187 }, { limit: 5024 }, { }],
                                     padding: 0.02,
                                     width: 0.3,
 
@@ -182,7 +181,10 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
 
                                 labels={{
                                     valueLabel:
-                                        { formatTextValue: value => value + ` kJ`, matchColorWithArc: true, maxDecimalDigits: 1, },
+                                    {
+                                        formatTextValue: value => value + ` kJ`, matchColorWithArc: true,
+                                        maxDecimalDigits: 1,
+                                    },
 
                                     tickLabels: {
 
@@ -202,12 +204,13 @@ function OcenaWydatkuWomen({ sumaWydatkuMin, sumaWydatkuMax }) {
                                     colorArray: ['#5BE12C', '#EA4228'],
                                     subArcs: [{ limit: 837 }, { limit: 2930 }, { limit: 4187 }, { limit: 5024 }, {}],
                                     padding: 0.02,
-                                    width: 0.3
+                                    width: 0.3,
+
                                 }}
                                 pointer={{
                                     type: "arrow",
                                     color: " #fff",
-                                    length: 1,
+                                    length: .3,
 
                                     elastic: true,
                                     animationDelay: 0

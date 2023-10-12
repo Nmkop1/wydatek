@@ -112,7 +112,6 @@ function OcenaWydatkuMan({ sumaWydatkuMin, sumaWydatkuMax }) {
                 <div className="flex w-full justify-center pb-4 text-xl">
                     <p >STOPIEŃ CIĘŻKOŚCI PRACY</p>
                 </div>
-
                 <div className="w-full flex-col flex ">
                     <div className="flex flex-col md:flex-row">
                         <div className="  flex  justify-center items-center">
@@ -217,9 +216,6 @@ function OcenaWydatkuMan({ sumaWydatkuMin, sumaWydatkuMax }) {
                         }
                     </div>
                 </div>
-
-
-
             </div>
 
             <div className="hidden md:flex flex-col pt-8 items-center w-full     ">

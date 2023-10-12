@@ -40,7 +40,7 @@ function SignUp({ setLogowanie }) {
   };
   const onSubmit = async (e) => {
     e.preventDefault()
-
+    dispatch(setLoading(true))
     try {
       const auth = getAuth()
 
@@ -69,6 +69,7 @@ function SignUp({ setLogowanie }) {
 
 
         }))
+        dispatch(setLoading(false))
         toast.success(`Zarejestrowany ${response.user.email}`, {
           position: "bottom-right",
           autoClose: 2000,
@@ -105,7 +106,7 @@ function SignUp({ setLogowanie }) {
 
       console.log(errorMessage)
 
-
+      dispatch(setLoading(false))
     }
 
   }
@@ -211,8 +212,7 @@ function SignUp({ setLogowanie }) {
                    REGULAMIN
                   </h2>
                   <p className="text-sm text-textAccent px-4">
-                    Wszystkie dane zostaną trwale usunięte. Tej czynności
-                    nie można cofnąć.
+                    dfsdfsdfsdf sdfsdfsdf sdfdsfds fdsd sd fdsf dsf sdfds fd dsf 
                   </p>
                 </div>
               </div>

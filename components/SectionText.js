@@ -91,12 +91,12 @@ const WrapText = styled.div`
     padding: 0 5%;
   }
 `
-const SectionText = ({ opis }) => {
+const SectionText = ({ children }) => {
  
   // <section className='w-full flex justify-center py-8  '>
   return (
     <section className='w-full flex justify-center py-8 gradient-05 backdrop-blur-sm '>
-      {/* <WrapText>{opis}</WrapText> */}
+      <WrapText>{children}</WrapText>
     </section>
   )
 }
