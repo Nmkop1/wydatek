@@ -26,7 +26,7 @@
 }
 
 body {
-  
+ box-sizing: border-box;
   
 }
 /* pasek przewoijania */

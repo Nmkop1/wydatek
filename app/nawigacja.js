@@ -13,7 +13,7 @@ function Nawigacja() {
     const navigation = [
         { name: "Główna", href: "/", current: true },
         { name: "Wydatek", href: "/wydatek", current: false },
-        // { name: "Informacje", href: "/info", current: false },
+        { name: "Wymiar", href: "/wymiar", current: false },
         { name: "Login", href: "/logowanie", current: false },
      
     ];

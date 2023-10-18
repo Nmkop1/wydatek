@@ -55,7 +55,7 @@ function Wydruk() {
                                    
                                     fill
                                     alt="Picture of the author"
-                                    className="cursor-pointer object-contain"
+                                    className=" object-contain"
                                 />
                             </div>
                         </div>
