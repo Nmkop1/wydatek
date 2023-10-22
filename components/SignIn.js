@@ -19,7 +19,7 @@ import Spinner from "../components/Spinner"
 
 function SignIn({ bezCofania }) {
   const dispatch = useDispatch();
-  const router = useRouter()
+ 
   const loading = useSelector(state => state.loading.loading)
  
   const [logowanie, setLogowanie] = useState(true)

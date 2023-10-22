@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
-import { useDispatch, useSelector } from "react-redux"; 
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth' 
 import Input from './Input'
 import { ToastContainer, toast } from 'react-toastify';
  
 
 function ResetPassword({ setResetHaslo }) {
   const [email, setEmail] = useState('')
-  const dispatch = useDispatch();
+ 
   const onChange = (e) => setEmail(e.target.value)
   // const { loading } = useSelector((state) => state.auth)
 

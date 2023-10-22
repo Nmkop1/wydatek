@@ -1,17 +1,22 @@
 'use client'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Pdf from "../../components/Pdf"
+import PdfWydatek from "../../components/PdfWydatek"
+import PdfWymiar from "../../components/PdfWymiar"
 import { login, logout, selectUser } from '../GlobalRedux/Features/counter/userSlice';
 import { auth, onAuthStateChanged } from '../../firebase/config';
- 
+import {  useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import SignIn from "../../components/SignIn"
 import wydatek from '../../public/wydatek.png'
+
 function Wydruk() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
-
+    const searchParams  = useSearchParams()
+    const results  = searchParams.get("pdf")
+    const pdf = JSON.parse(results)
+    
     useEffect(() => {
         onAuthStateChanged(auth, (userAuth) => {
             if (userAuth) {
@@ -27,6 +32,33 @@ function Wydruk() {
         });
         console.log('page loaded');
     }, []);
+  
+    const functionPdf = (pdf) => {
+
+        switch (true) {
+            case (pdf==="wydatek"):
+                return <PdfWydatek/>
+
+            case (pdf === "wymiar"):
+                return <PdfWymiar/>
+
+            // case (between(parameter, 2930, 4186)):
+            //     return "umiarkowana"
+
+            // case (between(parameter, 4187, 5024)):
+            //     return "ciężka"
+
+            // case (parameter > 5024):
+            //     return "bardzo ciężka"
+
+            default:
+                return <h3 className=" text-base font-bold text-zielony-3">
+                    zero
+                </h3>
+        }
+    }
+
+
 
     return (
         <>
@@ -60,7 +92,7 @@ function Wydruk() {
                             </div>
                         </div>
                     </div>
-                    : <Pdf />
+                    : functionPdf(pdf)
                 }
             </div>
         </>

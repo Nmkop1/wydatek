@@ -36,8 +36,8 @@ function Home() {
     let [sumaWydatkuMax, setSumaWydatkuMax] = useState(null)
     let [sumaCzasu, setSumaCzasu] = useState([])
     const [openDrukuj, setOpenDrukuj] = useState(true);
- 
-    const {formDataRedux, kcal } = useSelector(state => state.wynik)
+
+    const { formDataRedux, kcal } = useSelector(state => state.wynik)
     let przerwa = null
     const [formData, setFormData] = useState({
         stanowisko: formDataRedux?.stanowisko,
@@ -210,7 +210,7 @@ function Home() {
         }))
         setOpenWynik(true)
     }
-    console.log(formDataRedux)
+
     const onDelete = (id) => {
         dispatch(deleteCzynnosci(id))
     }
@@ -238,25 +238,23 @@ function Home() {
     return (
         <>
             <div className=" flex  min-h-[calc(100vh_-_85px)] flex-col  w-full  p-4 md:p-8">
-                <div className="flex w-full  flex-col ">
+                <div className="flex w-full  flex-col pb-2 ">
                     <div className="hidden md:flex w-[100%]  flex-col   text-niebieski-10 font-bold pr-16">
                         <h1 className="text-5xl pb-4 text-zielony-1">Kalkulator wydatku energetycznego</h1>
-                        <h2 className="text-2xl leading-9 pb-2">W kilku krokach obliczysz i wydrukujesz  wydatek energetyczny na wybranym stanowisku pracy.</h2>
+                        <h2 className="text-2xl leading-9 pb-2">Za pomocą kalulatora wydatek energetyczny na wybranym stanowisku pracy.</h2>
                     </div>
                 </div>
-                <div className="w-full flex flex-col md:flex-row">
-                    <div className="  md:w-2/3 flex flex-col">
+                <div className="w-full flex flex-col md:flex-row ">
+                    <div className="  md:w-1/2 flex flex-col">
                         {/* kolumma z firma/stanowisko */}
-                        <div className="flex w-full">
+                        <div className="flex w-full   bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4 mb-4">
                             {tablicaCzynnosci.length == 0 ?
                                 <>
-                                    <div className="hidden w-[10%]   md:flex   items-center  ">
-                                        <h2 className="text-7xl text-zielony-1 pl-2">1.</h2>
-                                    </div>
-                                    <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-2  ">
+
+                                    <div className="flex w-full flex-col       text-niebieski-10 pt-2  ">
                                         <div className="flex 2    flex-col">
                                             <h2 className="text-lg pb-2 ">Dane związane z ocenianym stanowiskiem</h2>
-                                            <div className="flex flex-col md:w-3/4">
+                                            <div className="flex flex-col ">
                                                 {/* input */}
                                                 <div className="flex pb-2 justify-between w-full    ">
                                                     <div className="flex items-center  ">
@@ -271,7 +269,7 @@ function Home() {
                                                         onChange={onMutate}
                                                         onFocus={() => setIsFocusedFirma(true)}
                                                         onBlur={() => setIsFocusedFirma(false)}
-                                                        className="w-full px-4 py-2 transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
+                                                        className="w-full  transition duration-300 border bg-itemTlo border-niebieski-7 rounded   focus:bg-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-zielony-1"
                                                     />
                                                 </div>
                                                 {/* input */}
@@ -319,7 +317,7 @@ function Home() {
                                     </div>
                                 </>
                                 :
-                                <div className="flex w-full md:w-[90%]  flex-col       text-niebieski-10 pt-2  ">
+                                <div className="flex w-full flex-col       text-niebieski-10 pt-2  ">
                                     <Disclosure>
                                         {({ open }) => (
                                             <>
@@ -397,54 +395,55 @@ function Home() {
                             }
                         </div>
                         {/*  */}
-                        <div className="flex w-full md:pt-2">
-                            {tablicaCzynnosci.length == 0 ?
-                                <div className="hidden w-[10%]   md:flex   items-center  "><h2 className="text-7xl text-zielony-1 pl-2">2.</h2>
-                                </div> : null}
-                            {tablicaCzynnosci.length == 0 ?
-                                <div className="flex flex-col md:flex-row  md:w-[90%] text-niebieski-10    pt-6 ">
+                        {tablicaCzynnosci.length == 0 ?
+                            <div className="flex w-full  py-2   bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4">
+
+
+                                <div className="flex flex-col md:flex-row    text-niebieski-10      ">
                                     <div className="flex flex-col w-full  justify-between items-start  md:pr-16">
                                         <h2 className="text-xl pb-4  text-niebieski-10  ">Rejestrujemy kolejne czynności wykonywane przez pracownika w trakcie dnia roboczego.</h2>
                                         <h2 className="text-xl   text-niebieski-10  ">Dla wykonywanej jednostkowej czynności określamy:</h2>
                                         <li className="text-xl   text-niebieski-10  ">czas jej wykonywania,</li>
                                         <li className="text-xl   text-niebieski-10  ">charakterystyczną pozycję ciała,</li>
                                         <li className="text-xl   text-niebieski-10  ">partię ciała wykonującą czynność.</li>
-                                        <div className="flex flex-col md:flex-row items-center w-full pt-4">
-                                            <h2 className="text-xl font-bold">Wynik możesz uzyskać w kJ lub kcal</h2>
-                                            {/* button kcal/kJ */}
-                                            <div className="flex p-4">
-                                                {tablicaCzynnosci.length == 0 ?
-                                                    <div className="flex w-[200px]   text-niebieski-9    ">
-                                                        <button
-                                                            onClick={() => dispatch(daneDoWyniku({
-                                                                kcal: !kcal
-                                                            }))}
-                                                            className={`w-1/2 h-full py-4 font-bold  rounded-l-md disabled:bg-szary-5 ${kcal ? "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300" : "bg-zielony-1 "}`}>
-                                                            kcal
-                                                        </button>
-                                                        <button
-                                                            onClick={() => dispatch(daneDoWyniku({
-                                                                kcal: !kcal
-                                                            }))}
-                                                            className={`w-1/2 font-bold h-full rounded-r-md   disabled:bg-szary-5 ${kcal ? "bg-zielony-1" : "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300"}`}>
-                                                            kJ
-                                                        </button>
-                                                    </div> : null
-                                                }
-                                            </div>
-                                        </div>
+
                                     </div>
-                                </div> : null
-                            }
-                        </div>
+                                </div>
+
+                            </div> : null}
                     </div>
                     {tablicaCzynnosci.length == 0 ?
-                        <div className="flex md:w-1/3 justify-center items-center">
+                        <div className="flex flex-col md:w-1/2 justify-around items-center">
                             <div className="flex text-niebieski-9 justify-center flex-col items-center cursor-pointer" onClick={() => setOpenDaneDoWydatku(!openDaneDoWydatku)} >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="  w-56 h-56 hover:text-zielony-1 transition duration-300">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                                 </svg>
                                 <p className="text-xl"> DODAJ CZYNNOŚĆ</p>
+                            </div>
+                            <div className="flex flex-col    items-center w-full ">
+
+                                {/* button kcal/kJ */}
+                                <div className="flex   ">
+                                    {tablicaCzynnosci.length == 0 ?
+                                        <div className="flex w-[200px]   text-niebieski-9    ">
+                                            <button
+                                                onClick={() => dispatch(daneDoWyniku({
+                                                    kcal: !kcal
+                                                }))}
+                                                className={`w-1/2 h-full py-4 font-bold  rounded-l-md disabled:bg-szary-5 ${kcal ? "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300" : "bg-zielony-1 "}`}>
+                                                kcal
+                                            </button>
+                                            <button
+                                                onClick={() => dispatch(daneDoWyniku({
+                                                    kcal: !kcal
+                                                }))}
+                                                className={`w-1/2 font-bold h-full rounded-r-md   disabled:bg-szary-5 ${kcal ? "bg-zielony-1" : "bg-niebieski-9 text-niebieski-6 hover:bg-niebieski-6 hover:text-niebieski-9 transition duration-300"}`}>
+                                                kJ
+                                            </button>
+                                        </div> : null
+                                    }
+                                </div>
+                                <h2 className="text-xl  ">Wynik możesz uzyskać w kJ lub kcal</h2>
                             </div>
                         </div> : null}
                 </div>
@@ -575,36 +574,37 @@ function Home() {
                         </div>
                     </div> : null
                 }
-            </div>  <SectionText >
+            </div>
 
-                <h1>Wydatek energetyczny</h1>
-                <h2 id='Podstawa wynagrodzenia'>Pojęcie</h2>
-                <h4>Pod pojęciem wydatku energetycznego rozumiemy ilość energii produkowanej przez organizm podczas wykonywania pracy fizycznej. Wielkość wydatkowanej energii podawana jest w jednostkach pracy: kcal/min lub kJ/min.</h4>
+            <section className='w-full flex justify-center py-8 gradient-05 backdrop-blur-sm '>
+                <div className='flex max-w-[90%] md:max-w-[80%] flex-col'> 
 
-
-                <h2 id="Współczynnik urlopowy">Metody pomiarowe</h2>
-                <h4>Istnieje wiele metod pomiaru wydatku energetycznego. Metody te są bardzo zróżnicowane, począwszy od najprostszych: chronometrażowo-tabelarycznych, skończywszy na bardziej skomplikowanych i kosztownych – metodach kalorymetrii pośredniej lub bezpośredniej, wymagających specjalistycznej aparatury.</h4>
-
-                <h2 id="Część etatu">Pomiar wydatku energetycznego metodą Lehmanna</h2>
-                <h4>Jedną z najprostszych jest metoda chronometrażowo-tabelaryczna wg.Lehmanna, o którą oparto wyliczenie wydatku energetycznego na naszej stronie. Metoda ta polega na przeprowadzeniu  &#34;fotografii dnia pracy&#34; pracownika, tj. sporządzenia zestawienia wszystkich czynności wykonanych przez pracownika w ciągu zmiany roboczej, z uwzględnieniem  zajmowanej podczas pracy pozycji ciała oraz rodzaju wykorzystywanych przy wysiłku grup mięśniowych. Po zsumowaniu wszystkich wartości, w całym cyklu roboczym, uzyskujemy wynik (kJ/8h lub kcal/8h), tj. koszt energetyczny wyrażający pracę mechaniczną w trakcie zmiany roboczej.</h4>
-                <h4>Z uwagi na mniejszą masę mięśniową kobiet w stosunku do mężczyzn, ich wydatek energetyczny związany z obciążeniem fizycznym pracą jest również mniejszy o ok. 20%, zatem należy przyjąć pewien współczynnik korygujący, który wynosi 0,8  [G. Lehmann - Praktyczna fizjologia pracy. PZWL, Warszawa 1966]</h4>
-                <h4>Wyliczenia naszego kalkulatora odnoszą się do pracy wykonywanej w warunkach umiarkowanego środowiska termicznego. W przypadku środowiska gorącego wydatek energetyczny jest wyższy o ok. 12 %, a środowiska zimnego ok. 10 %.</h4>
-                <h2 id="Wymiar czasu pracy">Zalety i wady metody Lehmanna</h2>
-                <h4>Zaletą metody jest szybkość i łatwość jej stosowania. Wykonując ocenę wydatku nie zakłócamy przebiegu pracy pracowników. Metoda obarczona jest jednak pewnym błędem pomiarowym, możliwym jednak do zaakceptowania, bowiem wartość wydatku podawana jest w przedziale min-max. Metoda ta nie uwzględnia także warunków środowiska pracy, takich jak temperatura i wilgotność powietrza.</h4>
+                <h1 className="h1Text">Wydatek energetyczny</h1>
+                <h2 id='Podstawa wynagrodzenia' className="h2Text">Pojęcie</h2>
+                <h4 className="h4Text">Pod pojęciem wydatku energetycznego rozumiemy ilość energii produkowanej przez organizm podczas wykonywania pracy fizycznej. Wielkość wydatkowanej energii podawana jest w jednostkach pracy: kcal/min lub kJ/min.</h4>
 
 
-                <h2 id="Norma czasu pracy">Zgodność z przepisami</h2>
-                <h4>Obowiązujące przepisy prawa nie regulują kto i jaką metodą powinien przeprowadzić ocenę wydatku energetycznego.</h4>
-                <h4>Dopełniliśmy wszelkich starań aby wyliczenia kalkulatora wydatku były zgodne z założeniami metody G.Lehmanna.</h4>
-                <h4 style={{ color: "#C62828" }}> Nie ponosimy odpowiedzialności za poprawność wyników oraz prawidłowość identyfikacji czynności i czasu wykonywania tych czynności na ocenianych stanowiskach pracy.</h4>
+                <h2 id="Współczynnik urlopowy" className="h2Text">Metody pomiarowe</h2>
+                <h4 className="h4Text">Istnieje wiele metod pomiaru wydatku energetycznego. Metody te są bardzo zróżnicowane, począwszy od najprostszych: chronometrażowo-tabelarycznych, skończywszy na bardziej skomplikowanych i kosztownych – metodach kalorymetrii pośredniej lub bezpośredniej, wymagających specjalistycznej aparatury.</h4>
 
-                <h2 id="Wymiar czasu pracy">Kalkulator technicznie</h2>
-                <h4>Kalkulator wydatku energetycznego jest w pełni responsywny, tj. prawidłowo wyświetlają się na komputerach, tabletach i smartfonach i automatycznie dostosowując się do urządzeń na których są wyświetlane. Kalkulator napisane są w oparciu o framework Next.JS i bibliotekę React, co zapewnia bardzo szybkie jego działanie.</h4>
-                <h4>
-                    Kalkulator prawidłowo wyświetlają się w najnowszych przeglądarkach: Chrome, Edge, Opera, Firefox. Pewne problemy mogą wystąpić w starszych przeglądarkach Internet Explorer, w związku z tym nie zalecamy używania tej przeglądarki do wyświetlania kalkulatorów urlopowych.
-                </h4>
+                <h2 id="Część etatu" className="h2Text">Pomiar wydatku energetycznego metodą Lehmanna</h2>
+                <h4 className="h4Text">Jedną z najprostszych jest metoda chronometrażowo-tabelaryczna wg.Lehmanna, o którą oparto wyliczenie wydatku energetycznego na naszej stronie. Metoda ta polega na przeprowadzeniu  &#34;fotografii dnia pracy&#34; pracownika, tj. sporządzenia zestawienia wszystkich czynności wykonanych przez pracownika w ciągu zmiany roboczej, z uwzględnieniem  zajmowanej podczas pracy pozycji ciała oraz rodzaju wykorzystywanych przy wysiłku grup mięśniowych. Po zsumowaniu wszystkich wartości, w całym cyklu roboczym, uzyskujemy wynik (kJ/8h lub kcal/8h), tj. koszt energetyczny wyrażający pracę mechaniczną w trakcie zmiany roboczej.</h4>
+                <h4 className="h4Text">Z uwagi na mniejszą masę mięśniową kobiet w stosunku do mężczyzn, ich wydatek energetyczny związany z obciążeniem fizycznym pracą jest również mniejszy o ok. 20%, zatem należy przyjąć pewien współczynnik korygujący, który wynosi 0,8  [G. Lehmann - Praktyczna fizjologia pracy. PZWL, Warszawa 1966]</h4>
+                <h4 className="h4Text">Wyliczenia naszego kalkulatora odnoszą się do pracy wykonywanej w warunkach umiarkowanego środowiska termicznego. W przypadku środowiska gorącego wydatek energetyczny jest wyższy o ok. 12 %, a środowiska zimnego ok. 10 %.</h4>
+                <h2 id="Wymiar czasu pracy" className="h2Text">Zalety i wady metody Lehmanna</h2>
+                <h4 className="h4Text">Zaletą metody jest szybkość i łatwość jej stosowania. Wykonując ocenę wydatku nie zakłócamy przebiegu pracy pracowników. Metoda obarczona jest jednak pewnym błędem pomiarowym, możliwym jednak do zaakceptowania, bowiem wartość wydatku podawana jest w przedziale min-max. Metoda ta nie uwzględnia także warunków środowiska pracy, takich jak temperatura i wilgotność powietrza.</h4>
 
-            </SectionText>             
+
+                <h2 id="Norma czasu pracy" className="h2Text">Zgodność z przepisami</h2>
+                <h4 className="h4Text">Obowiązujące przepisy prawa nie regulują kto i jaką metodą powinien przeprowadzić ocenę wydatku energetycznego.</h4>
+                <h4 className="h4Text">Dopełniliśmy wszelkich starań aby wyliczenia kalkulatora wydatku były zgodne z założeniami metody G.Lehmanna.</h4>
+                <h4 className="h4Text" style={{ color: "#C62828" }}> Nie ponosimy odpowiedzialności za poprawność wyników oraz prawidłowość identyfikacji czynności i czasu wykonywania tych czynności na ocenianych stanowiskach pracy.</h4>
+
+          
+
+            </div>
+            </section>
+          
         </>
     )
 }

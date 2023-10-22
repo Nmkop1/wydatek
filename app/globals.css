@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+ 
+ 
+  
 
-.kwadratButton{
-@apply flex items-center   justify-center w-[34px] h-[34px] bg-niebieski-2 rounded-sm  cursor-pointer  transition-colors mr-4 text-niebieski-6 hover:text-galeria hover:bg-niebieski-6  
-}
-.kwadratButtonActive{
-@apply flex items-center   justify-center w-[34px] h-[34px] bg-uwaga-1 bg-opacity-30  rounded-sm  cursor-pointer  transition-colors ml-3 text-error-2   hover:text-error-3 hover:bg-uwaga-1   
-}
-
-
+  .h1Text {
+    @apply text-[1.6rem] pt-[3vh] font-bold text-zielony-1  md:text-[50px] md:pt-[7vh];
+  }
+  .h2Text {
+    @apply text-[1.4rem] leading-[1.4] my-[0.5rem] font-bold text-zielony-1  md:text-[32px] pt-[2vh]  pb-[0.8vh]; md:pt-[4vh]  ; 
+  }
+ 
+    .h4Text  {
+    @apply  text-[16px] leading-[1.4]  pb-[.5rem] m-0 md:text-[21px]    text-justify  ; 
+  }
+ 
+  .liText{
+    @apply  text-[16px] leading-[1.4]  pr-[1%]   md:text-[21px]    text-justify  ; 
+  }
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

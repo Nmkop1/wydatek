@@ -36,7 +36,7 @@ function TransitionWraper({ children, open, setOpen, width, bg }) {
                             >
                                 <Dialog.Panel className="pointer-events-auto relative w-screen  ">
                              
-                                    <div className={`flex flex-col h-full w-full overflow-y-scroll md:overflow-hidden`}>
+                                    <div className={`flex flex-col h-full w-full overflow-y-scroll  `}>
                                          {/* ikona X */}
                                         <div className="  opacity-70 hover:opacity-100    flex items-center justify-end">
                                             <div

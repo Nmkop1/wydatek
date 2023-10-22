@@ -102,10 +102,26 @@ function SignUp({ setLogowanie }) {
           theme: "light",
         });
       }
+      if (error.code === 'auth/invalid-email') {
+        console.log('Adres e-mail musi zawierać "@"');
+        toast.error('Adres e-mail musi zawierać "@"', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else (
+        console.log('Coś poszło nie tak')
 
+      )
 
       console.log(errorMessage)
-
+      
       dispatch(setLoading(false))
     }
 

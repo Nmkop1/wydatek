@@ -14,7 +14,7 @@ const dane = [
       "W kilku krokach obliczysz wydatek energetyczny związany z wykonywaną pracą na wybranym stanowisku pracy. Pomiar wydatku energetycznego przeprowadzony jest w oparciu o prostą metodę Lehmanna.",
   },
   {
-    imgUrl: "/wymiar.png",
+    imgUrl: "/wymiar1.png",
     title: "Kalkulator wymiaru urlopu",
     titleImg: "Wymiar urlopu",
     routers: "/wymiar",
@@ -45,7 +45,7 @@ const router = useRouter()
       variants={fadeIn('up', 'spring', index * 0.5, 1)}
       className="flex md:flex-row flex-col      "
     >
-      <div className={`  bg-niebieski-6 w-[300px]  h-[300px]   rounded-lg flex items-center flex-col justify-center`} >
+      <div className={`  bg-niebieski-6 w-full md:w-[300px]  h-[300px]   rounded-lg flex items-center flex-col justify-center`} >
 
         <div className="relative   w-1/2   h-[60%]  ">
           <Image
@@ -60,8 +60,8 @@ const router = useRouter()
           {titleImg}
         </h2>
       </div>
-      <div className=" w-[calc(100%_-_300px)]    flex justify-between items-center">
-        <div className="flex-1 md:ml-[62px] flex flex-col  ">
+      <div className=" md:w-[calc(100%_-_300px)]    flex justify-between items-center">
+        <div className="flex-1 md:ml-[62px] flex flex-col  py-6">
           <h4 className="font-normal lg:text-[42px] text-[26px] text-niebieski-9  ">
             {title}
           </h4>
@@ -84,8 +84,8 @@ function Page() {
 
   return (
     <>
-      <section className='flex flex-col md:flex-row items-center justify-center  w-full h-[calc(100vh_-_85px)] p-6 md:p-32 bg-niebieski-7'>
-        <div className='flex flex-col w-2/3 items-start'>
+      <section className='flex flex-col md:flex-row items-center justify-center    h-[calc(100vh_-_85px)]  w-full p-6 md:p-32 bg-niebieski-7'>
+        <div className='flex flex-col  md:w-2/3 items-start'>
           <h1 className='text-white text-3xl md:text-7xl font-bold pb-2   '>Kalkulatory  do</h1>
           <h2 className='text-zielony-1 text-6xl md:text-8xl font-bold'> pracy </h2>
           <p className='text-white text-xl w-full md:w-[60%] pt-16 leading-9'>Pracuj zgodnie z przepisami, a my pomożemy Ci w tym wyliczając wydatek energetyczny i urlop wypoczynkowy.</p>
@@ -105,16 +105,19 @@ function Page() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: false, amount: 0.25 }}
-            className={`2xl:max-w-[1280px] w-full mx-auto flex flex-col`}
+            className={`2xl:max-w-[1280px] w-full mx-auto flex flex-col `}
           >
-            <motion.h2
+            <div className='flex   md:ml-[300px] justify-center'>
+                <motion.h2
               variants={textVariant2}
               initial="hidden"
               whileInView="show"
-              className={`mt-[8px] font-bold md:text-[64px] text-[40px] text-zielony-1  text-center`}
+              className={`mt-[8px]      font-bold md:text-[64px] text-[40px] text-zielony-1  `}
             >
               {<>Nasze kalkulatory</>}
             </motion.h2>
+            </div>
+          
 
             <div className="mt-[50px] flex flex-col gap-[30px]">
               {dane.map((item, index) => (
@@ -125,7 +128,14 @@ function Page() {
         </div>
       </section>
 
+<section>
 
+        <h2 id="Wymiar czasu pracy" className="h2Text">Kalkulator technicznie</h2>
+        <h4 className="h4Text">Kalkulator wydatku energetycznego jest w pełni responsywny, tj. prawidłowo wyświetlają się na komputerach, tabletach i smartfonach i automatycznie dostosowując się do urządzeń na których są wyświetlane. Kalkulator napisane są w oparciu o framework Next.JS i bibliotekę React, co zapewnia bardzo szybkie jego działanie.</h4>
+        <h4 className="h4Text">
+          Kalkulator prawidłowo wyświetlają się w najnowszych przeglądarkach: Chrome, Edge, Opera, Firefox. Pewne problemy mogą wystąpić w starszych przeglądarkach Internet Explorer, w związku z tym nie zalecamy używania tej przeglądarki do wyświetlania kalkulatorów urlopowych.
+        </h4>
+</section>
 
 
 

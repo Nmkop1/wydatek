@@ -6,15 +6,20 @@ import { setLoading } from '../GlobalRedux/Features/counter/loadingSlice';
 import Spinner from "../../components/Spinner"
 
 import { EmailAuthProvider, reauthenticateWithCredential, onAuthStateChanged, auth, deleteUser } from '../../firebase/config';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
+ 
 import { ToastContainer, toast } from 'react-toastify';
 import SignIn from "../../components/SignIn"
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import ResetPassword from '../../components/ResetPassword';
 function App() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const loading = useSelector(state => state.loading.loading)
     const [openModal, setOpenModal] = useState(false);
+    const [openModalReset, setOpenModalReset] = useState(false);
+    const [resetHaslo, setResetHaslo] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -111,7 +116,56 @@ function App() {
         setOpenModal(false)
 
     }
+    const onSubmitReset = async (e) => {
 
+        e.preventDefault()
+        // dispatch(authActions.setLoading(true))
+        try {
+            const auth = getAuth()
+            await sendPasswordResetEmail(auth, email)
+
+            console.log(`Link wysłay pod adres ${email}`);
+            toast.success(`Link wysłay pod adres ${email}`, {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+
+
+
+            setResetHaslo(false)
+            // dispatch(authActions.setLoading(false))
+        } catch (error) {
+            if (error.code === 'auth/user-not-found') {
+                console.log(`Nie znaleziono użytkownika`);
+                toast.warn(`Nie znaleziono użytkownika`, {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                // dispatch(authActions.setLoading(false))
+            }
+            else {
+                console.log(`coś nie tak`);
+                // dispatch(authActions.setLoading(false))
+            }
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage)
+        }
+
+    }
 
     return (
         <>
@@ -126,22 +180,30 @@ function App() {
                             <h1 className='text-2xl text-center text-niebieski-7'>Jesteś zalogowany jako <span className='font-bold text-niebieski-3'>{user.email}</span>
                             </h1>
                             <div className='flex justify-end w-full   pt-10 '>
-                       
-                                    <div className="  w-1/3  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
-                                        onClick={logoutOfApp}>
-                                        <h2 className="transition duration-300">Wyloguj</h2>
-                                    </div>
-                          
-                             
-                                    <div className="  w-1/3  h-full ml-6  flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
-                                        onClick={() => setOpenModal(true)}
-                                    >
-                                        <h2 className="transition duration-300">Usuń</h2>
-                                    </div>
+
+                                <div className="  w-1/3  h-full   flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={logoutOfApp}>
+                                    <h2 className="transition duration-300">Wyloguj</h2>
+                                </div>
+
+
+                                <div className="  w-1/3  h-full ml-6  flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={() => setOpenModal(true)}
+                                >
+                                    <h2 className="transition duration-300">Usuń</h2>
+                                </div>
+                                
+                                
+                                <div className="  w-1/3  h-full ml-6  flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-zielony-1 bg-niebieski-6  text-white cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={() => setOpenModalReset(true)}
+                                >
+                                    <h2 className="transition duration-300">Reset</h2>
+                                </div>
+                              
 
 
 
-                            
+
                             </div>
 
                         </div>
@@ -200,20 +262,75 @@ function App() {
                             </div>
                         </form>
                         <div className="bg-niebieski-6 px-4 py-3 sm:px-6 flex flex-row-reverse">
+                            <div className="flex    text-niebieski-10   ">
+                                <div className=" w-full  h-full  px-4 flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-error-3  bg-uwaga-3 text-white cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={onSubmit}>
+                                    <h2 className="transition duration-300">TAK</h2>
+                                </div>
+                            </div>
                             <button
                                 type="button"
-                                className="text-uwaga-3 bg-white rounded-sm flex items-center justify-center   hover:bg-uwaga-3 hover:text-white  transition-colors  font-medium   text-sm w-1/5 px-3 py-2.5 text-center  focus:outline-none  "
-                                onClick={onSubmit}
-                            >
-                                Tak
-                            </button>
-                            <button
-                                type="button"
-                                className="  text-text bg-white rounded-sm flex items-center justify-center hover:bg-niebieski-buttonHover hover:text-textPrimary  transition-colors font-medium text-sm w-1/5 px-3 py-2.5 text-center  mr-2  "
+                                className="    px-4 flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-niebieski-9  mr-4 text-white    cursor-pointer tracking-wider transition duration-300  "
                                 onClick={() => setOpenModal(false)}
+                      
+                            >
+                                <h1 className="transition duration-300">Anuluj</h1>
+                            </button>
+                       
+                        </div>
+
+                    </div>
+
+                </div>
+            </Modal>
+            <Modal
+                setOpenModal={setOpenModalReset}
+                openModal={openModalReset}>
+                <div className="w-full flex     rounded flex-col bg-white ">
+
+                    <div className="relative inline-block align-bottom bg-white rounded-sm text-left overflow-hidden shadow-xl transform transition-all   sm:align-middle sm:max-w-lg sm:w-full">
+                        <div className="bg-white px-4   py-2  pt-4  ">
+                            <div className="sm:flex sm:items-start">
+                                <div className="text-center   flex-auto justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 sm:w-16 sm:16 flex items-center text-error-2 mx-auto">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
+                                    </svg>
+
+                             
+                                    <h2 className="text-xl font-bold py-4 tex-text">
+                                        Zmiana hasła logowania
+                                    </h2>
+                                    <p className="text-sm text-textAccent px-4">
+                                        Podaj adres rejestracji swojego konta, na który wyślemy link do zmiany hasła.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <form onSubmit={onSubmit} className="flex  flex-col px-4 w-full   justify-between ">
+                            <div>
+                                <Input
+                                 
+                                    type="email"
+                                    id="email"
+                                    value={email}
+                                    onChange={onChange} />
+                            </div>
+                       
+                        </form>
+                        <div className="bg-niebieski-6 px-4 py-3 sm:px-6 flex flex-row-reverse">
+                            <div className="flex    text-niebieski-10   ">
+                                <div className=" w-full  h-full  px-4 flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-zielony-1 text-white    cursor-pointer tracking-wider transition duration-300  "
+                                    onClick={onSubmitReset}>
+                                    <h2 className="transition duration-300">Wyślij link</h2>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                className="    px-4 flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-niebieski-9  mr-4 text-white    cursor-pointer tracking-wider transition duration-300  "
+                                onClick={() => setOpenModalReset(false)}
                             // ref={cancelButtonRef}
                             >
-                                <h1>NIE</h1>
+                                <h1 className="transition duration-300">Anuluj</h1>
                             </button>
                         </div>
 
@@ -221,7 +338,6 @@ function App() {
 
                 </div>
             </Modal>
-
         </>
     );
 }

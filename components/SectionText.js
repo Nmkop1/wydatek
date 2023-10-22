@@ -79,24 +79,21 @@ const WrapText = styled.div`
   } 
   }
      span {
-  color:   ${theme.colors.czerwony} ;
+  color:   #C62828 ;
    
  }
  h3{
-  color:   theme.colors.czerwony ;
+  color:  #C62828   ;
  }
 
- @media only screen and ${theme.size.tablet} {
-    max-width:78%;
-    padding: 0 5%;
-  }
+ 
 `
 const SectionText = ({ children }) => {
  
   // <section className='w-full flex justify-center py-8  '>
   return (
     <section className='w-full flex justify-center py-8 gradient-05 backdrop-blur-sm '>
-      <WrapText>{children}</WrapText>
+      <div className='flex max-w-[80%] flex-col'>{children}</div>
     </section>
   )
 }
