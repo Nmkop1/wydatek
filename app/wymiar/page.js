@@ -205,7 +205,7 @@ export default function Wymiar(props) {
     const handlePopoverClose = () => {
         setAnchorEl(null);
     };
-    console.log(wyliczenie)
+ 
 
     const Wynik = ({ wyliczenie }) => {
         return (
@@ -277,7 +277,7 @@ export default function Wymiar(props) {
                         <h2 className=" text-2xl leading-9 pb-2">Kalkulator wylicza urlop wypoczynkowy za wyznaczony okres.</h2>
                     </div>
                 </div>
-                <div className="w-full flex flex-col py-4 bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4" >
+                <div className="w-full flex flex-col py-4 bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4 shadow-lg" >
                     <Disclosure>
                         {({ open }) => (
                             <>
@@ -455,9 +455,9 @@ export default function Wymiar(props) {
                     </Disclosure>
                 </div>
 
-                <div className="w-full h-1/3 flex-col md:flex-row mt-6  md:mt-0 flex">
+                <div className="w-full h-1/3 flex-col md:flex-row mt-6  md:mt-0 flex ">
 
-                    <div className="md:w-[60%] mb-6 md:mb-0 py-8 md:py-0 bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg flex justify-center items-center mt-[2%]">
+                    <div className="md:w-[60%] mb-6 md:mb-0 py-8 md:py-0 bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg flex justify-center items-center mt-[2%] shadow-lg">
                         {widok && <Wynik wyliczenie={wyliczenie} />}
                     </div>
 
@@ -531,7 +531,7 @@ export default function Wymiar(props) {
                     <h2 id="Osoby niepełnosprawne" className="h2Text">Osoby niepełnosprawne</h2>
                     <h4 className="h4Text">Osobie zaliczonej do znacznego lub umiarkowanego stopnia niepełnosprawności przysługuje dodatkowy urlop wypoczynkowy w wymiarze 10 dni roboczych w roku kalendarzowym.</h4>     
                     <h4 className="h4Text">Prawo do pierwszego urlopu dodatkowego osoba zaliczona do znacznego lub umiarkowanego stopnia niepełnosprawności nabywa po przepracowaniu jednego roku po dniu zaliczenia jej do jednego ze wskazanych stopni niepełnosprawności.</h4>
-                    <h4 className="h4Text">Dostęp do dodatkowych dni urlopu wypoczynkowego dla osoby niepełnosprawnej uzyskasz po zaznaczniu  osoby niepełnosprawne  w zakładce  więcej ustawień  </h4>
+                    <h4 className="h4Text">Dostęp do dodatkowych dni urlopu wypoczynkowego dla osoby niepełnosprawnej uzyskasz po zaznaczeniu &#34;osoby niepełnosprawne&#34;  w zakładce  &#34;więcej ustawień&#34;  </h4>
 
 
 

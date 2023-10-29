@@ -16,10 +16,10 @@ import { setLoading } from '../app/GlobalRedux/Features/counter/loadingSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from "../components/Spinner"
-
+ 
 function SignIn({ bezCofania }) {
   const dispatch = useDispatch();
- 
+  const router = useRouter()
   const loading = useSelector(state => state.loading.loading)
  
   const [logowanie, setLogowanie] = useState(true)
@@ -106,7 +106,7 @@ function SignIn({ bezCofania }) {
       }))
       dispatch(setLoading(false))
 
-      // router.push('/wydatek')
+      //  router.push('/')
     }
 
 
@@ -128,7 +128,7 @@ function SignIn({ bezCofania }) {
           <div className="flex   justify-center items-center overflow-hidden  w-full md:w-3/4       rounded  h-full   ">
             <ToastContainer />
 
-            <div className="w-full h-[390px]   bg-niebieski-1 ">
+            <div className="w-full h-[390px] shadow-lg rounded-md bg-niebieski-1 ">
 
 
               {logowanie ?

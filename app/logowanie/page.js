@@ -5,9 +5,10 @@ import { login, logout, selectUser } from '../GlobalRedux/Features/counter/userS
 import { setLoading } from '../GlobalRedux/Features/counter/loadingSlice';
 import Spinner from "../../components/Spinner"
 
-import { EmailAuthProvider, reauthenticateWithCredential, onAuthStateChanged, auth, deleteUser } from '../../firebase/config';
+import { EmailAuthProvider, db, reauthenticateWithCredential, onAuthStateChanged, auth, deleteUser } from '../../firebase/config';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
- 
+import { setDoc, doc, serverTimestamp, deleteDoc } from 'firebase/firestore'
+import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import SignIn from "../../components/SignIn"
 import Input from '../../components/Input';
@@ -16,6 +17,7 @@ import ResetPassword from '../../components/ResetPassword';
 function App() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
+    const router = useRouter()
     const loading = useSelector(state => state.loading.loading)
     const [openModal, setOpenModal] = useState(false);
     const [openModalReset, setOpenModalReset] = useState(false);
@@ -77,7 +79,15 @@ function App() {
                 credential
             )
 
-            await deleteUser(result.user)
+          await deleteUser(result.user)
+            const userDelete  = {
+                userDelete: result.user.reloadUserInfo,
+                timeDelete: serverTimestamp(),    
+            }
+     
+            await deleteDoc(doc(db, "users", result.user.uid))
+            await setDoc(doc(db, 'deleteUsers', result.user.uid), userDelete) 
+
             console.log("success in deleting")
             toast.success(`Usunieto konto`, {
                 position: "bottom-right",
@@ -95,6 +105,7 @@ function App() {
 
         }
         catch (error) {
+            console.log(error)
             if (error.code === 'auth/missing-password') {
                 console.log('Nieprawidłowe hasło');
                 toast.error('Nieprawidłowe hasło', {
@@ -220,7 +231,6 @@ function App() {
                     </svg>
                 </div>
             </div>
-
             <Modal
                 setOpenModal={setOpenModal}
                 openModal={openModal}>
@@ -230,18 +240,8 @@ function App() {
                         <div className="bg-white px-4   pb-2 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
                                 <div className="text-center p-2 flex-auto justify-center">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-12 h-12 sm:w-16 sm:16 flex items-center text-error-2 mx-auto"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
+
+                                    {/* <TiUserDeleteOutline className="w-12 h-12 sm:w-16 sm:16 flex items-center text-error-2 mx-auto" /> */}
                                     <h2 className="text-xl font-bold py-4 tex-text">
                                         Czy na pewno chcesz usunąć konto?
                                     </h2>
@@ -272,11 +272,11 @@ function App() {
                                 type="button"
                                 className="    px-4 flex justify-center items-center  py-3   text-xl rounded-md font-bold hover:bg-niebieski-10 bg-niebieski-9  mr-4 text-white    cursor-pointer tracking-wider transition duration-300  "
                                 onClick={() => setOpenModal(false)}
-                      
+
                             >
                                 <h1 className="transition duration-300">Anuluj</h1>
                             </button>
-                       
+
                         </div>
 
                     </div>
@@ -291,31 +291,33 @@ function App() {
                     <div className="relative inline-block align-bottom bg-white rounded-sm text-left overflow-hidden shadow-xl transform transition-all   sm:align-middle sm:max-w-lg sm:w-full">
                         <div className="bg-white px-4   py-2  pt-4  ">
                             <div className="sm:flex sm:items-start">
-                                <div className="text-center   flex-auto justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 sm:w-16 sm:16 flex items-center text-error-2 mx-auto">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
-                                    </svg>
+                                <div className="   flex-auto  ">
 
-                             
+
+                                    {/* <MdLockReset className="w-12 h-12 sm:w-16 sm:16 flex items-center text-error-2 mx-auto" /> */}
                                     <h2 className="text-xl font-bold py-4 tex-text">
                                         Zmiana hasła logowania
                                     </h2>
                                     <p className="text-sm text-textAccent px-4">
-                                        Podaj adres rejestracji swojego konta, na który wyślemy link do zmiany hasła.
+                                        1. Zostaniesz wylogowany.
+                                    </p>
+                                    <p className="text-sm text-textAccent px-4">
+                                        2. Na adres rejestracji swojego konta, zostanie wysłany link do zmiany hasła.
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <form onSubmit={onSubmit} className="flex  flex-col px-4 w-full   justify-between ">
                             <div>
+
                                 <Input
-                                 
+                                    label="Podaj e-mail"
                                     type="email"
                                     id="email"
                                     value={email}
                                     onChange={onChange} />
                             </div>
-                       
+
                         </form>
                         <div className="bg-niebieski-6 px-4 py-3 sm:px-6 flex flex-row-reverse">
                             <div className="flex    text-niebieski-10   ">

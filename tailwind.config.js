@@ -55,6 +55,7 @@ module.exports = {
         itemTlo: "#f9fafb",
         galeria: "#EBF6F9",
         white2: "rgba(255, 255, 255, .7)",
+        czarny:"#474747",
         wykres: {
           1: "#5BE12C",
           2: "#A5E32B",

@@ -1,6 +1,6 @@
 import { PiHamburger } from "react-icons/pi";
 import { MdOutlineEmojiFoodBeverage } from "react-icons/md";
-import { IoWomanOutline, IoManOutline } from "react-icons/io5"
+import {   IoManOutline } from "react-icons/io5"
 import dynamic from "next/dynamic";
 import 'react-tippy/dist/tippy.css'
 import {

@@ -63,7 +63,7 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
                 </div>
             </div>
 
-            <div className={`flex border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[48%]      rounded-lg `}>
+            <div className={`flex border border-niebieski-6 border-opacity-50 shadow-lg flex-col w-full md:h-[48%]      rounded-lg `}>
                 <div className="flex justify-center items-center bg-niebieski-6 bg-opacity-10 text-niebieski-5 font-bold rounded-t-lg   h-[15%] text-lg md:text-2xl w-full ">
                     <h1 className=" p-2   ">Pozycja ciała charakterystyczna dla wykonywanej czynności</h1>
                 </div>
@@ -143,12 +143,12 @@ const DaneDoWydatku = ({ setPostawaValue, setPartiaCialaValue, postawaValue, par
 
             {/*  */}
 
-            <div className={`  ${przerwa ? "hidden" : "flex"} border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[33%]     rounded-lg mt-[2%]`} >
+            <div className={`  ${przerwa ? "hidden" : "flex"} border border-niebieski-6 border-opacity-50  flex-col w-full md:h-[33%]  shadow-lg   rounded-lg mt-[2%]`} >
                 <div className="flex justify-center items-center bg-niebieski-6 bg-opacity-10 text-niebieski-5 font-bold  rounded-t-lg   h-[20%] text-lg md:text-2xl w-full ">
                     <h1 className="   ">Partie ciała, które wykonują czynność</h1>
                 </div>
 
-                <div className={`flex flex-wrap relative h-[80%] content-between gap-4 p-6  w-full justify-between  ${errors.partiaCialaValue ? " bg-error-1" : "bg-niebieski-4 "}  `}>
+                <div className={`flex flex-wrap relative h-[80%] content-center gap-4  px-4 w-full justify-between  ${errors.partiaCialaValue ? " bg-error-1" : "bg-niebieski-4 "}  `}>
                     {/*  */}
                     <div className="flex   items-center  w-full md:w-[23.5%] flex-col border border-niebieski-6 border-opacity-50 rounded-lg    bg-white">
                         <div className="flex justify-center items-center rounded-t-lg   h-[25%] w-full  bg-zielony-1 bg-opacity-40">

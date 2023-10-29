@@ -9,7 +9,7 @@ import {  useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import SignIn from "../../components/SignIn"
 import wydatek from '../../public/wydatek.png'
-
+import wymiar from '../../public/wymiar.png'
 function Wydruk() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
@@ -71,7 +71,7 @@ function Wydruk() {
                         <div className='flex flex-col    justify-center w-[95%]  md:w-1/2 h-full   '>
                             <div className='px-6 text-center '>
                                 <h2 className='pb-2 text-2xl'>Wydruk możliwy jedynie dla zarejestrowanych i zalogowanych użytkowników</h2>
-                                <h2 className='pb-2 text-xl '>Zarejestruj się podając e-mail i ustawiając hasło - to nic nie kosztuje</h2>
+                                <h2 className='pb-2 text-xl '>Zarejestruj się podając e-mail i ustawiając hasło </h2>
                                  
                             </div>
 
@@ -83,7 +83,7 @@ function Wydruk() {
                         <div className='hidden md:flex w-1/2 h-full bg-niebieski-6 items-center justify-center text-zielony-1  '>
                             <div className="relative   w-3/4  h-3/4  ">
                                 <Image
-                                    src={wydatek}
+                                    src={pdf === "wydatek" ? wydatek :wymiar}
                                    
                                     fill
                                     alt="Picture of the author"

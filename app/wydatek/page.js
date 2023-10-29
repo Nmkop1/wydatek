@@ -247,7 +247,7 @@ function Home() {
                 <div className="w-full flex flex-col md:flex-row ">
                     <div className="  md:w-1/2 flex flex-col">
                         {/* kolumma z firma/stanowisko */}
-                        <div className="flex w-full   bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4 mb-4">
+                        <div className="flex w-full  shadow-lg bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4 mb-4">
                             {tablicaCzynnosci.length == 0 ?
                                 <>
 
@@ -396,10 +396,10 @@ function Home() {
                         </div>
                         {/*  */}
                         {tablicaCzynnosci.length == 0 ?
-                            <div className="flex w-full  py-2   bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4">
+                            <div className="flex w-full  py-2 shadow-lg  bg-niebieski-4 border border-niebieski-6 border-opacity-50 rounded-lg px-4">
 
 
-                                <div className="flex flex-col md:flex-row    text-niebieski-10      ">
+                                <div className="flex  flex-col md:flex-row    text-niebieski-10      ">
                                     <div className="flex flex-col w-full  justify-between items-start  md:pr-16">
                                         <h2 className="text-xl pb-4  text-niebieski-10  ">Rejestrujemy kolejne czynności wykonywane przez pracownika w trakcie dnia roboczego.</h2>
                                         <h2 className="text-xl   text-niebieski-10  ">Dla wykonywanej jednostkowej czynności określamy:</h2>
@@ -553,7 +553,7 @@ function Home() {
                     </div>
                 </TransitionWraper>
                 {tablicaCzynnosci.length > 0 ?
-                    <div className="sticky bottom-0 left-0 w-full  h-[70px] bg-niebieski-2    rounded-b-md text-niebieski-6 flex   justify-between  items-center ">
+                    <div className="sticky bottom-0 left-0 w-full  h-[70px] bg-niebieski-2  shadow-lg  rounded-b-md text-niebieski-6 flex   justify-between  items-center ">
                         <div className="flex font-bold w-full md:w-[calc(100%_-_120px)] text-lg pl-4 ">
                             <p className="hidden md:flex     justify-center flex-col  w-[17%] "> </p>
                             <p className={`flex  items-center justify-center w-1/2 md:w-[12%] text-center ${sumaCzasu[0] > 8 ? "text-orange-3" : "text-niebieski-6"}`}>{sumaCzasu[0] == 0 ? `${sumaCzasu[1]} min` : `${sumaCzasu[0]} godz ${sumaCzasu[1]} min`}</p>

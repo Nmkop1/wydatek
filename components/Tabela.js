@@ -25,7 +25,7 @@ function Tabela({ onDelete, id, item }) {
                     <p className="hidden md:flex items-center justify-center w-[9%]   text-center">{item.jedenWydatekMax}</p>
                 </div>
                
-                <div className="kwadratButton"
+                <div className="kwadratButton mr-2"
                     onClick={() => setOpenModal(true)}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
