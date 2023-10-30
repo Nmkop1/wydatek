@@ -37,7 +37,7 @@ function Nawigacja() {
         password: '',
     })
     const { email, password } = formData
-    const navigation = [ 
+    const navigation = [
         { name: "Wydatek energetyczny", href: "/wydatek", current: false },
         { name: "Wymiar urlopu", href: "/wymiar", current: false },
 
@@ -45,23 +45,23 @@ function Nawigacja() {
     ];
     const [isCircleHidden, setCircleHidden] = useState(true)
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     onAuthStateChanged(auth, (userAuth) => {
-    //         if (userAuth) {
-    //             dispatch(
-    //                 login({
-    //                     email: userAuth.email,
-    //                     uid: userAuth.uid,
-    //                 })
-    //             );
-    //         } else {
-    //             dispatch(logout());
-    //         }
-    //     });
-    //     console.log('page loaded');
+        onAuthStateChanged(auth, (userAuth) => {
+            if (userAuth) {
+                dispatch(
+                    login({
+                        email: userAuth.email,
+                        uid: userAuth.uid,
+                    })
+                );
+            } else {
+                dispatch(logout());
+            }
+        });
+        console.log('page loaded');
 
-    // }, []);
+    }, []);
 
     useEffect(() => {
         const windowScroll = () => {
@@ -215,17 +215,17 @@ function Nawigacja() {
                                 <p className=''>{user.email.charAt(0).toUpperCase()}</p>
                             </div>
                         ) : (
-                            <button
-                                className='text-white hover:text-zielony-1 transform transition-all flex items-center border-2 rounded-3xl p-2 py-[5px] cursor-pointer text-sm'
-                            >
+                            <Link href={{ pathname: '/logowanie', }}>
+                                <button
+                                    className='text-white hover:text-zielony-1 transform transition-all flex items-center border-2 rounded-3xl p-2 py-[5px] cursor-pointer text-sm'
+                                >
 
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
-                                </svg>
-                                <Link href={{ pathname: '/logowanie', }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                                    </svg>
                                     Logowanie
-                                </Link>
-                            </button>
+                                </button>
+                            </Link>
                         )}
                     </Menu.Button>
 
@@ -241,20 +241,20 @@ function Nawigacja() {
                         <Menu.Items className="absolute right-2 mt-2 w-56   shadow-lg rounded-md   focus:outline-none">
                             {user ?
                                 <>
-                                    
-                                        <Menu.Item className='rounded-t-md bg-niebieski-6 p-2 pb-3 text-white'>
-                                            <div  >
-                                                <h3 className='text-zielony-1'>Zalogowany </h3>
-                                                <h3 className='pt-1'>{user.email}</h3>
-                                            </div>
-                                        </Menu.Item>
-                                 
+
+                                    <Menu.Item className='rounded-t-md bg-niebieski-6 p-2 pb-3 text-white'>
+                                        <div  >
+                                            <h3 className='text-zielony-1'>Zalogowany </h3>
+                                            <h3 className='pt-1'>{user.email}</h3>
+                                        </div>
+                                    </Menu.Item>
+
                                     <div className="p-2 rounded-b-md bg-white text-czarny">
                                         <Menu.Item>
                                             <Link href={
-                                                {pathname: '/logowanie',}}>        
+                                                { pathname: '/logowanie', }}>
                                                 <button
-                                                    
+
                                                     className="hover:bg-zielony-1 hover:bg-opacity-50 text-czarny hover:text-black transform transition-all 
                                                          flex w-full items-center rounded-md px-2 py-2 text-sm  "
                                                 >
@@ -276,4 +276,3 @@ function Nawigacja() {
 }
 
 export default Nawigacja
- 

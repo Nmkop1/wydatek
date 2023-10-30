@@ -159,7 +159,7 @@ const Pdf = () => {
 
                             <View style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", fontFamily: "Roboto", fontSize: "24px", paddingTop: "50px", paddingBottom: "30px" }}>
                                 {firstJob ?
-                                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", border: "1px" }}>
+                                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", flexWrap:"wrap" }}>
                                         {etat === 1 ?
                                             <Text>
                                                 {wGodzinach ? `1/12 x ${wymiar} dni x ${firstJobTime} mies. x ${hourDay} godzin =` : ` 1/12 x ${wymiar} dni x ${firstJobTime} mies. = `}
@@ -172,7 +172,7 @@ const Pdf = () => {
                                         }
                                    
                                             <Text>
-                                                {` ${wyliczenie} ${wGodzinach ? "godzin" : "dni"}  urlopu`}
+                                                {` ${wyliczenie} ${wGodzinach ? "godzin" : "dni"} urlopu`}
                                             </Text>
                                         
 

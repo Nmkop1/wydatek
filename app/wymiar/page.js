@@ -7,6 +7,7 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import { daneWymiaru } from '../GlobalRedux/Features/counter/wymiarSlice';
+
 export default function Wymiar(props) {
     const router = useRouter()
     const dispatch = useDispatch();
@@ -56,7 +57,9 @@ export default function Wymiar(props) {
     const nowDay = new Date(selectedNowDate).getDate()
     const endDay = new Date(selectedEndDate).getDate()
     const year = (endYear - nowYear)
+
     const firstJobTime = new Date(Math.abs(selectedEndDate.getTime() - selectedNowDate.getTime())).getMonth()
+
     const error = selectedEndDate.getTime() < selectedNowDate.getTime()
 
     useEffect(() => {
@@ -101,7 +104,8 @@ export default function Wymiar(props) {
     const wylicz = () => {
         if (state.wGodzinach) {
             if (state.firstJob) {
-                (liczenieWymiaru = (((1 / 12 * state.wymiar * firstJobTime).toFixed(2) * etat) * normaCzasu)).toFixed(2)
+                (liczenieWymiaru = (((1 / 12 * state.wymiar * firstJobTime) * etat) * normaCzasu).toFixed(2)) 
+                 
             } else {
                 liczenieWymiaru = ((Math.ceil((state.wymiar * etat) * (miesiace / 12))) * normaCzasu)
             }
@@ -110,9 +114,11 @@ export default function Wymiar(props) {
         else {
             if (state.firstJob) {
                 if (state.hourDay !== 8) {
-                    liczenieWymiaru = ((((1 / 12 * state.wymiar * firstJobTime) * etat) * normaCzasu) / state.hourDay).toFixed(2)
+                    liczenieWymiaru = ((((1 / 12 * state.wymiar * firstJobTime) * etat) * normaCzasu) / state.hourDay).toFixed(2)  
+                  
                 } else {
-                    liczenieWymiaru = ((1 / 12 * state.wymiar * firstJobTime).toFixed(2) * etat).toFixed(2)
+                    liczenieWymiaru = ((1 / 12 * state.wymiar * firstJobTime)  * etat).toFixed(2)
+                
                 }
             } else {
                 if (state.hourDay !== 8) {
@@ -145,18 +151,18 @@ export default function Wymiar(props) {
         setWidok(true)
 
     }
-    const handleChangePrzekazanieDanych = () => {
-        dispatch(values.wymiar(
-            liczenieWymiaru,
-            state.wGodzinach,
-            state.etat1,
-            state.etat2,
-            state.hourDay,
-            state.niepelnosprawni,
-            selectedEndDate
-        ))
+    // const handleChangePrzekazanieDanych = () => {
+    //     dispatch(values.wymiar(
+    //         liczenieWymiaru,
+    //         state.wGodzinach,
+    //         state.etat1,
+    //         state.etat2,
+    //         state.hourDay,
+    //         state.niepelnosprawni,
+    //         selectedEndDate
+    //     ))
 
-    }
+    // }
 
     const reset = () => {
         setState({
@@ -185,10 +191,10 @@ export default function Wymiar(props) {
 
     }
 
-    const handleChangeDodatkoweUstawienia = () => {
-        setDodatkoweUstawienia(!dodatkoweUstawienia)
-        setWidok(false)
-    }
+    // const handleChangeDodatkoweUstawienia = () => {
+    //     setDodatkoweUstawienia(!dodatkoweUstawienia)
+    //     setWidok(false)
+    // }
 
 
 
@@ -196,15 +202,15 @@ export default function Wymiar(props) {
 
 
     // const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    // const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handlePopoverOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    // const handlePopoverOpen = (event) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
 
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
+    // const handlePopoverClose = () => {
+    //     setAnchorEl(null);
+    // };
  
 
     const Wynik = ({ wyliczenie }) => {
@@ -310,9 +316,11 @@ export default function Wymiar(props) {
                                                 startWeekOn="mon"
                                                 // minDate={new Date("2023-01-05")}
                                                 // maxDate={new Date("2023-01-30")} 
+                                                minDate={state.firstJob ? new Date(`1.1.${nowYear}`) : new Date(`12.31.2000`)}
+                                                maxDate={state.firstJob ? new Date(`12.31.${nowYear}`) : new Date(`12.31.2050`)}
                                                 value={value}
                                                 onChange={setValue}
-                                                primaryColor={"lime"}
+                                                primaryColor={"green"} 
                                                 asSingle={true}
                                                 useRange={false}
                                                 displayFormat={"DD-MM-YYYY"}
@@ -329,11 +337,11 @@ export default function Wymiar(props) {
                                             <Datepicker
                                                 i18n={"pl"}
                                                 startWeekOn="mon"
-                                                // minDate={new Date("2023-01-05")}
-                                                // maxDate={new Date("2023-01-30")} 
+                                                minDate={state.firstJob ? new Date(`1.1.${nowYear}`) : new Date(`12.31.2000`)}
+                                                maxDate={state.firstJob ? new Date(`12.31.${nowYear}`) : new Date(`12.31.2050`)}
                                                 value={valueEnd}
                                                 onChange={setValueEnd}
-                                                primaryColor={"fuchsia"}
+                                                primaryColor={"green"} 
                                                 asSingle={true}
                                                 useRange={false}
                                                 displayFormat={"DD-MM-YYYY"}
@@ -526,6 +534,7 @@ export default function Wymiar(props) {
                     <h4 className="h4Text">Prawo do urlopu w ułamkowym wymiarze powstaje z upływem każdego miesiąca pracy do końca roku kalendarzowego, w którym pracownik rozpoczął pierwszą pracę.</h4>
                     <h4 className="h4Text">Wymiar pierwszego urlopu stanowi ułamek 1/12 z wymiaru przysługującego pracownikowi po przepracowaniu roku.</h4>
                     <h4 className="h4Text">Otrzymany wynik nie jest liczbą całkowitą, brak jest jednak przepisów, które wskazywałyby, że taki niepełny wymiar urlopu należy zaokrąglać do pełnego dnia.</h4>
+                    <h4>Prawo do kolejnych urlopów wypoczynkowych pracownik nabywa w każdym następnym roku kalendarzowym</h4>
 
 
                     <h2 id="Osoby niepełnosprawne" className="h2Text">Osoby niepełnosprawne</h2>
